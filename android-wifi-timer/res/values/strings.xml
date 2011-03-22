@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Wifi timer</string>
+    <string name="instructions">When do you want to turn the wifi back on?</string>
+    <string name="set">Time</string>
+    <string name="never">Never</string>
+    <string name="now">Now</string>
+    <string name="done">Done</string>
+    <string name="ticker">Wifi turned off for %s</string>
+    <string name="notification_title">Wifi turned off until %s</string>
+    <string name="notification_text">Select to change or cancel</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minute</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 hour</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
+    </plurals>
+    <string name="info">Using <font fgcolor="#ffffffff"><b>Wifi timer</b></font> is easy! 
+    Just turn-off the wifi using the power control widget or the settings menu.
+    
+    \n\nWhenever you set your wifi to <font fgcolor="#ffffffff"><b>off</b></font> 
+    you will be prompted to enter
+    the time at which you would like your wifi to be turned back on.
+    
+    \n\nThe timer will always be initialized to the current time, so if you want to set
+    the timer for two hours, just tap the hour <font fgcolor="#ffffffff"><b>+</b></font>
+    button twice.
+      
+    \n\nOnce the timer has been set, a notification will appear
+    in the notification bar 
+    indicating the time remaining.  
+    You can select the notification to <font fgcolor="#ffffffff"><b>adjust</b></font> 
+    or <font fgcolor="#ffffffff"><b>cancel</b></font> the timer.  
+    You can also cancel the timer at any time by simply turning the wifi back on 
+    using the power control widget or the menu settings.
+    
+    \n\nIf you decide you don\'t want to be prompted anymore, 
+    just <font fgcolor="#ffffffff"><b>uninstall</b></font> the application.
+    </string>
+    
+    <string name="description">"Since 2.3.3 on my Nexus One, I started to have less
+    battery time. I did this little app to save my battery while I'm at work and don't have 
+    a wifi access point. I hope this application can be useful for you too!
+    When this application is installed,
+    each time you turn your wifi off you will be asked how long you
+    would like before restoring it. After that period of time has
+    passed, your wifi will be automatically turned back on."</string>
+</resources>
