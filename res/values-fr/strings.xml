@@ -41,13 +41,12 @@
     <font fgcolor="#ffffffff"><b>déinstallez</b></font> l\'application.
     </string>
     
-    <string name="description">"Depuis android 2.3.3 sur mon Nexus One, 
+    <string name="description">Depuis android 2.3.3 sur mon Nexus One, 
     j\'ai commencé à avoir moins de batterie en fin de journée. 
     J\'ai fait cette petite application pour réduire la consommation du téléphone
-    au travail, où je n'ai pas le wifi. J\'espère que cette application peut vous être utile
+    au travail, où je n\'ai pas le wifi. J\'espère que cette application peut vous être utile
     également !
     Quand cette application est installée, à chaque fois que vous désactivez votre wifi,
-    l'application vous demande l\'heure à laquelle vous souhaitez le remettre en route.
-    Après cette heure passée, le wifi sera automatiquement activé.
-    passed, your wifi will be automatically turned back on."</string>
+    l\'application vous demande l\'heure à laquelle vous souhaitez le remettre en route.
+    Après cette heure passée, le wifi sera automatiquement activé.</string>
 </resources>
