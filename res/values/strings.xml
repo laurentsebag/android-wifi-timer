@@ -17,7 +17,7 @@
         <item quantity="one">1 hour</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
     </plurals>
-    <string name="info">Using <font fgcolor="#ffffffff"><b>Wifi timer</b></font> is easy! 
+    <string name="info">Using <font fgcolor="#ffffffff"><b>Wifi Timer</b></font> is easy! 
     Just turn-off the wifi using the power control widget or the settings menu.
     
     \n\nWhenever you set your wifi to <font fgcolor="#ffffffff"><b>off</b></font> 

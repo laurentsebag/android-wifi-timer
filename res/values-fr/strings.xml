@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Wifi Timer</string>
+    <string name="instructions">Quand souhaitez-vous réactiver le wifi ?</string>
+    <string name="set">Heure</string>
+    <string name="never">Jamais</string>
+    <string name="now">Maintenant</string>
+    <string name="done">Fermer</string>
+    <string name="ticker">Wifi désactivé pendant %s</string>
+    <string name="notification_title">Wifi désactivé jusqu\'à %s</string>
+    <string name="notification_text">Selectionnez pour changer ou annuler</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minute</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 heure</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> heures</item>
+    </plurals>
+    <string name="info"><font fgcolor="#ffffffff"><b>Wifi Timer</b></font> est facile
+    à utiliser ! 
+    Désactivez simplement le wifi en utilisant le widget \"Contrôle de l\'alimentation\"
+    ou par le menu paramètres.
+    
+    \n\nLorsque vous <font fgcolor="#ffffffff"><b>désactivez</b></font> le wifi,
+    le programme vous demande de saisir l\'heure à laquelle vous souhaitez le réactiver.
+    
+    \n\nL\'heure de remise en route du wifi est toujours réglée à l\'heure actuelle 
+    par défaut. Si vous voulez reglez la remise en route du wifi pour dans deux heures, 
+    appuyez deux fois sur le bouton <font fgcolor="#ffffffff"><b>+</b></font> de l\'heure.
+      
+    \n\nLorsque l\'heure est reglée, une notification apparaît dans la barre de 
+    notification, pour vous donner l\'heure de réactivation.
+      
+    Vous pouvez alors selectionner la notification pour <font fgcolor="#ffffffff"><b>régler</b></font> 
+    ou <font fgcolor="#ffffffff"><b>annuler</b></font> la réactivation du wifi.  
+    Vous pouvez également annuler la réactivation en réactivant le wifi avec 
+    le widget \"Contrôle de l\'alimentation\" ou le menu paramètres.
+    
+    \n\nSi vous ne voulez plus qu\'une heure de réactivation du wifi vous soit demandée
+    <font fgcolor="#ffffffff"><b>déinstallez</b></font> l\'application.
+    </string>
+    
+    <string name="description">"Depuis android 2.3.3 sur mon Nexus One, 
+    j\'ai commencé à avoir moins de batterie en fin de journée. 
+    J\'ai fait cette petite application pour réduire la consommation du téléphone
+    au travail, où je n'ai pas le wifi. J\'espère que cette application peut vous être utile
+    également !
+    Quand cette application est installée, à chaque fois que vous désactivez votre wifi,
+    l'application vous demande l\'heure à laquelle vous souhaitez le remettre en route.
+    Après cette heure passée, le wifi sera automatiquement activé.
+    passed, your wifi will be automatically turned back on."</string>
+</resources>

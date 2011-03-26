@@ -6,6 +6,12 @@
     <uses-sdk android:minSdkVersion="3" />
     <uses-feature android:name="android.hardware.wifi" />
     <uses-feature android:name="android.hardware.telephony" />
+    <supports-screens
+        android:anyDensity="true"
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:resizeable="true" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -14,33 +20,33 @@
     	android:label="@string/app_name"
     	android:description="@string/description"
     	>
-    <activity
-        android:name="InfoActivity">
-        <intent-filter>
-            <action
-                android:name="android.intent.action.MAIN" />
-            <category
-                android:name="android.intent.category.INFO" />
-        </intent-filter>
-    </activity>
-    <activity
-	    android:name=".TimerActivity"
-	    android:theme="@android:style/Theme.Translucent.NoTitleBar"
-	    android:launchMode="singleInstance"
-	    android:excludeFromRecents="true"
-	    android:screenOrientation="portrait" />
-
-	<receiver
-            android:name=".AlarmReceiver" />	    
-    <receiver
-        android:name=".WifiStateReceiver">
-        <intent-filter>
-            <action
-                android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-            <action
-            	android:name="android.intent.action.AIRPLANE_MODE" />
-        </intent-filter>
-    </receiver>
+    	
+	    <activity android:name="InfoActivity">
+	        <intent-filter>
+	            <action
+	                android:name="android.intent.action.MAIN" />
+	            <category
+	                android:name="android.intent.category.LAUNCHER" />
+<!--	                android:name="android.intent.category.INFO" />-->
+	        </intent-filter>
+	    </activity>
+	    <activity 
+	    	android:name=".TimerActivity"
+		    android:theme="@style/Theme.Dialog.NoTitleBar"
+		    android:launchMode="singleInstance"
+		    android:excludeFromRecents="true"
+		    android:screenOrientation="portrait" />
+	
+	
+		<receiver android:name=".AlarmReceiver" />	    
+	    <receiver android:name=".WifiStateReceiver">
+	        <intent-filter>
+	            <action
+	                android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+	            <action
+	            	android:name="android.intent.action.AIRPLANE_MODE" />
+	        </intent-filter>
+	    </receiver>
 	    
     </application>
 </manifest>

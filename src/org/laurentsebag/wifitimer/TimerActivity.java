@@ -67,11 +67,11 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     private Button mButtonNow;
 
     private Time mTime;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.main);
 
         mTimer = new Timer(this);
