@@ -6,6 +6,8 @@
     <string name="never">Jamais</string>
     <string name="now">Maintenant</string>
     <string name="done">Fermer</string>
+    <string name="about">A propos</string>
+    <string name="about_dialog_title">A propos de Wifi Timer</string>
     <string name="ticker">Wifi désactivé pendant %s</string>
     <string name="notification_title">Wifi désactivé jusqu\'à %s</string>
     <string name="notification_text">Selectionnez pour changer ou annuler</string>

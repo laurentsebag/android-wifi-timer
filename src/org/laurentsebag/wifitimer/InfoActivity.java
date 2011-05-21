@@ -18,16 +18,21 @@
 package org.laurentsebag.wifitimer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 
 public class InfoActivity extends Activity implements View.OnClickListener {
     
-    @Override
+    private static final int ABOUT_DIALOG = 0;
+
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info);
         findViewById(R.id.done).setOnClickListener(this);
+        findViewById(R.id.about).setOnClickListener(this);
     }
 
     /**
@@ -38,6 +43,22 @@ public class InfoActivity extends Activity implements View.OnClickListener {
             case R.id.done:
                 finish();
                 break;
+            case R.id.about:
+            	showDialog(ABOUT_DIALOG);
+            	break;
         }
+    }
+    
+    @Override
+    protected Dialog onCreateDialog(int id) {
+    	switch(id) {
+    	case ABOUT_DIALOG:
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle(R.string.about_dialog_title);
+    		builder.setMessage(R.string.about_dialog_content);
+    		return builder.create(); 
+		default:
+			return super.onCreateDialog(id);
+    	}
     }
 }
