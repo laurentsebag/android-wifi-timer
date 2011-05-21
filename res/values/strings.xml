@@ -8,11 +8,7 @@
     <string name="done">Done</string>
     <string name="about">About</string>
     <string name="about_dialog_title">About Wifi Timer</string>
-    <string name="about_dialog_content">
-    Wifi Timer is maintained by Laurent Sebag.\n
-    \n
-    It is licensed under the open source <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3 or later</a>.
-    </string>
+    <string name="about_dialog_content">Wifi Timer is maintained by Laurent Sebag.\n\nIt is licensed under the open source <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3 or later</a>.</string>
     <string name="ticker">Wifi turned off for %s</string>
     <string name="notification_title">Wifi turned off until %s</string>
     <string name="notification_text">Select to change or cancel</string>

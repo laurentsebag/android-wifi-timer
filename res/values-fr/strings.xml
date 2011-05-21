@@ -8,6 +8,7 @@
     <string name="done">Fermer</string>
     <string name="about">A propos</string>
     <string name="about_dialog_title">A propos de Wifi Timer</string>
+    <string name="about_dialog_content">Wifi Timer est développé par Laurent Sebag.\n\nCe logiciel est publié sous la license open source <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3 ou supérieur</a>.</string>
     <string name="ticker">Wifi désactivé pendant %s</string>
     <string name="notification_title">Wifi désactivé jusqu\'à %s</string>
     <string name="notification_text">Selectionnez pour changer ou annuler</string>

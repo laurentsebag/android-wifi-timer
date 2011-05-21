@@ -21,7 +21,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 public class InfoActivity extends Activity implements View.OnClickListener {
     
@@ -55,7 +58,11 @@ public class InfoActivity extends Activity implements View.OnClickListener {
     	case ABOUT_DIALOG:
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setTitle(R.string.about_dialog_title);
-    		builder.setMessage(R.string.about_dialog_content);
+    		TextView content = new TextView(this);
+    		content.setText(R.string.about_dialog_content);
+    		content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+    		content.setMovementMethod(LinkMovementMethod.getInstance());
+    		builder.setView(content);
     		return builder.create(); 
 		default:
 			return super.onCreateDialog(id);
