@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="preference_timer_usage_entries">
+    	<item>Afficher Wifi Timer sur activation du wifi</item>
+    	<item>Afficher Wifi Timer sur désactivation du wifi</item>
+    </string-array>
+    
+</resources>

@@ -1,4 +1,5 @@
 /*-
+ *  Copyright (C) 2011 Laurent Sebag   
  *  Copyright (C) 2010 Peter Baldwin   
  *  
  *  This program is free software: you can redistribute it and/or modify
@@ -20,6 +21,7 @@ package org.laurentsebag.wifitimer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
@@ -35,6 +37,7 @@ public class InfoActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info);
         findViewById(R.id.done).setOnClickListener(this);
+        findViewById(R.id.settings).setOnClickListener(this);
         findViewById(R.id.about).setOnClickListener(this);
     }
 
@@ -48,6 +51,10 @@ public class InfoActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.about:
             	showDialog(ABOUT_DIALOG);
+            	break;
+            case R.id.settings:
+            	Intent i = new Intent(this, SettingsActivity.class);
+            	startActivity(i);
             	break;
         }
     }

@@ -34,20 +34,33 @@ public class WifiStateReceiver extends BroadcastReceiver {
 		
 		if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
 			
+			String timerUsage = AppConfig.getWifiTimerUsage(context);
+			
 			boolean airplaneModeOn = RadioUtils.getAirplaneMode(context);
 			
 			int wifiState = data.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
 			switch(wifiState) {
 			case WifiManager.WIFI_STATE_DISABLING:
-				if( !airplaneModeOn ) {
+				if(timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+					if( !airplaneModeOn ) {
+						Intent intent = new Intent(context, TimerActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						context.startActivity(intent);
+					}
+				} else {
+					Timer timer = new Timer(context);
+					timer.cancel();
+				}
+				break;
+			case WifiManager.WIFI_STATE_ENABLING:
+				if(timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+					Timer timer = new Timer(context);
+					timer.cancel();
+				} else {
 					Intent intent = new Intent(context, TimerActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					context.startActivity(intent);
 				}
-				break;
-			case WifiManager.WIFI_STATE_ENABLING:
-				Timer timer = new Timer(context);
-				timer.cancel();
 				break;
 			}
 		}
@@ -71,7 +84,8 @@ public class WifiStateReceiver extends BroadcastReceiver {
 				if( preferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false) ) {
 					edit.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);
 					edit.commit();
-					RadioUtils.setWifiBackOn(context);
+					if(AppConfig.getWifiTimerUsage(context).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION))
+					RadioUtils.setWifiOn(context);
 				}
 			}
 		}

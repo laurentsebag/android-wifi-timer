@@ -17,7 +17,8 @@
             android:gravity="center"
             android:padding="8dip">
             <TextView
-                android:text="@string/instructions"
+            	android:id="@+id/timer_activity_instructions"
+                android:text="@string/instructions_on_wifi_deactivation"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

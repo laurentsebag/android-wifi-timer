@@ -17,9 +17,21 @@
 
 package org.laurentsebag.wifitimer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 
 public class AppConfig {
 
 	public static final String APP_PREFERENCES = "wifitimer";
 
+	public static final String MODE_ON_WIFI_ACTIVATION = "on_wifi_activation";
+	public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
+	
+	public static String getWifiTimerUsage(Context context) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		return prefs.getString("timer_usage", MODE_ON_WIFI_DEACTIVATION);
+	}
+	
 }

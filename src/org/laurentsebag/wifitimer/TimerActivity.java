@@ -134,6 +134,14 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        TextView textView = (TextView) findViewById(R.id.timer_activity_instructions);
+        
+		if(AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+			textView.setText(R.string.instructions_on_wifi_deactivation);
+		} else {
+			textView.setText(R.string.instructions_on_wifi_activation);
+		}
+		
         updateTime();
     }
     
@@ -160,7 +168,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
             mTimer.cancel();
             finish();
         } else if (v == mButtonNow) {
-        	RadioUtils.setWifiBackOn(this);
+        	RadioUtils.setWifiStateBack(this);
             mTimer.cancel();
             finish();
         } else if (v == mIncrementHour) {

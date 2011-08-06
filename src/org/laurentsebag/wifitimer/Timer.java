@@ -113,15 +113,26 @@ public class Timer {
     }
 
     private Notification createNotification(Time time) {
+    	String mode = AppConfig.getWifiTimerUsage(mContext);
+    	
         int icon = R.drawable.wifi_timer_back_on;
         CharSequence duration = getFormattedDuration(mContext, now(), time);
         Date date = getDate(time);
         CharSequence formattedTime = getFormattedTime(date);
-        CharSequence tickerText = mContext.getString(R.string.ticker, duration);
+        
+        CharSequence tickerText;
+        CharSequence contentTitle;
+        if(mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+        	tickerText = mContext.getString(R.string.ticker_on_wifi_deactivation, duration);
+        	contentTitle = mContext.getString(R.string.notification_title_on_wifi_deactivation, formattedTime);
+        } else {
+        	tickerText = mContext.getString(R.string.ticker_on_wifi_activation, duration);
+        	contentTitle = mContext.getString(R.string.notification_title_on_wifi_activation, formattedTime);
+        }
+        
         long when = System.currentTimeMillis();
-        Notification notification = new Notification(icon, tickerText, when);
-        CharSequence contentTitle = mContext.getString(R.string.notification_title, formattedTime);
         CharSequence contentText = mContext.getText(R.string.notification_text);
+        Notification notification = new Notification(icon, tickerText, when);
         PendingIntent contentIntent = createNotificationIntent(time);
         notification.setLatestEventInfo(mContext, contentTitle, contentText, contentIntent);
         notification.flags |= Notification.FLAG_ONGOING_EVENT;

@@ -17,18 +17,17 @@
 
 package org.laurentsebag.wifitimer;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
 
-/**
- * Receives alarm broadcast to turn the wifi back on.
- */
-public class AlarmReceiver extends BroadcastReceiver {
+public class SettingsActivity extends PreferenceActivity {
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-			RadioUtils.setWifiStateBack(context);
-    }
-    
+        addPreferencesFromResource(R.xml.settings);		
+	}
+	
+
 }

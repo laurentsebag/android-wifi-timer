@@ -24,9 +24,19 @@ import android.provider.Settings.SettingNotFoundException;
 
 public class RadioUtils {
 	
-    public static void setWifiBackOn(Context context) {
-        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        manager.setWifiEnabled(true);
+    public static void setWifiStateBack(Context context) {
+		String timerUsage = AppConfig.getWifiTimerUsage(context);
+		WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		if(timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+			manager.setWifiEnabled(true);
+		} else {
+			manager.setWifiEnabled(false);
+		}
+    }
+    
+    public static void setWifiOn(Context context) {
+    	WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		manager.setWifiEnabled(true);
     }
 
 	public static boolean getAirplaneMode(Context context) {
@@ -37,4 +47,5 @@ public class RadioUtils {
 			return false;
 		}
 	}
+
 }
