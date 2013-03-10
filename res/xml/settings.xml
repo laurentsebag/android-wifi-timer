@@ -14,13 +14,5 @@
 	    android:defaultValue="on_wifi_deactivation"
 	    android:persistent="true"
 	     />
-
-<!-- 	<ListPreference -->
-<!-- 	    android:key="timer_default_laps" -->
-<!-- 	    android:title="@string/title_list_preference" -->
-<!-- 	    android:summary="@string/summary_list_preference" -->
-<!-- 	    android:entries="@array/entries_list_preference" -->
-<!-- 	    android:entryValues="@array/entryvalues_list_preference" -->
-<!-- 	    android:dialogTitle="@string/dialog_title_list_preference" /> -->
     
 </PreferenceScreen>

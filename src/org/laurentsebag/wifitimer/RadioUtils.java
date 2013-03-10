@@ -19,8 +19,6 @@ package org.laurentsebag.wifitimer;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;
-import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 
 public class RadioUtils {
 	
@@ -38,14 +36,5 @@ public class RadioUtils {
     	WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		manager.setWifiEnabled(true);
     }
-
-	public static boolean getAirplaneMode(Context context) {
-    	try {
-			int airplaneModeSetting = Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON);
-			return airplaneModeSetting==1?true:false;
-		} catch (SettingNotFoundException e) {
-			return false;
-		}
-	}
 
 }

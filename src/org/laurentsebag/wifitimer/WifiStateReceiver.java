@@ -27,22 +27,32 @@ import android.net.wifi.WifiManager;
 public class WifiStateReceiver extends BroadcastReceiver {
 	
 	private static final String CANCELED_BY_AIRPLANE_MODE = "canceled_by_airplane_mode";
+	private static final String TURNED_OFF_BY_AIRPLANE_MODE = "turned_off_by_airplane_mode";
 	
 	@Override
 	public void onReceive(Context context, Intent data) {
 		String action = data.getAction();
+		SharedPreferences preferences = context.getSharedPreferences(
+				AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
+		Editor edit = preferences.edit();
 		
 		if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
 			
 			String timerUsage = AppConfig.getWifiTimerUsage(context);
-			
-			boolean airplaneModeOn = RadioUtils.getAirplaneMode(context);
+
+			boolean turnOffByAirplaneMode = preferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+			if(turnOffByAirplaneMode) {
+				edit.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+				edit.commit();
+			}
 			
 			int wifiState = data.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
 			switch(wifiState) {
 			case WifiManager.WIFI_STATE_DISABLING:
 				if(timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-					if( !airplaneModeOn ) {
+					// If the wifi state has changed but not because of a airplane mode change,
+					// display the wifi timer dialog.
+					if( !turnOffByAirplaneMode ) {
 						Intent intent = new Intent(context, TimerActivity.class);
 						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						context.startActivity(intent);
@@ -66,20 +76,19 @@ public class WifiStateReceiver extends BroadcastReceiver {
 		}
 		else if(Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
 			boolean airplaneModeOn = data.getBooleanExtra("state", false);
-			SharedPreferences preferences = context.getSharedPreferences(
-					AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
-			Editor edit = preferences.edit();
-			
+					
 			if( airplaneModeOn ) {
-				// if user sets airplane mode, cancel current timer
+				edit.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, true);
+				
+				// If user sets airplane mode, cancel current timer
 				Timer t = new Timer(context);
 				if(t.isSet()) {
 					t.cancel();
 					edit.putBoolean(CANCELED_BY_AIRPLANE_MODE, true);
-					edit.commit();
 				}
+				edit.commit();
 			} else {
-				// if user had set timer before turning to airplane mode
+				// If user had set timer before turning to airplane mode
 				// when airplane mode is quit, restore wifi
 				if( preferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false) ) {
 					edit.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);

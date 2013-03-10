@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
@@ -63,14 +64,17 @@ public class InfoActivity extends Activity implements View.OnClickListener {
     protected Dialog onCreateDialog(int id) {
     	switch(id) {
     	case ABOUT_DIALOG:
+    		Resources r = getResources();
+    		int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, r.getDisplayMetrics());
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setTitle(R.string.about_dialog_title);
     		TextView content = new TextView(this);
     		content.setText(R.string.about_dialog_content);
     		content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
     		content.setMovementMethod(LinkMovementMethod.getInstance());
+    		content.setPadding(padding, padding, padding, padding);
     		builder.setView(content);
-    		return builder.create(); 
+    		return builder.create();
 		default:
 			return super.onCreateDialog(id);
     	}
