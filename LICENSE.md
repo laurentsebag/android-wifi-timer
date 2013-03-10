@@ -18,9 +18,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------------------------------------------------
 
-Portions of this software were developed for Phone Silencer by Peter Baldwin
-Open Source Project, licensed under the GNU General Public License, Version
-3 or later.
+Portions of this software were developed for
+[Phone Silencer](http://code.google.com/p/android-phone-silencer/) by Peter
+Baldwin Open Source Project, licensed under the GNU General Public License,
+Version 3 or later.
 
 
 Portions of this software were developed for the Android
