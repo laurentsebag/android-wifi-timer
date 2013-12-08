@@ -17,6 +17,7 @@
     	android:icon="@drawable/icon" 
     	android:label="@string/app_name"
     	android:description="@string/description"
+        android:debuggable="false"
     	>
     	
 	    <activity android:name=".InfoActivity">
