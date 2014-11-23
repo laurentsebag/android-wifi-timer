@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag   
- *  
+ *  Copyright (C) 2011 Laurent Sebag
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -24,10 +24,10 @@ import android.preference.PreferenceManager;
 
 public class AppConfig {
 
-	public static final String APP_PREFERENCES = "wifitimer";
+    public static final String APP_PREFERENCES = "wifitimer";
 
-	public static final String MODE_ON_WIFI_ACTIVATION = "on_wifi_activation";
-	public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
+    public static final String MODE_ON_WIFI_ACTIVATION = "on_wifi_activation";
+    public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
 
     public static final String SNOOZE_ALARM_ACTION = "wifitimer.intent.SNOOZE_ALARM";
     public static final String CANCEL_ALARM_ACTION = "wifitimer.intent.CANCEL_ALARM";
@@ -35,8 +35,8 @@ public class AppConfig {
 
 
     public static String getWifiTimerUsage(Context context) {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		return prefs.getString("timer_usage", MODE_ON_WIFI_DEACTIVATION);
-	}
-	
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString("timer_usage", MODE_ON_WIFI_DEACTIVATION);
+    }
+
 }

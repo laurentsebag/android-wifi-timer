@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag   
- *  
+ *  Copyright (C) 2011 Laurent Sebag
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -21,20 +21,20 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 
 public class RadioUtils {
-	
+
     public static void setWifiStateBack(Context context) {
-		String timerUsage = AppConfig.getWifiTimerUsage(context);
-		WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		if(timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-			manager.setWifiEnabled(true);
-		} else {
-			manager.setWifiEnabled(false);
-		}
+        String timerUsage = AppConfig.getWifiTimerUsage(context);
+        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        if(timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+            manager.setWifiEnabled(true);
+        } else {
+            manager.setWifiEnabled(false);
+        }
     }
-    
+
     public static void setWifiOn(Context context) {
-    	WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		manager.setWifiEnabled(true);
+        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        manager.setWifiEnabled(true);
     }
 
 }
