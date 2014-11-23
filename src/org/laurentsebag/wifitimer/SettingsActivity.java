@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag   
- *  
+ *  Copyright (C) 2011 Laurent Sebag
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -21,13 +21,12 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 public class SettingsActivity extends PreferenceActivity {
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.settings);		
-	}
-	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        addPreferencesFromResource(R.xml.settings);
+    }
 
 }

@@ -28,8 +28,13 @@ public class AppConfig {
 
 	public static final String MODE_ON_WIFI_ACTIVATION = "on_wifi_activation";
 	public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
-	
-	public static String getWifiTimerUsage(Context context) {
+
+    public static final String SNOOZE_ALARM_ACTION = "wifitimer.intent.SNOOZE_ALARM";
+    public static final String CANCEL_ALARM_ACTION = "wifitimer.intent.CANCEL_ALARM";
+    public static final String WIFI_TOGGLE_ACTION = "wifitimer.intent.WIFI_TOGGLE";
+
+
+    public static String getWifiTimerUsage(Context context) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		return prefs.getString("timer_usage", MODE_ON_WIFI_DEACTIVATION);
 	}

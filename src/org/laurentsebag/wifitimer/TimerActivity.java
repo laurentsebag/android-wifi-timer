@@ -1,7 +1,7 @@
 /*-
  *  Copyright (C) 2011 Laurent Sebag
- *  Copyright (C) 2010 Peter Baldwin   
- *  
+ *  Copyright (C) 2010 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -39,7 +39,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     public static final String EXTRA_TIME = "silencer:time";
 
     private static final String STATE_TIME = "silencer:time";
-    
+
     private Timer mTimer;
 
     private TextView mDuration;
@@ -59,11 +59,11 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     private Button mAmPm;
 
     private String[] mAmPmStrings;
-    
+
     private Button mButtonSet;
 
     private Button mButtonNever;
-    
+
     private Button mButtonNow;
 
     private Time mTime;
@@ -74,7 +74,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
 
         setContentView(R.layout.main);
 
-        mTimer = new Timer(this);
+        mTimer = new Timer(getApplicationContext());
 
         View hourPicker = findViewById(R.id.hour);
         mHour = (TextView) hourPicker.findViewById(R.id.timepicker_input);
@@ -98,7 +98,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
 
         DateFormatSymbols dfs = new DateFormatSymbols();
         mAmPmStrings = dfs.getAmPmStrings();
-        
+
         mButtonSet = (Button) findViewById(R.id.set);
         mButtonNever = (Button) findViewById(R.id.never);
         mButtonNow = (Button) findViewById(R.id.now);
@@ -118,7 +118,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
                 mTime.setToNow();
                 mTime.second = 0;
 
-                // Round to the nearest 15 minutes, advancing 
+                // Round to the nearest 15 minutes, advancing
                 // the clock at least 10 minutes.
                 int remainder = mTime.minute % 15;
                 mTime.minute -= remainder;
@@ -135,22 +135,22 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         TextView textView = (TextView) findViewById(R.id.timer_activity_instructions);
-        
-		if(AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-			textView.setText(R.string.instructions_on_wifi_deactivation);
-		} else {
-			textView.setText(R.string.instructions_on_wifi_activation);
-		}
-		
+
+        if(AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+            textView.setText(R.string.instructions_on_wifi_deactivation);
+        } else {
+            textView.setText(R.string.instructions_on_wifi_activation);
+        }
+
         updateTime();
     }
-    
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(STATE_TIME, mTime.toMillis(false));
     }
-    
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -168,7 +168,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
             mTimer.cancel();
             finish();
         } else if (v == mButtonNow) {
-        	RadioUtils.setWifiStateBack(this);
+            RadioUtils.setWifiStateBack(this);
             mTimer.cancel();
             finish();
         } else if (v == mIncrementHour) {
@@ -194,7 +194,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
             updateTime();
         }
     }
-    
+
     private void updateTime() {
         mTime.normalize(false);
 
@@ -221,7 +221,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
 
         CharSequence duration = Timer.getFormattedDuration(this, now, mTime);
         mDuration.setText(duration);
-        
+
         Date time = new Date(mTime.toMillis(false));
         DateFormat formatter = android.text.format.DateFormat.getTimeFormat(this);
         CharSequence formattedTime = formatter.format(time);

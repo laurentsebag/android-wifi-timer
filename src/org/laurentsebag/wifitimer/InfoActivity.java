@@ -33,7 +33,7 @@ public class InfoActivity extends Activity implements View.OnClickListener {
     
     private static final int ABOUT_DIALOG = 0;
 
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info);
@@ -51,32 +51,32 @@ public class InfoActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.about:
-            	showDialog(ABOUT_DIALOG);
-            	break;
+                showDialog(ABOUT_DIALOG);
+                break;
             case R.id.settings:
-            	Intent i = new Intent(this, SettingsActivity.class);
-            	startActivity(i);
-            	break;
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+                break;
         }
     }
     
     @Override
     protected Dialog onCreateDialog(int id) {
-    	switch(id) {
-    	case ABOUT_DIALOG:
-    		Resources r = getResources();
-    		int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, r.getDisplayMetrics());
-    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setTitle(R.string.about_dialog_title);
-    		TextView content = new TextView(this);
-    		content.setText(R.string.about_dialog_content);
-    		content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
-    		content.setMovementMethod(LinkMovementMethod.getInstance());
-    		content.setPadding(padding, padding, padding, padding);
-    		builder.setView(content);
-    		return builder.create();
-		default:
-			return super.onCreateDialog(id);
-    	}
+        switch(id) {
+        case ABOUT_DIALOG:
+            Resources r = getResources();
+            int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, r.getDisplayMetrics());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.about_dialog_title);
+            TextView content = new TextView(this);
+            content.setText(R.string.about_dialog_content);
+            content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+            content.setMovementMethod(LinkMovementMethod.getInstance());
+            content.setPadding(padding, padding, padding, padding);
+            builder.setView(content);
+            return builder.create();
+        default:
+            return super.onCreateDialog(id);
+        }
     }
 }

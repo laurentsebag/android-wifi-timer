@@ -3,3 +3,5 @@ bin
 gen
 lint.xml
 project.properties
+build/
+.gradle/
