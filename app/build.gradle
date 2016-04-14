@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21 //TODO change back to 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "org.laurentsebag.wifitimer"
+        minSdkVersion 3
+        targetSdkVersion 21
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
