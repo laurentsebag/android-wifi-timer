@@ -26,7 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 
@@ -117,15 +117,12 @@ public class Timer {
     }
 
     private Notification createNotification(Time time) {
-        String mode = AppConfig.getWifiTimerUsage(mContext);
-
-        int icon = R.drawable.wifi_timer_back_on;
-        CharSequence duration = getFormattedDuration(mContext, now(), time);
         Date date = getDate(time);
+        CharSequence duration = getFormattedDuration(mContext, now(), time);
         CharSequence formattedTime = getFormattedTime(date);
-
-        CharSequence tickerText;
         CharSequence contentTitle;
+        CharSequence tickerText;
+        String mode = AppConfig.getWifiTimerUsage(mContext);
         if (mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
             tickerText = mContext.getString(R.string.ticker_on_wifi_deactivation, duration);
             contentTitle = mContext.getString(R.string.notification_title_on_wifi_deactivation, formattedTime);
@@ -134,51 +131,28 @@ public class Timer {
             contentTitle = mContext.getString(R.string.notification_title_on_wifi_activation, formattedTime);
         }
 
-        long when = System.currentTimeMillis();
         CharSequence contentText = mContext.getText(R.string.notification_text);
-        Notification notification;
-        Notification.Builder notifBuilder;
         PendingIntent contentIntent = createNotificationIntent(time);
 
-        // On Android >= API 11, use the Notificaiton.Builder
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            notifBuilder = new Notification.Builder(mContext)
-                    .setContentTitle(contentTitle)
-                    .setContentText(contentText)
-                    .setSmallIcon(icon)
-                    .setOngoing(true)
-                    .setContentIntent(contentIntent);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext)
+                .setTicker(tickerText)
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle(contentTitle)
+                .setContentText(contentText)
+                .setSmallIcon(R.drawable.wifi_timer_back_on)
+                .setOngoing(true)
+                .setContentIntent(contentIntent);
 
-            // On Android >= API 16, add actions to cancel, snooze or toggle wifi from the
-            // notification
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                PendingIntent cancelIntent = createNotificationActionIntent(time, AppConfig.CANCEL_ALARM_ACTION);
-                PendingIntent snoozeIntent = createNotificationActionIntent(time, AppConfig.SNOOZE_ALARM_ACTION);
-                PendingIntent toggleIntent = createNotificationActionIntent(time, AppConfig.WIFI_TOGGLE_ACTION);
-                int toggleActionString;
+        PendingIntent cancelIntent = createNotificationActionIntent(time, AppConfig.CANCEL_ALARM_ACTION);
+        PendingIntent snoozeIntent = createNotificationActionIntent(time, AppConfig.SNOOZE_ALARM_ACTION);
+        PendingIntent toggleIntent = createNotificationActionIntent(time, AppConfig.WIFI_TOGGLE_ACTION);
+        int toggleActionString = mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION) ? R.string.notification_action_wifion : R.string.notification_action_wifioff;
 
-                if (AppConfig.getWifiTimerUsage(mContext).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-                    toggleActionString = R.string.notification_action_wifion;
-                } else {
-                    toggleActionString = R.string.notification_action_wifioff;
-                }
-
-                notification = notifBuilder
-                        .addAction(0, mContext.getString(R.string.notification_action_cancel), cancelIntent)
-                        .addAction(0, mContext.getString(R.string.notification_action_snooze), snoozeIntent)
-                        .addAction(0, mContext.getString(toggleActionString), toggleIntent)
-                        .build();
-            } else {
-                notification = notifBuilder.getNotification();
-            }
-        } else {
-            // On versions < API 11, use the deprecated notification methods
-            notification = new Notification(icon, tickerText, when);
-            notification.setLatestEventInfo(mContext, contentTitle, contentText, contentIntent);
-            notification.flags |= Notification.FLAG_ONGOING_EVENT;
-        }
-
-        return notification;
+        return notificationBuilder
+                .addAction(0, mContext.getString(R.string.notification_action_cancel), cancelIntent)
+                .addAction(0, mContext.getString(R.string.notification_action_snooze), snoozeIntent)
+                .addAction(0, mContext.getString(toggleActionString), toggleIntent)
+                .build();
     }
 
     private PendingIntent createNotificationIntent(Time time) {
