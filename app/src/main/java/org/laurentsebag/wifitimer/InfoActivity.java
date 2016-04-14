@@ -30,7 +30,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class InfoActivity extends Activity implements View.OnClickListener {
-    
+
     private static final int ABOUT_DIALOG = 0;
 
     @Override
@@ -59,24 +59,24 @@ public class InfoActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
-    
+
     @Override
     protected Dialog onCreateDialog(int id) {
-        switch(id) {
-        case ABOUT_DIALOG:
-            Resources r = getResources();
-            int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, r.getDisplayMetrics());
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.about_dialog_title);
-            TextView content = new TextView(this);
-            content.setText(R.string.about_dialog_content);
-            content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
-            content.setMovementMethod(LinkMovementMethod.getInstance());
-            content.setPadding(padding, padding, padding, padding);
-            builder.setView(content);
-            return builder.create();
-        default:
-            return super.onCreateDialog(id);
+        switch (id) {
+            case ABOUT_DIALOG:
+                Resources r = getResources();
+                int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, r.getDisplayMetrics());
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.about_dialog_title);
+                TextView content = new TextView(this);
+                content.setText(R.string.about_dialog_content);
+                content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+                content.setMovementMethod(LinkMovementMethod.getInstance());
+                content.setPadding(padding, padding, padding, padding);
+                builder.setView(content);
+                return builder.create();
+            default:
+                return super.onCreateDialog(id);
         }
     }
 }

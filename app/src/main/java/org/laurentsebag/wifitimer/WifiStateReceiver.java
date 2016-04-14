@@ -32,8 +32,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent data) {
         String action = data.getAction();
-        SharedPreferences preferences = context.getSharedPreferences(
-                AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         Editor edit = preferences.edit();
 
         if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
@@ -41,39 +40,38 @@ public class WifiStateReceiver extends BroadcastReceiver {
             String timerUsage = AppConfig.getWifiTimerUsage(context);
 
             int wifiState = data.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
-            switch(wifiState) {
-            case WifiManager.WIFI_STATE_DISABLED:
-                if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-                    boolean turnOffByAirplaneMode = preferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
-                    if (turnOffByAirplaneMode) {
-                        edit.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
-                        edit.commit();
+            switch (wifiState) {
+                case WifiManager.WIFI_STATE_DISABLED:
+                    if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+                        boolean turnOffByAirplaneMode = preferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+                        if (turnOffByAirplaneMode) {
+                            edit.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+                            edit.commit();
+                        }
+                        // If the wifi state has changed but not because of a airplane mode change,
+                        // display the wifi timer dialog.
+                        if (!turnOffByAirplaneMode) {
+                            Intent intent = new Intent(context, TimerActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        }
+                    } else {
+                        Timer timer = new Timer(context);
+                        timer.cancel();
                     }
-                    // If the wifi state has changed but not because of a airplane mode change,
-                    // display the wifi timer dialog.
-                    if (!turnOffByAirplaneMode) {
+                    break;
+                case WifiManager.WIFI_STATE_ENABLED:
+                    if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+                        Timer timer = new Timer(context);
+                        timer.cancel();
+                    } else {
                         Intent intent = new Intent(context, TimerActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }
-                } else {
-                    Timer timer = new Timer(context);
-                    timer.cancel();
-                }
-                break;
-            case WifiManager.WIFI_STATE_ENABLED:
-                if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-                    Timer timer = new Timer(context);
-                    timer.cancel();
-                } else {
-                    Intent intent = new Intent(context, TimerActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
-                break;
+                    break;
             }
-        }
-        else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
+        } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
             boolean airplaneModeOn = data.getBooleanExtra("state", false);
 
             if (airplaneModeOn) {
@@ -92,11 +90,11 @@ public class WifiStateReceiver extends BroadcastReceiver {
                 if (preferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false)) {
                     edit.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);
                     edit.commit();
-                    if(AppConfig.getWifiTimerUsage(context).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION))
-                    RadioUtils.setWifiOn(context);
+                    if (AppConfig.getWifiTimerUsage(context).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+                        RadioUtils.setWifiOn(context);
+                    }
                 }
             }
         }
     }
-
 }

@@ -6,17 +6,17 @@
 
     <uses-sdk
         android:minSdkVersion="3"
-        android:targetSdkVersion="21" />
-    <uses-feature android:name="android.hardware.wifi" />
+        android:targetSdkVersion="21"/>
+    <uses-feature android:name="android.hardware.wifi"/>
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
         android:resizeable="true"
-        android:smallScreens="true" />
+        android:smallScreens="true"/>
 
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:description="@string/description"
@@ -25,33 +25,32 @@
 
         <activity android:name=".InfoActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SettingsActivity"/>
         <activity
             android:name=".TimerActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Dialog.NoTitleBar" />
+            android:theme="@style/Theme.Dialog.NoTitleBar"/>
 
-
-        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".AlarmReceiver"/>
         <receiver android:name=".WifiStateReceiver">
             <intent-filter>
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name=".NotifActionReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="wifitimer.intent.SNOOZE_ALARM" />
-                <action android:name="wifitimer.intent.CANCEL_ALARM" />
-                <action android:name="wifitimer.intent.WIFI_TOGGLE" />
+                <action android:name="wifitimer.intent.SNOOZE_ALARM"/>
+                <action android:name="wifitimer.intent.CANCEL_ALARM"/>
+                <action android:name="wifitimer.intent.WIFI_TOGGLE"/>
             </intent-filter>
         </receiver>
 

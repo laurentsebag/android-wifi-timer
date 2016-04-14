@@ -25,7 +25,7 @@ public class RadioUtils {
     public static void setWifiStateBack(Context context) {
         String timerUsage = AppConfig.getWifiTimerUsage(context);
         WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        if(timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+        if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
             manager.setWifiEnabled(true);
         } else {
             manager.setWifiEnabled(false);
@@ -36,5 +36,4 @@ public class RadioUtils {
         WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         manager.setWifiEnabled(true);
     }
-
 }

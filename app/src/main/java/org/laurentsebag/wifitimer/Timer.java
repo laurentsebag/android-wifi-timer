@@ -18,9 +18,6 @@
 
 package org.laurentsebag.wifitimer;
 
-import java.text.Format;
-import java.util.Date;
-
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -33,6 +30,9 @@ import android.os.Build;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 
+import java.text.Format;
+import java.util.Date;
+
 /**
  * Sets/cancels ringer silence timer.
  */
@@ -42,7 +42,7 @@ public class Timer {
     private final Context mContext;
 
     public Timer(Context context) {
-    	mContext = context;
+        mContext = context;
     }
 
     private static Date getDate(Time time) {
@@ -105,8 +105,7 @@ public class Timer {
     }
 
     private void cancelNotification() {
-        NotificationManager manager = (NotificationManager) mContext
-                .getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(R.id.notification_wifi_off);
     }
 
@@ -127,7 +126,7 @@ public class Timer {
 
         CharSequence tickerText;
         CharSequence contentTitle;
-        if(mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+        if (mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
             tickerText = mContext.getString(R.string.ticker_on_wifi_deactivation, duration);
             contentTitle = mContext.getString(R.string.notification_title_on_wifi_deactivation, formattedTime);
         } else {
@@ -207,8 +206,7 @@ public class Timer {
     }
 
     public boolean isSet() {
-        SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES,
-                Context.MODE_PRIVATE);
+        SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         return preferences.getBoolean(PREF_SET, false);
     }
 
@@ -221,15 +219,13 @@ public class Timer {
     }
 
     private void showNotification(Time time) {
-        NotificationManager manager = (NotificationManager) mContext
-                .getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = createNotification(time);
         manager.notify(R.id.notification_wifi_off, notification);
     }
 
     private void updatePreference(String key, boolean value) {
-        SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES,
-                Context.MODE_PRIVATE);
+        SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(key, value);
         editor.commit();

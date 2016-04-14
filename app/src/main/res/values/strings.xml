@@ -64,10 +64,10 @@
     each time you turn your wifi off you will be asked how long you
     would like before restoring it. After that period of time has
     passed, your wifi will be automatically turned back on."</string>
-    
+
     <string name="settings_activity_label">Wifi Timer - Settings</string>
     <string name="preference_timer_usage_title">Wifi Timer mode</string>
     <string name="preference_timer_usage_summary">Choose on which event Wifi Timer shows up.</string>
     <string name="preference_timer_usage_dialog_title">Choose a mode</string>
-    
+
 </resources>

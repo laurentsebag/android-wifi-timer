@@ -18,11 +18,6 @@
 
 package org.laurentsebag.wifitimer;
 
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
-import java.util.Date;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +25,11 @@ import android.text.format.Time;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
@@ -128,7 +128,6 @@ public class TimerActivity extends Activity implements View.OnClickListener {
                 }
             }
         }
-
     }
 
     @Override
@@ -136,7 +135,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
         super.onResume();
         TextView textView = (TextView) findViewById(R.id.timer_activity_instructions);
 
-        if(AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+        if (AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
             textView.setText(R.string.instructions_on_wifi_deactivation);
         } else {
             textView.setText(R.string.instructions_on_wifi_activation);
@@ -250,5 +249,4 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     private String getDisplayMinute() {
         return String.format("%02d", mTime.minute);
     }
-
 }

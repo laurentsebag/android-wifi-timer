@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-
 public class AppConfig {
 
     public static final String APP_PREFERENCES = "wifitimer";
@@ -33,10 +32,8 @@ public class AppConfig {
     public static final String CANCEL_ALARM_ACTION = "wifitimer.intent.CANCEL_ALARM";
     public static final String WIFI_TOGGLE_ACTION = "wifitimer.intent.WIFI_TOGGLE";
 
-
     public static String getWifiTimerUsage(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString("timer_usage", MODE_ON_WIFI_DEACTIVATION);
     }
-
 }

@@ -66,7 +66,7 @@
     Quand cette application est installée, à chaque fois que vous désactivez votre wifi,
     l\'application vous demande l\'heure à laquelle vous souhaitez le remettre en route.
     Après cette heure passée, le wifi sera automatiquement activé.</string>
-   
+
     <string name="settings_activity_label">Wifi Timer - Paramètres</string>
     <string name="preference_timer_usage_title">Activation de Wifi Timer</string>
     <string name="preference_timer_usage_summary">Permet de choisir sur quel événement Wifi Timer se déclenche</string>
