@@ -14,8 +14,8 @@
     	\n\nCe logiciel est publié sous license <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3 ou supérieure</a>.
     	\n\nCe programme utilise des parties de code du projet \"Phone Silencer\" de Peter Baldwin, sous license GPLv3 ou supérieure.
     </string>
-    <string name="ticker_on_wifi_activation">Wifi activé pendant %s</string>
-    <string name="ticker_on_wifi_deactivation">Wifi désactivé pendant %s</string>
+    <string name="ticker_on_wifi_activation">Wifi activé pour %s</string>
+    <string name="ticker_on_wifi_deactivation">Wifi désactivé pour %s</string>
     <string name="notification_title_on_wifi_activation">Wifi activé jusqu\'à %s</string>
     <string name="notification_title_on_wifi_deactivation">Wifi désactivé jusqu\'à %s</string>
     <string name="notification_text">Selectionnez pour changer ou annuler</string>

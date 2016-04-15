@@ -30,6 +30,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
@@ -234,7 +235,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     private String getDisplayHour() {
         int hour = mTime.hour;
         if (is24HourFormat()) {
-            return String.format("%02d", hour);
+            return String.format(Locale.ENGLISH, "%02d", hour);
         } else {
             if (hour >= 12) {
                 hour -= 12;
@@ -247,6 +248,6 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     }
 
     private String getDisplayMinute() {
-        return String.format("%02d", mTime.minute);
+        return String.format(Locale.ENGLISH, "%02d", mTime.minute);
     }
 }

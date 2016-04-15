@@ -7,7 +7,7 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dip">
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/timer_activity_instructions"
@@ -28,7 +28,7 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dip"
+                android:layout_margin="12dp"
                 layout="@layout/time_picker"/>
 
             <TextView
@@ -43,7 +43,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dip"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         style="@android:style/ButtonBar">
