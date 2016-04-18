@@ -48,8 +48,7 @@ public class Timer {
         mContext = context;
     }
 
-    public static CharSequence getFormattedDuration(Context context, long from, long to) {
-
+    public static String getFormattedDuration(Context context, long from, long to) {
 //        TODO check difference between GMT and UTC
         GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
         calendar.setTimeInMillis(to - from);
@@ -69,7 +68,7 @@ public class Timer {
             }
             text.append(resources.getQuantityString(R.plurals.Nminutes, minutes, minutes));
         }
-        return text;
+        return text.toString();
     }
 
     public static long now() {
