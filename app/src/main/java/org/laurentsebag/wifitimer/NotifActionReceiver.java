@@ -22,6 +22,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.format.Time;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Receiver for button actions from the notification
  */
@@ -32,17 +36,14 @@ public class NotifActionReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         Timer timer = new Timer(context.getApplicationContext());
         long millis;
-        Time time;
 
         if (AppConfig.SNOOZE_ALARM_ACTION.equals(action)) {
             if (intent.hasExtra(TimerActivity.EXTRA_TIME)) {
                 millis = intent.getLongExtra(TimerActivity.EXTRA_TIME, 0);
-                time = new Time();
-
-                time.set(millis);
-                time.minute += 15;
-
-                timer.set(time);
+                GregorianCalendar calendar = new GregorianCalendar();
+                calendar.setTimeInMillis(millis);
+                calendar.add(Calendar.MINUTE, 15);
+                timer.set(calendar.getTimeInMillis());
             }
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
             timer.cancel();
