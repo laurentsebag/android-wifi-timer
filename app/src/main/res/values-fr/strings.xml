@@ -31,23 +31,23 @@
         <item quantity="one">1 heure</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> heures</item>
     </plurals>
-    <string name="info"><font fgcolor="#ffffffff"><b>Wifi Timer</b></font> est facile
+    <string name="info"><b>Wifi Timer</b> est facile
     à utiliser ! 
     Désactivez simplement le wifi en utilisant le widget \"Contrôle de l\'alimentation\"
     ou par le menu paramètres.
     
-    \n\nLorsque vous <font fgcolor="#ffffffff"><b>désactivez</b></font> le wifi,
+    \n\nLorsque vous <b>désactivez</b> le wifi,
     le programme vous demande de saisir l\'heure à laquelle vous souhaitez le réactiver.
     
     \n\nL\'heure de remise en route du wifi est toujours réglée à l\'heure actuelle 
     par défaut. Si vous voulez reglez la remise en route du wifi pour dans deux heures, 
-    appuyez deux fois sur le bouton <font fgcolor="#ffffffff"><b>+</b></font> de l\'heure.
+    appuyez deux fois sur le bouton <b>+</b> de l\'heure.
       
     \n\nLorsque l\'heure est reglée, une notification apparaît dans la barre de 
     notification, pour vous donner l\'heure de réactivation.
       
-    Vous pouvez alors selectionner la notification pour <font fgcolor="#ffffffff"><b>régler</b></font> 
-    ou <font fgcolor="#ffffffff"><b>annuler</b></font> la réactivation du wifi.  
+    Vous pouvez alors selectionner la notification pour <b>régler</b>
+    ou <b>annuler</b> la réactivation du wifi.
     Vous pouvez également annuler la réactivation en réactivant le wifi avec 
     le widget \"Contrôle de l\'alimentation\" ou le menu paramètres.
     
@@ -55,7 +55,7 @@
     au bout d\'un certain temps. Pour cela allez dans les paramètres.
     
     \n\nSi vous ne voulez plus qu\'une heure de réactivation du wifi vous soit demandée
-    <font fgcolor="#ffffffff"><b>déinstallez</b></font> l\'application.
+    <b>déinstallez</b> l\'application.
     </string>
     
     <string name="description">Depuis android 2.3.3 sur mon Nexus One, 

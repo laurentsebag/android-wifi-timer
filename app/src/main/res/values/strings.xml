@@ -31,22 +31,22 @@
         <item quantity="one">1 hour</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
     </plurals>
-    <string name="info">Using <font fgcolor="#ffffffff"><b>Wifi Timer</b></font> is easy! 
+    <string name="info">Using <b>Wifi Timer</b> is easy!
     Just turn-off the wifi using the power control widget or the settings menu.
     
-    \n\nWhenever you set your wifi to <font fgcolor="#ffffffff"><b>off</b></font> 
+    \n\nWhenever you set your wifi to <b>off</b>
     you will be prompted to enter
     the time at which you would like your wifi to be turned back on.
     
     \n\nThe timer will always be initialized to the current time, so if you want to set
-    the timer for two hours, just tap the hour <font fgcolor="#ffffffff"><b>+</b></font>
+    the timer for two hours, just tap the hour <b>+</b>
     button twice.
       
     \n\nOnce the timer has been set, a notification will appear
     in the notification bar 
     indicating the time remaining.  
-    You can select the notification to <font fgcolor="#ffffffff"><b>adjust</b></font> 
-    or <font fgcolor="#ffffffff"><b>cancel</b></font> the timer.  
+    You can select the notification to <b>adjust</b>
+    or <b>cancel</b> the timer.
     You can also cancel the timer at any time by simply turning the wifi back on 
     using the power control widget or the menu settings.
     
@@ -54,7 +54,7 @@
     Visit the settings to choose this option.
     
     \n\nIf you decide you don\'t want to be prompted anymore, 
-    just <font fgcolor="#ffffffff"><b>uninstall</b></font> the application.
+    just <b>uninstall</b> the application.
     </string>
     
     <string name="description">"Since 2.3.3 on my Nexus One, I started to have less

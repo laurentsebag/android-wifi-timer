@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MainTheme"
+    <style name="BaseTheme"
         parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">false</item>
+    </style>
+
+    <style name="MainTheme"
+        parent="BaseTheme">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 

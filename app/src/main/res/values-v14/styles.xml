@@ -2,7 +2,7 @@
 <resources>
 
     <style name="MainTheme"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        parent="BaseTheme">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
