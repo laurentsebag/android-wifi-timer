@@ -26,10 +26,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
-import android.text.format.Time;
+
+import org.laurentsebag.wifitimer.activities.TimerActivity;
+import org.laurentsebag.wifitimer.receivers.AlarmReceiver;
+import org.laurentsebag.wifitimer.receivers.NotifActionReceiver;
 
 import java.text.Format;
 import java.util.Calendar;
@@ -71,19 +73,6 @@ public class Timer {
         return text.toString();
     }
 
-    public static long now() {
-        //TODO maybe remove this method
-        return System.currentTimeMillis();
-    }
-
-    public static Time tomorrow() {
-//        Time time = now();
-//        time.monthDay += 1;
-//        time.normalize(true);
-//        return time;
-        return null; //TODO
-    }
-
     public void set(long time) {
         showNotification(time);
         setAlarm(time);
@@ -115,7 +104,7 @@ public class Timer {
     }
 
     private Notification createNotification(long time) {
-        CharSequence duration = getFormattedDuration(mContext, now(), time);
+        CharSequence duration = getFormattedDuration(mContext, System.currentTimeMillis(), time);
         CharSequence formattedTime = getFormattedTime(time);
         CharSequence contentTitle;
         CharSequence tickerText;

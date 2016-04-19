@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.laurentsebag.wifitimer;
+package org.laurentsebag.wifitimer.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,6 +23,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.wifi.WifiManager;
+
+import org.laurentsebag.wifitimer.AppConfig;
+import org.laurentsebag.wifitimer.utils.RadioUtils;
+import org.laurentsebag.wifitimer.Timer;
+import org.laurentsebag.wifitimer.activities.TimerActivity;
 
 public class WifiStateReceiver extends BroadcastReceiver {
 

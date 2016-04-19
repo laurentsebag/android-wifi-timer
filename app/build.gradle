@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "org.laurentsebag.wifitimer"
-        minSdkVersion 4
+        minSdkVersion 7
         targetSdkVersion 23
     }
 
@@ -22,7 +22,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:preference-v7:23.3.0'
+    compile 'com.android.support:preference-v14:23.3.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.hamcrest:hamcrest-all:1.3'

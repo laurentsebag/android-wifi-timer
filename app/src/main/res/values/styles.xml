@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="MainTheme"
+        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
     <style name="Theme.Dialog.NoTitleBar"
         parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>

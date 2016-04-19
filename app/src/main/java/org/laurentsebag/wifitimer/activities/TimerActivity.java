@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.laurentsebag.wifitimer;
+package org.laurentsebag.wifitimer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,6 +24,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.laurentsebag.wifitimer.AppConfig;
+import org.laurentsebag.wifitimer.R;
+import org.laurentsebag.wifitimer.utils.RadioUtils;
+import org.laurentsebag.wifitimer.Timer;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
