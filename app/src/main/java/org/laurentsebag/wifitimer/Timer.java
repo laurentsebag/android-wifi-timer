@@ -43,6 +43,7 @@ import java.util.TimeZone;
  */
 public class Timer {
     private static final String PREF_SET = "set";
+    public static final String TIME_ZONE_GMT = "GMT";
 
     private final Context mContext;
 
@@ -51,8 +52,7 @@ public class Timer {
     }
 
     public static String getFormattedDuration(Context context, long from, long to) {
-//        TODO check difference between GMT and UTC
-        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone(TIME_ZONE_GMT));
         calendar.setTimeInMillis(to - from);
         Resources resources = context.getResources();
         StringBuilder text = new StringBuilder();

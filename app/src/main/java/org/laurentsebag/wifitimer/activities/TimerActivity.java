@@ -214,8 +214,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
         String displayMinute = getDisplayMinute();
         mMinute.setText(displayMinute);
 
-        boolean isPm = (mCalendar.get(Calendar.HOUR) >= 12);
-        mAmPm.setText(mAmPmStrings[isPm ? Calendar.PM : Calendar.AM]);
+        mAmPm.setText(mAmPmStrings[mCalendar.get(Calendar.AM_PM)]);
 
         CharSequence duration = Timer.getFormattedDuration(this, now.getTimeInMillis(), mCalendar.getTimeInMillis());
         mDuration.setText(duration);
