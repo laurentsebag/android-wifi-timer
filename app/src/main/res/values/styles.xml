@@ -4,11 +4,17 @@
     <style name="BaseTheme"
         parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">false</item>
+        <item name="android:windowTitleBackgroundStyle">@style/windowTitleBackgroundStyle</item>
     </style>
 
     <style name="MainTheme"
         parent="BaseTheme">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="windowTitleBackgroundStyle">
+        <item name="android:background">#dddddd</item>
+        <item name="android:paddingLeft">8dp</item>
     </style>
 
     <style name="Theme.Dialog.NoTitleBar"
