@@ -15,10 +15,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.laurentsebag.wifitimer;
+package org.laurentsebag.wifitimer.utils;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;
+
+import org.laurentsebag.wifitimer.AppConfig;
 
 public class RadioUtils {
 

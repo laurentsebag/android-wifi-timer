@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag
- *
+ *  Copyright (C) 2011 Laurent Sebag   
+ *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -15,17 +15,21 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.laurentsebag.wifitimer;
+package org.laurentsebag.wifitimer.receivers;
 
-import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 
-public class SettingsActivity extends PreferenceActivity {
+import org.laurentsebag.wifitimer.utils.RadioUtils;
+
+/**
+ * Receives alarm broadcast to turn the wifi back on.
+ */
+public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        addPreferencesFromResource(R.xml.settings);
+    public void onReceive(Context context, Intent intent) {
+        RadioUtils.setWifiStateBack(context);
     }
 }

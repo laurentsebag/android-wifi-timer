@@ -14,13 +14,13 @@
         android:id="@+id/timepicker_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:editable="false"
+        android:inputType="number"
         android:focusable="false"
         android:gravity="center"
         android:singleLine="true"
         style="?android:attr/textAppearanceLargeInverse"
         android:textColor="@android:color/primary_text_light"
-        android:textSize="30sp"
+        android:textSize="@dimen/timepicker_font_size"
         android:background="@drawable/timepicker_input"/>
 
     <ImageButton

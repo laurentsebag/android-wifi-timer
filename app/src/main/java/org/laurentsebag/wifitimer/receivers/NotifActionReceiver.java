@@ -15,12 +15,19 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.laurentsebag.wifitimer;
+package org.laurentsebag.wifitimer.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.text.format.Time;
+
+import org.laurentsebag.wifitimer.AppConfig;
+import org.laurentsebag.wifitimer.utils.RadioUtils;
+import org.laurentsebag.wifitimer.Timer;
+import org.laurentsebag.wifitimer.activities.TimerActivity;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Receiver for button actions from the notification
@@ -32,17 +39,14 @@ public class NotifActionReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         Timer timer = new Timer(context.getApplicationContext());
         long millis;
-        Time time;
 
         if (AppConfig.SNOOZE_ALARM_ACTION.equals(action)) {
             if (intent.hasExtra(TimerActivity.EXTRA_TIME)) {
                 millis = intent.getLongExtra(TimerActivity.EXTRA_TIME, 0);
-                time = new Time();
-
-                time.set(millis);
-                time.minute += 15;
-
-                timer.set(time);
+                GregorianCalendar calendar = new GregorianCalendar();
+                calendar.setTimeInMillis(millis);
+                calendar.add(Calendar.MINUTE, 15);
+                timer.set(calendar.getTimeInMillis());
             }
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
             timer.cancel();

@@ -16,20 +16,25 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.laurentsebag.wifitimer;
+package org.laurentsebag.wifitimer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.laurentsebag.wifitimer.AppConfig;
+import org.laurentsebag.wifitimer.R;
+import org.laurentsebag.wifitimer.utils.RadioUtils;
+import org.laurentsebag.wifitimer.Timer;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -67,7 +72,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
 
     private Button mButtonNow;
 
-    private Time mTime;
+    private GregorianCalendar mCalendar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,24 +113,21 @@ public class TimerActivity extends Activity implements View.OnClickListener {
         mButtonNever.setOnClickListener(this);
         mButtonNow.setOnClickListener(this);
 
-        mTime = new Time();
+        mCalendar = new GregorianCalendar();
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             if (intent.hasExtra(EXTRA_TIME)) {
-                long millis = intent.getLongExtra(EXTRA_TIME, 0);
-                mTime.set(millis);
+                mCalendar.setTimeInMillis(intent.getLongExtra(EXTRA_TIME, 0));
             } else {
-                mTime.setToNow();
-                mTime.second = 0;
+                mCalendar.set(Calendar.SECOND, 0);
 
                 // Round to the nearest 15 minutes, advancing
                 // the clock at least 10 minutes.
-                int remainder = mTime.minute % 15;
-                mTime.minute -= remainder;
-                mTime.minute += 15;
+                int remainder = mCalendar.get(Calendar.MINUTE) % 15;
+                mCalendar.add(Calendar.MINUTE, -remainder + 15);
                 if (remainder > 10) {
-                    mTime.minute += 15;
+                    mCalendar.add(Calendar.MINUTE, 15);
                 }
             }
         }
@@ -148,13 +150,13 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(STATE_TIME, mTime.toMillis(false));
+        outState.putLong(STATE_TIME, mCalendar.getTimeInMillis());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mTime.set(savedInstanceState.getLong(STATE_TIME));
+        mCalendar.setTimeInMillis(savedInstanceState.getLong(STATE_TIME));
     }
 
     /**
@@ -162,7 +164,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
      */
     public void onClick(View v) {
         if (v == mButtonSet) {
-            mTimer.set(mTime);
+            mTimer.set(mCalendar.getTimeInMillis());
             finish();
         } else if (v == mButtonNever) {
             mTimer.cancel();
@@ -172,42 +174,38 @@ public class TimerActivity extends Activity implements View.OnClickListener {
             mTimer.cancel();
             finish();
         } else if (v == mIncrementHour) {
-            mTime.hour++;
+            mCalendar.add(Calendar.HOUR, 1);
             updateTime();
         } else if (v == mDecrementHour) {
-            mTime.hour--;
+            mCalendar.add(Calendar.HOUR, -1);
             updateTime();
         } else if (v == mIncrementMinute) {
-            mTime.minute -= (mTime.minute % 15);
-            mTime.minute += 15;
+            mCalendar.add(Calendar.MINUTE, -(mCalendar.get(Calendar.MINUTE) % 15));
+            mCalendar.add(Calendar.MINUTE, 15);
             updateTime();
         } else if (v == mDecrementMinute) {
-            int remainder = mTime.minute % 15;
+            int remainder = mCalendar.get(Calendar.MINUTE) % 15;
             if (remainder == 0) {
-                mTime.minute -= 15;
+                mCalendar.add(Calendar.MINUTE, -15);
             } else {
-                mTime.minute -= remainder;
+                mCalendar.add(Calendar.MINUTE, -remainder);
             }
             updateTime();
         } else if (v == mAmPm) {
-            mTime.hour += 12;
+            mCalendar.add(Calendar.HOUR, 12);
             updateTime();
         }
     }
 
     private void updateTime() {
-        mTime.normalize(false);
+        Calendar now = new GregorianCalendar();
+        Calendar tomorrow = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DATE) + 1);
 
-        Time now = Timer.now();
-        Time tomorrow = Timer.tomorrow();
-
-        while (mTime.before(now)) {
-            mTime.monthDay++;
-            mTime.normalize(true);
+        while (mCalendar.before(now)) {
+            mCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-        while (mTime.after(tomorrow)) {
-            mTime.monthDay--;
-            mTime.normalize(true);
+        while (mCalendar.after(tomorrow)) {
+            mCalendar.add(Calendar.DAY_OF_MONTH, -1);
         }
 
         String displayHour = getDisplayHour();
@@ -216,13 +214,12 @@ public class TimerActivity extends Activity implements View.OnClickListener {
         String displayMinute = getDisplayMinute();
         mMinute.setText(displayMinute);
 
-        boolean isPm = (mTime.hour >= 12);
-        mAmPm.setText(mAmPmStrings[isPm ? Calendar.PM : Calendar.AM]);
+        mAmPm.setText(mAmPmStrings[mCalendar.get(Calendar.AM_PM)]);
 
-        CharSequence duration = Timer.getFormattedDuration(this, now, mTime);
+        CharSequence duration = Timer.getFormattedDuration(this, now.getTimeInMillis(), mCalendar.getTimeInMillis());
         mDuration.setText(duration);
 
-        Date time = new Date(mTime.toMillis(false));
+        Date time = new Date(mCalendar.getTimeInMillis());
         DateFormat formatter = android.text.format.DateFormat.getTimeFormat(this);
         CharSequence formattedTime = formatter.format(time);
         mButtonSet.setText(formattedTime);
@@ -233,7 +230,7 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     }
 
     private String getDisplayHour() {
-        int hour = mTime.hour;
+        int hour = mCalendar.get(Calendar.HOUR);
         if (is24HourFormat()) {
             return String.format(Locale.ENGLISH, "%02d", hour);
         } else {
@@ -248,6 +245,6 @@ public class TimerActivity extends Activity implements View.OnClickListener {
     }
 
     private String getDisplayMinute() {
-        return String.format(Locale.ENGLISH, "%02d", mTime.minute);
+        return String.format(Locale.ENGLISH, "%02d", mCalendar.get(Calendar.MINUTE));
     }
 }

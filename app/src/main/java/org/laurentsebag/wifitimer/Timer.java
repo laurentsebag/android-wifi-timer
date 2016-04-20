@@ -28,16 +28,22 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
-import android.text.format.Time;
+
+import org.laurentsebag.wifitimer.activities.TimerActivity;
+import org.laurentsebag.wifitimer.receivers.AlarmReceiver;
+import org.laurentsebag.wifitimer.receivers.NotifActionReceiver;
 
 import java.text.Format;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Sets/cancels ringer silence timer.
  */
 public class Timer {
     private static final String PREF_SET = "set";
+    public static final String TIME_ZONE_GMT = "GMT";
 
     private final Context mContext;
 
@@ -45,57 +51,38 @@ public class Timer {
         mContext = context;
     }
 
-    private static Date getDate(Time time) {
-        long millis = time.toMillis(false);
-        return new Date(millis);
-    }
-
-    public static CharSequence getFormattedDuration(Context context, Time from, Time to) {
-        int millis = (int) (to.toMillis(false) - from.toMillis(false));
-        int seconds = millis / 1000;
-        int minutes = seconds / 60;
-        int hours = minutes / 60;
-
-        // Subtract hours
-        minutes = minutes % 60;
-
+    public static String getFormattedDuration(Context context, long from, long to) {
+        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone(TIME_ZONE_GMT));
+        calendar.setTimeInMillis(to - from);
         Resources resources = context.getResources();
         StringBuilder text = new StringBuilder();
+
+        int hours = calendar.get(Calendar.HOUR);
         if (hours != 0) {
-            text.append(resources.getQuantityString(R.plurals.Nhours, hours, hours));
+            final String quantityString = resources.getQuantityString(R.plurals.Nhours, hours, hours);
+            text.append(quantityString);
         }
+
+        int minutes = calendar.get(Calendar.MINUTE);
         if (minutes != 0 || text.length() == 0) {
             if (text.length() != 0) {
                 text.append(' ');
             }
             text.append(resources.getQuantityString(R.plurals.Nminutes, minutes, minutes));
         }
-        return text;
+        return text.toString();
     }
 
-    public static Time now() {
-        Time time = new Time();
-        time.setToNow();
-        return time;
-    }
-
-    public static Time tomorrow() {
-        Time time = now();
-        time.monthDay += 1;
-        time.normalize(true);
-        return time;
-    }
-
-    public void set(Time time) {
+    public void set(long time) {
         showNotification(time);
         setAlarm(time);
-        updatePreference(PREF_SET, true);
+        updateTimerSetPreference(true);
     }
 
     public void cancel() {
         cancelAlarm();
         cancelNotification();
-        updatePreference(PREF_SET, false);
+        updateTimerSetPreference(false);
     }
 
     private void cancelAlarm() {
@@ -116,10 +103,9 @@ public class Timer {
         return PendingIntent.getBroadcast(mContext, requestCode, intent, flags);
     }
 
-    private Notification createNotification(Time time) {
-        Date date = getDate(time);
-        CharSequence duration = getFormattedDuration(mContext, now(), time);
-        CharSequence formattedTime = getFormattedTime(date);
+    private Notification createNotification(long time) {
+        CharSequence duration = getFormattedDuration(mContext, System.currentTimeMillis(), time);
+        CharSequence formattedTime = getFormattedTime(time);
         CharSequence contentTitle;
         CharSequence tickerText;
         String mode = AppConfig.getWifiTimerUsage(mContext);
@@ -155,26 +141,24 @@ public class Timer {
                 .build();
     }
 
-    private PendingIntent createNotificationIntent(Time time) {
+    private PendingIntent createNotificationIntent(long time) {
         int requestCode = 0;
-        long millis = time.toMillis(false);
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         Intent intent = new Intent(mContext, TimerActivity.class);
-        intent.putExtra(TimerActivity.EXTRA_TIME, millis);
+        intent.putExtra(TimerActivity.EXTRA_TIME, time);
         return PendingIntent.getActivity(mContext, requestCode, intent, flags);
     }
 
-    private PendingIntent createNotificationActionIntent(Time time, String action) {
+    private PendingIntent createNotificationActionIntent(long time, String action) {
         int requestCode = 0;
-        long millis = time.toMillis(false);
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         Intent intent = new Intent(mContext, NotifActionReceiver.class);
         intent.setAction(action);
-        intent.putExtra(TimerActivity.EXTRA_TIME, millis);
+        intent.putExtra(TimerActivity.EXTRA_TIME, time);
         return PendingIntent.getBroadcast(mContext, requestCode, intent, flags);
     }
 
-    private CharSequence getFormattedTime(Date date) {
+    private CharSequence getFormattedTime(long date) {
         Format timeFormat = DateFormat.getTimeFormat(mContext);
         return timeFormat.format(date);
     }
@@ -184,24 +168,23 @@ public class Timer {
         return preferences.getBoolean(PREF_SET, false);
     }
 
-    private void setAlarm(Time time) {
+    private void setAlarm(long time) {
         AlarmManager manager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         int type = AlarmManager.RTC_WAKEUP;
-        long triggerAtTime = time.toMillis(false);
         PendingIntent operation = createAlarmIntent();
-        manager.set(type, triggerAtTime, operation);
+        manager.set(type, time, operation);
     }
 
-    private void showNotification(Time time) {
+    private void showNotification(long time) {
         NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = createNotification(time);
         manager.notify(R.id.notification_wifi_off, notification);
     }
 
-    private void updatePreference(String key, boolean value) {
+    private void updateTimerSetPreference(boolean value) {
         SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(key, value);
+        editor.putBoolean(Timer.PREF_SET, value);
         editor.commit();
     }
 }
