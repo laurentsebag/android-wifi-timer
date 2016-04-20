@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <string name="app_name">Wifi Timer</string>
     <string name="instructions_on_wifi_activation">When do you want to turn the wifi back off?</string>
     <string name="instructions_on_wifi_deactivation">When do you want to turn the wifi back on?</string>
@@ -25,11 +25,11 @@
     <string name="notification_action_wifioff">Wifi off</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minute</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
+        <item quantity="other">%d minutes</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 hour</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
+        <item quantity="other">%d hours</item>
     </plurals>
     <string name="info">Using <b>Wifi Timer</b> is easy!
     Just turn-off the wifi using the power control widget or the settings menu.

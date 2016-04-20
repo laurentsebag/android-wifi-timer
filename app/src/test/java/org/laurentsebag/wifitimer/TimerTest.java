@@ -20,8 +20,8 @@ import static org.mockito.Mockito.when;
 
 public class TimerTest {
     private static final long TIME_HOUR_MILLIS = 60 * 60 * 1000;
-    public static final String MINUTE = "minute";
-    public static final String HOUR = "hour";
+    private static final String MINUTE = "minute";
+    private static final String HOUR = "hour";
 
     @Mock
     Context context;

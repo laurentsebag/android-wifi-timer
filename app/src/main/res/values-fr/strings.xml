@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <string name="app_name">Wifi Timer</string>
     <string name="instructions_on_wifi_deactivation">Quand souhaitez-vous réactiver le wifi ?</string>
     <string name="instructions_on_wifi_activation">Quand souhaitez-vous désactiver le wifi ?</string>
@@ -24,12 +24,12 @@
     <string name="notification_action_wifion">Wifi ON</string>
     <string name="notification_action_wifioff">Wifi OFF</string>
     <plurals name="Nminutes">
-        <item quantity="one">1 minute</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 heure</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> heures</item>
+        <item quantity="one">%d heure</item>
+        <item quantity="other">%d heures</item>
     </plurals>
     <string name="info"><b>Wifi Timer</b> est facile
     à utiliser ! 

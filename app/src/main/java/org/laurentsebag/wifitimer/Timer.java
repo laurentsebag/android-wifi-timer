@@ -76,13 +76,13 @@ public class Timer {
     public void set(long time) {
         showNotification(time);
         setAlarm(time);
-        updatePreference(PREF_SET, true);
+        updateTimerSetPreference(true);
     }
 
     public void cancel() {
         cancelAlarm();
         cancelNotification();
-        updatePreference(PREF_SET, false);
+        updateTimerSetPreference(false);
     }
 
     private void cancelAlarm() {
@@ -181,10 +181,10 @@ public class Timer {
         manager.notify(R.id.notification_wifi_off, notification);
     }
 
-    private void updatePreference(String key, boolean value) {
+    private void updateTimerSetPreference(boolean value) {
         SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(key, value);
+        editor.putBoolean(Timer.PREF_SET, value);
         editor.commit();
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="about_dialog_padding">15dp</dimen>
+    <dimen name="timepicker_font_size">30sp</dimen>
 </resources>
