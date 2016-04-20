@@ -36,7 +36,6 @@
             android:name=".activities.TimerActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Dialog.NoTitleBar"/>
 
         <receiver android:name=".receivers.AlarmReceiver"/>
