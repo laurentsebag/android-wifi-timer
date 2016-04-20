@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.wifi.WifiManager;
+import android.os.SystemClock;
 
 import org.laurentsebag.wifitimer.AppConfig;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
@@ -33,9 +34,14 @@ public class WifiStateReceiver extends BroadcastReceiver {
 
     private static final String CANCELED_BY_AIRPLANE_MODE = "canceled_by_airplane_mode";
     private static final String TURNED_OFF_BY_AIRPLANE_MODE = "turned_off_by_airplane_mode";
+    private static final long IGNORE_BOOT_THRESHOLD = 2 * 60 * 1000;
 
     @Override
     public void onReceive(Context context, Intent data) {
+        if (SystemClock.elapsedRealtime() < IGNORE_BOOT_THRESHOLD) {
+            return;
+        }
+
         String action = data.getAction();
         SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         Editor edit = preferences.edit();
