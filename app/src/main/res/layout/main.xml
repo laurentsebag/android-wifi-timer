@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/timer_activity_instructions"
+                android:text="@string/instructions_on_wifi_deactivation"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <include
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                layout="@layout/time_picker"/>
+
+            <TextView
+                android:id="@+id/duration"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        style="@android:style/ButtonBar">
+
+        <Button
+            android:id="@+id/never"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/never"
+            android:minEms="4"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/set"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set"
+            android:minEms="4"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/now"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/now"
+            android:minEms="4"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

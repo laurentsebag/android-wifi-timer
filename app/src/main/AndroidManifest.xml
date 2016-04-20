@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="org.laurentsebag.wifitimer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="7"
+    android:versionName="1.2.0">
+
+    <uses-feature android:name="android.hardware.wifi"/>
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"/>
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-sdk xmlns:tools="http://schemas.android.com/tools"
+        tools:overrideLibrary="android.support.v14.preference"/>
+
+    <application
+        android:allowBackup="true"
+        android:description="@string/description"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/MainTheme">
+
+        <activity android:name=".activities.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.SettingsActivity"/>
+        <activity
+            android:name=".activities.TimerActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Dialog.NoTitleBar"/>
+
+        <receiver android:name=".receivers.AlarmReceiver"/>
+        <receiver android:name=".receivers.WifiStateReceiver">
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receivers.NotifActionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="wifitimer.intent.SNOOZE_ALARM"/>
+                <action android:name="wifitimer.intent.CANCEL_ALARM"/>
+                <action android:name="wifitimer.intent.WIFI_TOGGLE"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>

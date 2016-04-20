@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wifi Timer</string>
+    <string name="instructions_on_wifi_activation">When do you want to turn the wifi back off?</string>
+    <string name="instructions_on_wifi_deactivation">When do you want to turn the wifi back on?</string>
+    <string name="set">Time</string>
+    <string name="never">Never</string>
+    <string name="now">Now</string>
+    <string name="done">Done</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="about_dialog_title">About Wifi Timer</string>
+    <string name="about_dialog_content">Wifi Timer is maintained by Laurent Sebag.
+    	\n\nIt is licensed under the free software license <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3 or later</a>.
+    	\n\nThis software uses portions of code from Peter Baldwin\'s \"Phone Silencer\" project, licensed under the GPLv3 or later. 
+    </string>
+    <string name="ticker_on_wifi_activation">Wifi turned on for %s</string>
+    <string name="ticker_on_wifi_deactivation">Wifi turned off for %s</string>
+    <string name="notification_title_on_wifi_activation">Wifi turned on until %s</string>
+    <string name="notification_title_on_wifi_deactivation">Wifi turned off until %s</string>
+    <string name="notification_text">Select to change or cancel</string>
+    <string name="notification_action_cancel">Cancel</string>
+    <string name="notification_action_snooze">+15</string>
+    <string name="notification_action_wifion">Wifi on</string>
+    <string name="notification_action_wifioff">Wifi off</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <string name="info">Using <b>Wifi Timer</b> is easy!
+    Just turn-off the wifi using the power control widget or the settings menu.
+    
+    \n\nWhenever you set your wifi to <b>off</b>
+    you will be prompted to enter
+    the time at which you would like your wifi to be turned back on.
+    
+    \n\nThe timer will always be initialized to the current time, so if you want to set
+    the timer for two hours, just tap the hour <b>+</b>
+    button twice.
+      
+    \n\nOnce the timer has been set, a notification will appear
+    in the notification bar 
+    indicating the time remaining.  
+    You can select the notification to <b>adjust</b>
+    or <b>cancel</b> the timer.
+    You can also cancel the timer at any time by simply turning the wifi back on 
+    using the power control widget or the menu settings.
+    
+    \n\nYou can also choose Wifi Timer to switch your wifi off after a laps of time instead. 
+    Visit the settings to choose this option.
+    
+    \n\nIf you decide you don\'t want to be prompted anymore, 
+    just <b>uninstall</b> the application.
+    </string>
+    
+    <string name="description">"Since 2.3.3 on my Nexus One, I started to have less
+    battery time. I did this little app to save my battery while I'm at work and don't have 
+    a wifi access point. I hope this application can be useful for you too!
+    When this application is installed,
+    each time you turn your wifi off you will be asked how long you
+    would like before restoring it. After that period of time has
+    passed, your wifi will be automatically turned back on."</string>
+
+    <string name="settings_activity_label">Wifi Timer - Settings</string>
+    <string name="preference_timer_usage_title">Wifi Timer mode</string>
+    <string name="preference_timer_usage_summary">Choose on which event Wifi Timer shows up.</string>
+    <string name="preference_timer_usage_dialog_title">Choose a mode</string>
+
+</resources>
