@@ -66,9 +66,10 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
 
         setContentView(R.layout.main);
 
-        final Context context = getApplicationContext();
+        Context context = getApplicationContext();
+        boolean is24HourFormat = DateFormat.is24HourFormat(this);
         mTimer = new Timer(context);
-        mPresenter = new TimerPresenter(context, android.text.format.DateFormat.getTimeFormat(context), DateFormat.is24HourFormat(this), mTimer, this);
+        mPresenter = new TimerPresenter(context, android.text.format.DateFormat.getTimeFormat(context), is24HourFormat, mTimer, this);
 
         View hourPicker = findViewById(R.id.hour);
         mHour = (TextView) hourPicker.findViewById(R.id.timepicker_input);
@@ -88,8 +89,7 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
         mAmPm = (Button) findViewById(R.id.amPm);
         mDuration = (TextView) findViewById(R.id.duration);
         mAmPm.setOnClickListener(this);
-        //        TODO
-        //        mAmPm.setVisibility(is24HourFormat() ? View.GONE : View.VISIBLE);
+        mAmPm.setVisibility(is24HourFormat ? View.GONE : View.VISIBLE);
 
         mButtonSet = (Button) findViewById(R.id.set);
         mButtonNever = (Button) findViewById(R.id.never);
@@ -182,6 +182,7 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
 
     @Override
     public void updateTime(String displayedHours, String displayedMinutes, String amPm, String duration, String formattedTime) {
+        // TODO
         //        mHour.setText(displayHour);
         //        mMinute.setText(displayMinute);
         //        mAmPm.setText(mAmPmStrings[calendar.get(Calendar.AM_PM)]);

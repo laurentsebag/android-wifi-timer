@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class TimerPresenter implements TimerActivityContract.UserActionsListener {
+    public static final int MINUTE_INCREMENT = 15;
     private final Context context;
     private final DateFormat formatter;
     private final boolean is24HourFormat;
@@ -68,16 +69,16 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
 
     @Override
     public void increaseTimerMinute() {
-        calendar.add(Calendar.MINUTE, -(calendar.get(Calendar.MINUTE) % 15));
-        calendar.add(Calendar.MINUTE, 15);
+        calendar.add(Calendar.MINUTE, -(calendar.get(Calendar.MINUTE) % MINUTE_INCREMENT));
+        calendar.add(Calendar.MINUTE, MINUTE_INCREMENT);
         updateTime();
     }
 
     @Override
     public void decreaseTimerMinute() {
-        int remainder = calendar.get(Calendar.MINUTE) % 15;
+        int remainder = calendar.get(Calendar.MINUTE) % MINUTE_INCREMENT;
         if (remainder == 0) {
-            calendar.add(Calendar.MINUTE, -15);
+            calendar.add(Calendar.MINUTE, -MINUTE_INCREMENT);
         } else {
             calendar.add(Calendar.MINUTE, -remainder);
         }
