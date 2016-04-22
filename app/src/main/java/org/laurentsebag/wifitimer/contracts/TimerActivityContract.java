@@ -6,7 +6,7 @@ public class TimerActivityContract {
 
         void undoWifiState();
 
-        void setTitle(int titleId);
+        void setDialogTitle(int titleId);
 
         void updateTime(String displayedHours, String displayedMinutes, String amPm, String duration, String formattedTime);
     }

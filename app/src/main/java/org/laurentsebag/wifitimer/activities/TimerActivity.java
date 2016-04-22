@@ -122,15 +122,6 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     @Override
     protected void onResume() {
         super.onResume();
-        TextView textView = (TextView) findViewById(R.id.timer_activity_instructions);
-
-        //        TODO
-        //        if (AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-        //            textView.setText(R.string.instructions_on_wifi_deactivation);
-        //        } else {
-        //            textView.setText(R.string.instructions_on_wifi_activation);
-        //        }
-
         mPresenter.setupTitle(AppConfig.getWifiTimerUsage(this));
         mPresenter.updateTime();
     }
@@ -181,12 +172,17 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     }
 
     @Override
+    public void setDialogTitle(int titleId) {
+        TextView textView = (TextView) findViewById(R.id.timer_activity_instructions);
+        textView.setText(titleId);
+    }
+
+    @Override
     public void updateTime(String displayedHours, String displayedMinutes, String amPm, String duration, String formattedTime) {
-        // TODO
-        //        mHour.setText(displayHour);
-        //        mMinute.setText(displayMinute);
-        //        mAmPm.setText(mAmPmStrings[calendar.get(Calendar.AM_PM)]);
-        //        mDuration.setText(duration);
-        //        mButtonSet.setText(formattedTime);
+        mHour.setText(displayedHours);
+        mMinute.setText(displayedMinutes);
+        mAmPm.setText(amPm);
+        mDuration.setText(duration);
+        mButtonSet.setText(formattedTime);
     }
 }

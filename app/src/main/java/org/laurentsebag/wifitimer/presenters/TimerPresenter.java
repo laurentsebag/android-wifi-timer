@@ -116,9 +116,9 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
     @Override
     public void setupTitle(String timerMode) {
         if (AppConfig.MODE_ON_WIFI_ACTIVATION.equals(timerMode)) {
-            view.setTitle(R.string.instructions_on_wifi_activation);
+            view.setDialogTitle(R.string.instructions_on_wifi_activation);
         } else {
-            view.setTitle(R.string.instructions_on_wifi_deactivation);
+            view.setDialogTitle(R.string.instructions_on_wifi_deactivation);
         }
     }
 

@@ -196,18 +196,18 @@ public class TimerPresenterTest {
     @Test
     public void setupTitle_shouldSetTitleWithDeactivationMode() throws Exception {
         presenter.setupTitle(AppConfig.MODE_ON_WIFI_DEACTIVATION);
-        verify(view).setTitle(R.string.instructions_on_wifi_deactivation);
+        verify(view).setDialogTitle(R.string.instructions_on_wifi_deactivation);
     }
 
     @Test
     public void setupTitle_shouldSetTitleWithActivationMode() throws Exception {
         presenter.setupTitle(AppConfig.MODE_ON_WIFI_ACTIVATION);
-        verify(view).setTitle(R.string.instructions_on_wifi_activation);
+        verify(view).setDialogTitle(R.string.instructions_on_wifi_activation);
     }
 
     @Test
     public void setupTitle_shouldHandleInvalidMode() throws Exception {
         presenter.setupTitle(null);
-        verify(view).setTitle(R.string.instructions_on_wifi_deactivation);
+        verify(view).setDialogTitle(R.string.instructions_on_wifi_deactivation);
     }
 }
