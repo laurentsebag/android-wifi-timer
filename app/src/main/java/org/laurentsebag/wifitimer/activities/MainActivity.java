@@ -38,7 +38,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         findViewById(R.id.done).setOnClickListener(this);
         findViewById(R.id.settings).setOnClickListener(this);
         findViewById(R.id.about).setOnClickListener(this);
-        aboutDialog = (new AboutDialogFragment());
+        aboutDialog = new AboutDialogFragment();
     }
 
     public void onClick(View v) {

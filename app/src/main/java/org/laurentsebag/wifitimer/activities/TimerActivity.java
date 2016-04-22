@@ -19,60 +19,46 @@
 package org.laurentsebag.wifitimer.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import org.laurentsebag.wifitimer.AppConfig;
 import org.laurentsebag.wifitimer.R;
-import org.laurentsebag.wifitimer.utils.RadioUtils;
 import org.laurentsebag.wifitimer.Timer;
+import org.laurentsebag.wifitimer.contracts.TimerActivityContract;
+import org.laurentsebag.wifitimer.presenters.TimerPresenter;
+import org.laurentsebag.wifitimer.utils.RadioUtils;
 
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
  */
-public class TimerActivity extends Activity implements View.OnClickListener {
+public class TimerActivity extends Activity implements View.OnClickListener, TimerActivityContract.View {
 
     public static final String EXTRA_TIME = "silencer:time";
-
     private static final String STATE_TIME = "silencer:time";
 
     private Timer mTimer;
-
     private TextView mDuration;
-
     private TextView mHour;
-
     private View mIncrementHour;
-
     private View mDecrementHour;
-
     private TextView mMinute;
-
     private View mIncrementMinute;
-
     private View mDecrementMinute;
-
     private Button mAmPm;
-
-    private String[] mAmPmStrings;
-
     private Button mButtonSet;
-
     private Button mButtonNever;
-
     private Button mButtonNow;
-
     private GregorianCalendar mCalendar;
+    private TimerActivityContract.UserActionsListener mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +66,9 @@ public class TimerActivity extends Activity implements View.OnClickListener {
 
         setContentView(R.layout.main);
 
-        mTimer = new Timer(getApplicationContext());
+        final Context context = getApplicationContext();
+        mTimer = new Timer(context);
+        mPresenter = new TimerPresenter(context, android.text.format.DateFormat.getTimeFormat(context), DateFormat.is24HourFormat(this), mTimer, this);
 
         View hourPicker = findViewById(R.id.hour);
         mHour = (TextView) hourPicker.findViewById(R.id.timepicker_input);
@@ -100,10 +88,8 @@ public class TimerActivity extends Activity implements View.OnClickListener {
         mAmPm = (Button) findViewById(R.id.amPm);
         mDuration = (TextView) findViewById(R.id.duration);
         mAmPm.setOnClickListener(this);
-        mAmPm.setVisibility(is24HourFormat() ? View.GONE : View.VISIBLE);
-
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        mAmPmStrings = dfs.getAmPmStrings();
+        //        TODO
+        //        mAmPm.setVisibility(is24HourFormat() ? View.GONE : View.VISIBLE);
 
         mButtonSet = (Button) findViewById(R.id.set);
         mButtonNever = (Button) findViewById(R.id.never);
@@ -138,13 +124,15 @@ public class TimerActivity extends Activity implements View.OnClickListener {
         super.onResume();
         TextView textView = (TextView) findViewById(R.id.timer_activity_instructions);
 
-        if (AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-            textView.setText(R.string.instructions_on_wifi_deactivation);
-        } else {
-            textView.setText(R.string.instructions_on_wifi_activation);
-        }
+        //        TODO
+        //        if (AppConfig.getWifiTimerUsage(this).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+        //            textView.setText(R.string.instructions_on_wifi_deactivation);
+        //        } else {
+        //            textView.setText(R.string.instructions_on_wifi_activation);
+        //        }
 
-        updateTime();
+        mPresenter.setupTitle(AppConfig.getWifiTimerUsage(this));
+        mPresenter.updateTime();
     }
 
     @Override
@@ -164,87 +152,40 @@ public class TimerActivity extends Activity implements View.OnClickListener {
      */
     public void onClick(View v) {
         if (v == mButtonSet) {
-            mTimer.set(mCalendar.getTimeInMillis());
-            finish();
+            mPresenter.setTimer();
         } else if (v == mButtonNever) {
-            mTimer.cancel();
-            finish();
+            mPresenter.cancelTimer();
         } else if (v == mButtonNow) {
-            RadioUtils.setWifiStateBack(this);
-            mTimer.cancel();
-            finish();
+            mPresenter.undoTimer();
         } else if (v == mIncrementHour) {
-            mCalendar.add(Calendar.HOUR, 1);
-            updateTime();
+            mPresenter.increaseTimerHour();
         } else if (v == mDecrementHour) {
-            mCalendar.add(Calendar.HOUR, -1);
-            updateTime();
+            mPresenter.decreaseTimerHour();
         } else if (v == mIncrementMinute) {
-            mCalendar.add(Calendar.MINUTE, -(mCalendar.get(Calendar.MINUTE) % 15));
-            mCalendar.add(Calendar.MINUTE, 15);
-            updateTime();
+            mPresenter.increaseTimerMinute();
         } else if (v == mDecrementMinute) {
-            int remainder = mCalendar.get(Calendar.MINUTE) % 15;
-            if (remainder == 0) {
-                mCalendar.add(Calendar.MINUTE, -15);
-            } else {
-                mCalendar.add(Calendar.MINUTE, -remainder);
-            }
-            updateTime();
+            mPresenter.decreaseTimerMinute();
         } else if (v == mAmPm) {
-            mCalendar.add(Calendar.HOUR, 12);
-            updateTime();
+            mPresenter.switchAmPm();
         }
     }
 
-    private void updateTime() {
-        Calendar now = new GregorianCalendar();
-        Calendar tomorrow = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DATE) + 1);
-
-        while (mCalendar.before(now)) {
-            mCalendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        while (mCalendar.after(tomorrow)) {
-            mCalendar.add(Calendar.DAY_OF_MONTH, -1);
-        }
-
-        String displayHour = getDisplayHour();
-        mHour.setText(displayHour);
-
-        String displayMinute = getDisplayMinute();
-        mMinute.setText(displayMinute);
-
-        mAmPm.setText(mAmPmStrings[mCalendar.get(Calendar.AM_PM)]);
-
-        CharSequence duration = Timer.getFormattedDuration(this, now.getTimeInMillis(), mCalendar.getTimeInMillis());
-        mDuration.setText(duration);
-
-        Date time = new Date(mCalendar.getTimeInMillis());
-        DateFormat formatter = android.text.format.DateFormat.getTimeFormat(this);
-        CharSequence formattedTime = formatter.format(time);
-        mButtonSet.setText(formattedTime);
+    @Override
+    public void close() {
+        finish();
     }
 
-    private boolean is24HourFormat() {
-        return android.text.format.DateFormat.is24HourFormat(this);
+    @Override
+    public void undoWifiState() {
+        RadioUtils.setWifiStateBack(this);
     }
 
-    private String getDisplayHour() {
-        int hour = mCalendar.get(Calendar.HOUR);
-        if (is24HourFormat()) {
-            return String.format(Locale.ENGLISH, "%02d", hour);
-        } else {
-            if (hour >= 12) {
-                hour -= 12;
-            }
-            if (hour == 0) {
-                hour = 12;
-            }
-            return String.valueOf(hour);
-        }
-    }
-
-    private String getDisplayMinute() {
-        return String.format(Locale.ENGLISH, "%02d", mCalendar.get(Calendar.MINUTE));
+    @Override
+    public void updateTime(String displayedHours, String displayedMinutes, String amPm, String duration, String formattedTime) {
+        //        mHour.setText(displayHour);
+        //        mMinute.setText(displayMinute);
+        //        mAmPm.setText(mAmPmStrings[calendar.get(Calendar.AM_PM)]);
+        //        mDuration.setText(duration);
+        //        mButtonSet.setText(formattedTime);
     }
 }

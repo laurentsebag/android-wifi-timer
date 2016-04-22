@@ -57,7 +57,7 @@ public class Timer {
         Resources resources = context.getResources();
         StringBuilder text = new StringBuilder();
 
-        int hours = calendar.get(Calendar.HOUR);
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
         if (hours != 0) {
             final String quantityString = resources.getQuantityString(R.plurals.Nhours, hours, hours);
             text.append(quantityString);
