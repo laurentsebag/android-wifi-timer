@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -209,5 +211,38 @@ public class TimerPresenterTest {
     public void setupTitle_shouldHandleInvalidMode() throws Exception {
         presenter.setupTitle(null);
         verify(view).setDialogTitle(R.string.instructions_on_wifi_deactivation);
+    }
+
+    @Test
+    public void getTime_shouldReturnTimeInMillis() throws Exception {
+        assertThat(presenter.getTime(), is(testCalendarPm.getTimeInMillis()));
+    }
+
+    @Test
+    public void setTime_shouldIncreaseCurrentTime() throws Exception {
+        presenter.setCalendar(testCalendarAm);
+        presenter.setTime(TimerPresenter.TIME_INVALID);
+        testCalendarAm.set(Calendar.SECOND, 0);
+        long time = testCalendarAm.getTimeInMillis() + TimerPresenter.MINUTE_INCREMENT * MINUTE_IN_MILLIS;
+        assertThat(presenter.getTime(), is(time));
+    }
+
+    @Test
+    public void setTime_shouldRoundCurrentTimeUp() throws Exception {
+        testCalendarAm.set(Calendar.MINUTE, TEST_CALENDAR_MINUTE + 12);
+        presenter.setCalendar(testCalendarAm);
+        presenter.setTime(TimerPresenter.TIME_INVALID);
+        testCalendarAm.set(Calendar.SECOND, 0);
+        testCalendarAm.set(Calendar.MINUTE, TEST_CALENDAR_MINUTE);
+        long time = testCalendarAm.getTimeInMillis() + TimerPresenter.MINUTE_INCREMENT * 2 * MINUTE_IN_MILLIS;
+        assertThat(presenter.getTime(), is(time));
+    }
+
+    @Test
+    public void setTime_shouldSetToExactTime() throws Exception {
+        presenter.setCalendar(testCalendarAm);
+        long timeInMillis = testCalendarPm.getTimeInMillis() + MINUTE_IN_MILLIS;
+        presenter.setTime(timeInMillis);
+        assertThat(presenter.getTime(), is(timeInMillis));
     }
 }

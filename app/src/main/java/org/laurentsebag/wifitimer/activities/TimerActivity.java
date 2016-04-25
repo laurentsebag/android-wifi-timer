@@ -57,7 +57,6 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     private Button mButtonSet;
     private Button mButtonNever;
     private Button mButtonNow;
-    private GregorianCalendar mCalendar;
     private TimerActivityContract.UserActionsListener mPresenter;
 
     @Override
@@ -99,23 +98,11 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
         mButtonNever.setOnClickListener(this);
         mButtonNow.setOnClickListener(this);
 
-        mCalendar = new GregorianCalendar();
-
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-            if (intent.hasExtra(EXTRA_TIME)) {
-                mCalendar.setTimeInMillis(intent.getLongExtra(EXTRA_TIME, 0));
-            } else {
-                mCalendar.set(Calendar.SECOND, 0);
 
-                // Round to the nearest 15 minutes, advancing
-                // the clock at least 10 minutes.
-                int remainder = mCalendar.get(Calendar.MINUTE) % 15;
-                mCalendar.add(Calendar.MINUTE, -remainder + 15);
-                if (remainder > 10) {
-                    mCalendar.add(Calendar.MINUTE, 15);
-                }
-            }
+            long time = intent.getLongExtra(EXTRA_TIME, TimerPresenter.TIME_INVALID);
+            mPresenter.setTime(time);
         }
     }
 
@@ -129,13 +116,13 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(STATE_TIME, mCalendar.getTimeInMillis());
+        outState.putLong(STATE_TIME, mPresenter.getTime());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mCalendar.setTimeInMillis(savedInstanceState.getLong(STATE_TIME));
+        mPresenter.setTime(savedInstanceState.getLong(STATE_TIME));
     }
 
     /**

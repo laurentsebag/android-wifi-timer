@@ -31,5 +31,9 @@ public class TimerActivityContract {
         void updateTime();
 
         void setupTitle(String timerMode);
+
+        long getTime();
+
+        void setTime(long time);
     }
 }

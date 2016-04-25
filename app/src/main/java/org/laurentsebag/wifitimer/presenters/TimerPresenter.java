@@ -16,6 +16,8 @@ import java.util.GregorianCalendar;
 
 public class TimerPresenter implements TimerActivityContract.UserActionsListener {
     public static final int MINUTE_INCREMENT = 15;
+    public static final int MINIMUM_INCREMENT = 10;
+    public static final long TIME_INVALID = -1;
     private final Context context;
     private final DateFormat formatter;
     private final boolean is24HourFormat;
@@ -119,6 +121,28 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
             view.setDialogTitle(R.string.instructions_on_wifi_activation);
         } else {
             view.setDialogTitle(R.string.instructions_on_wifi_deactivation);
+        }
+    }
+
+    @Override
+    public long getTime() {
+        return calendar.getTimeInMillis();
+    }
+
+    @Override
+    public void setTime(long time) {
+        if (time > TIME_INVALID) {
+            calendar.setTimeInMillis(time);
+        } else {
+            calendar.set(Calendar.SECOND, 0);
+
+            // Round to the nearest 15 minutes, advancing
+            // the clock at least 10 minutes.
+            int remainder = calendar.get(Calendar.MINUTE) % MINUTE_INCREMENT;
+            calendar.add(Calendar.MINUTE, -remainder + MINUTE_INCREMENT);
+            if (remainder > MINIMUM_INCREMENT) {
+                calendar.add(Calendar.MINUTE, MINUTE_INCREMENT);
+            }
         }
     }
 
