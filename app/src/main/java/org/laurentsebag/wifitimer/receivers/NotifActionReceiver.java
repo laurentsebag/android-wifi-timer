@@ -34,6 +34,8 @@ import java.util.GregorianCalendar;
  */
 public class NotifActionReceiver extends BroadcastReceiver {
 
+    private static final int MINUTE_INCREMENT = 15;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -45,7 +47,7 @@ public class NotifActionReceiver extends BroadcastReceiver {
                 millis = intent.getLongExtra(TimerActivity.EXTRA_TIME, 0);
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTimeInMillis(millis);
-                calendar.add(Calendar.MINUTE, 15);
+                calendar.add(Calendar.MINUTE, MINUTE_INCREMENT);
                 timer.set(calendar.getTimeInMillis());
             }
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
