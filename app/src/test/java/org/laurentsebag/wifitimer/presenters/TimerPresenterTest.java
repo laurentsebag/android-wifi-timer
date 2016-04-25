@@ -29,14 +29,14 @@ import static org.mockito.Mockito.when;
 
 public class TimerPresenterTest {
 
-    public static final String DISPLAYED_MINUTES_0 = "00";
+    private static final String DISPLAYED_MINUTES_0 = "00";
     private static final int TEST_CALENDAR_HOUR_AM = 7;
     private static final int TEST_CALENDAR_HOUR_PM = 14;
     private static final int TEST_CALENDAR_MINUTE = 30;
     private static final boolean FORMAT_24 = true;
     private static final boolean FORMAT_AM_PM = false;
-    public static final String PM = "PM";
-    public static final String AM = "AM";
+    private static final String PM = "PM";
+    private static final String AM = "AM";
     private static final long HOUR_IN_MILLIS = 60 * 60 * 1000;
     private static final long MINUTE_INCREMENT_IN_MILLIS = TimerPresenter.MINUTE_INCREMENT * 60 * 1000;
     private static final long MINUTE_IN_MILLIS = 60 * 1000;

@@ -45,10 +45,10 @@ public class Timer {
     private static final String PREF_SET = "set";
     public static final String TIME_ZONE_GMT = "GMT";
 
-    private final Context mContext;
+    private final Context context;
 
     public Timer(Context context) {
-        mContext = context;
+        this.context = context;
     }
 
     public static String getFormattedDuration(Context context, long from, long to) {
@@ -86,41 +86,41 @@ public class Timer {
     }
 
     private void cancelAlarm() {
-        AlarmManager manager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent operation = createAlarmIntent();
         manager.cancel(operation);
     }
 
     private void cancelNotification() {
-        NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(R.id.notification_wifi_off);
     }
 
     private PendingIntent createAlarmIntent() {
         int requestCode = 0;
-        Intent intent = new Intent(mContext, AlarmReceiver.class);
+        Intent intent = new Intent(context, AlarmReceiver.class);
         int flags = 0;
-        return PendingIntent.getBroadcast(mContext, requestCode, intent, flags);
+        return PendingIntent.getBroadcast(context, requestCode, intent, flags);
     }
 
     private Notification createNotification(long time) {
-        CharSequence duration = getFormattedDuration(mContext, System.currentTimeMillis(), time);
+        CharSequence duration = getFormattedDuration(context, System.currentTimeMillis(), time);
         CharSequence formattedTime = getFormattedTime(time);
         CharSequence contentTitle;
         CharSequence tickerText;
-        String mode = AppConfig.getWifiTimerUsage(mContext);
+        String mode = AppConfig.getWifiTimerUsage(context);
         if (mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-            tickerText = mContext.getString(R.string.ticker_on_wifi_deactivation, duration);
-            contentTitle = mContext.getString(R.string.notification_title_on_wifi_deactivation, formattedTime);
+            tickerText = context.getString(R.string.ticker_on_wifi_deactivation, duration);
+            contentTitle = context.getString(R.string.notification_title_on_wifi_deactivation, formattedTime);
         } else {
-            tickerText = mContext.getString(R.string.ticker_on_wifi_activation, duration);
-            contentTitle = mContext.getString(R.string.notification_title_on_wifi_activation, formattedTime);
+            tickerText = context.getString(R.string.ticker_on_wifi_activation, duration);
+            contentTitle = context.getString(R.string.notification_title_on_wifi_activation, formattedTime);
         }
 
-        CharSequence contentText = mContext.getText(R.string.notification_text);
+        CharSequence contentText = context.getText(R.string.notification_text);
         PendingIntent contentIntent = createNotificationIntent(time);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setTicker(tickerText)
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle(contentTitle)
@@ -135,54 +135,54 @@ public class Timer {
         int toggleActionString = mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION) ? R.string.notification_action_wifion : R.string.notification_action_wifioff;
 
         return notificationBuilder
-                .addAction(0, mContext.getString(R.string.notification_action_cancel), cancelIntent)
-                .addAction(0, mContext.getString(R.string.notification_action_snooze), snoozeIntent)
-                .addAction(0, mContext.getString(toggleActionString), toggleIntent)
+                .addAction(0, context.getString(R.string.notification_action_cancel), cancelIntent)
+                .addAction(0, context.getString(R.string.notification_action_snooze), snoozeIntent)
+                .addAction(0, context.getString(toggleActionString), toggleIntent)
                 .build();
     }
 
     private PendingIntent createNotificationIntent(long time) {
         int requestCode = 0;
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
-        Intent intent = new Intent(mContext, TimerActivity.class);
+        Intent intent = new Intent(context, TimerActivity.class);
         intent.putExtra(TimerActivity.EXTRA_TIME, time);
-        return PendingIntent.getActivity(mContext, requestCode, intent, flags);
+        return PendingIntent.getActivity(context, requestCode, intent, flags);
     }
 
     private PendingIntent createNotificationActionIntent(long time, String action) {
         int requestCode = 0;
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
-        Intent intent = new Intent(mContext, NotifActionReceiver.class);
+        Intent intent = new Intent(context, NotifActionReceiver.class);
         intent.setAction(action);
         intent.putExtra(TimerActivity.EXTRA_TIME, time);
-        return PendingIntent.getBroadcast(mContext, requestCode, intent, flags);
+        return PendingIntent.getBroadcast(context, requestCode, intent, flags);
     }
 
     private CharSequence getFormattedTime(long date) {
-        Format timeFormat = DateFormat.getTimeFormat(mContext);
+        Format timeFormat = DateFormat.getTimeFormat(context);
         return timeFormat.format(date);
     }
 
     public boolean isSet() {
-        SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         return preferences.getBoolean(PREF_SET, false);
     }
 
     private void setAlarm(long time) {
-        AlarmManager manager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         int type = AlarmManager.RTC_WAKEUP;
         PendingIntent operation = createAlarmIntent();
         manager.set(type, time, operation);
     }
 
     private void showNotification(long time) {
-        NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = createNotification(time);
         manager.notify(R.id.notification_wifi_off, notification);
     }
 
     private void updateTimerSetPreference(boolean value) {
-        SharedPreferences preferences = mContext.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(Timer.PREF_SET, value);
         editor.commit();

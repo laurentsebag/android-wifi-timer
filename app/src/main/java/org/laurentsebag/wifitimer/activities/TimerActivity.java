@@ -34,9 +34,6 @@ import org.laurentsebag.wifitimer.contracts.TimerActivityContract;
 import org.laurentsebag.wifitimer.presenters.TimerPresenter;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
  */
@@ -45,19 +42,18 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     public static final String EXTRA_TIME = "silencer:time";
     private static final String STATE_TIME = "silencer:time";
 
-    private Timer mTimer;
-    private TextView mDuration;
-    private TextView mHour;
-    private View mIncrementHour;
-    private View mDecrementHour;
-    private TextView mMinute;
-    private View mIncrementMinute;
-    private View mDecrementMinute;
-    private Button mAmPm;
-    private Button mButtonSet;
-    private Button mButtonNever;
-    private Button mButtonNow;
-    private TimerActivityContract.UserActionsListener mPresenter;
+    private TextView duration;
+    private TextView hour;
+    private View incrementHourView;
+    private View decrementHourView;
+    private TextView minuteTextView;
+    private View incrementMinuteView;
+    private View decrementMinuteView;
+    private Button buttonAmPm;
+    private Button buttonSet;
+    private Button buttonNever;
+    private Button buttonNow;
+    private TimerActivityContract.UserActionsListener presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,84 +63,84 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
 
         Context context = getApplicationContext();
         boolean is24HourFormat = DateFormat.is24HourFormat(this);
-        mTimer = new Timer(context);
-        mPresenter = new TimerPresenter(context, android.text.format.DateFormat.getTimeFormat(context), is24HourFormat, mTimer, this);
+        Timer timer = new Timer(context);
+        presenter = new TimerPresenter(context, android.text.format.DateFormat.getTimeFormat(context), is24HourFormat, timer, this);
 
         View hourPicker = findViewById(R.id.hour);
-        mHour = (TextView) hourPicker.findViewById(R.id.timepicker_input);
-        mIncrementHour = hourPicker.findViewById(R.id.increment);
-        mDecrementHour = hourPicker.findViewById(R.id.decrement);
-        mHour.setCursorVisible(false);
-        mIncrementHour.setOnClickListener(this);
-        mDecrementHour.setOnClickListener(this);
+        hour = (TextView) hourPicker.findViewById(R.id.timepicker_input);
+        incrementHourView = hourPicker.findViewById(R.id.increment);
+        decrementHourView = hourPicker.findViewById(R.id.decrement);
+        hour.setCursorVisible(false);
+        incrementHourView.setOnClickListener(this);
+        decrementHourView.setOnClickListener(this);
 
         View minutePicker = findViewById(R.id.minute);
-        mMinute = (TextView) minutePicker.findViewById(R.id.timepicker_input);
-        mIncrementMinute = minutePicker.findViewById(R.id.increment);
-        mDecrementMinute = minutePicker.findViewById(R.id.decrement);
-        mMinute.setCursorVisible(false);
-        mIncrementMinute.setOnClickListener(this);
-        mDecrementMinute.setOnClickListener(this);
-        mAmPm = (Button) findViewById(R.id.amPm);
-        mDuration = (TextView) findViewById(R.id.duration);
-        mAmPm.setOnClickListener(this);
-        mAmPm.setVisibility(is24HourFormat ? View.GONE : View.VISIBLE);
+        minuteTextView = (TextView) minutePicker.findViewById(R.id.timepicker_input);
+        incrementMinuteView = minutePicker.findViewById(R.id.increment);
+        decrementMinuteView = minutePicker.findViewById(R.id.decrement);
+        minuteTextView.setCursorVisible(false);
+        incrementMinuteView.setOnClickListener(this);
+        decrementMinuteView.setOnClickListener(this);
+        buttonAmPm = (Button) findViewById(R.id.amPm);
+        duration = (TextView) findViewById(R.id.duration);
+        buttonAmPm.setOnClickListener(this);
+        buttonAmPm.setVisibility(is24HourFormat ? View.GONE : View.VISIBLE);
 
-        mButtonSet = (Button) findViewById(R.id.set);
-        mButtonNever = (Button) findViewById(R.id.never);
-        mButtonNow = (Button) findViewById(R.id.now);
+        buttonSet = (Button) findViewById(R.id.set);
+        buttonNever = (Button) findViewById(R.id.never);
+        buttonNow = (Button) findViewById(R.id.now);
 
-        mButtonSet.setOnClickListener(this);
-        mButtonNever.setOnClickListener(this);
-        mButtonNow.setOnClickListener(this);
+        buttonSet.setOnClickListener(this);
+        buttonNever.setOnClickListener(this);
+        buttonNow.setOnClickListener(this);
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
 
             long time = intent.getLongExtra(EXTRA_TIME, TimerPresenter.TIME_INVALID);
-            mPresenter.setTime(time);
+            presenter.setTime(time);
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.setupTitle(AppConfig.getWifiTimerUsage(this));
-        mPresenter.updateTime();
+        presenter.setupTitle(AppConfig.getWifiTimerUsage(this));
+        presenter.updateTime();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(STATE_TIME, mPresenter.getTime());
+        outState.putLong(STATE_TIME, presenter.getTime());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mPresenter.setTime(savedInstanceState.getLong(STATE_TIME));
+        presenter.setTime(savedInstanceState.getLong(STATE_TIME));
     }
 
     /**
      * {@inheritDoc}
      */
     public void onClick(View v) {
-        if (v == mButtonSet) {
-            mPresenter.setTimer();
-        } else if (v == mButtonNever) {
-            mPresenter.cancelTimer();
-        } else if (v == mButtonNow) {
-            mPresenter.undoTimer();
-        } else if (v == mIncrementHour) {
-            mPresenter.increaseTimerHour();
-        } else if (v == mDecrementHour) {
-            mPresenter.decreaseTimerHour();
-        } else if (v == mIncrementMinute) {
-            mPresenter.increaseTimerMinute();
-        } else if (v == mDecrementMinute) {
-            mPresenter.decreaseTimerMinute();
-        } else if (v == mAmPm) {
-            mPresenter.switchAmPm();
+        if (v == buttonSet) {
+            presenter.setTimer();
+        } else if (v == buttonNever) {
+            presenter.cancelTimer();
+        } else if (v == buttonNow) {
+            presenter.undoTimer();
+        } else if (v == incrementHourView) {
+            presenter.increaseTimerHour();
+        } else if (v == decrementHourView) {
+            presenter.decreaseTimerHour();
+        } else if (v == incrementMinuteView) {
+            presenter.increaseTimerMinute();
+        } else if (v == decrementMinuteView) {
+            presenter.decreaseTimerMinute();
+        } else if (v == buttonAmPm) {
+            presenter.switchAmPm();
         }
     }
 
@@ -166,10 +162,10 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
 
     @Override
     public void updateTime(String displayedHours, String displayedMinutes, String amPm, String duration, String formattedTime) {
-        mHour.setText(displayedHours);
-        mMinute.setText(displayedMinutes);
-        mAmPm.setText(amPm);
-        mDuration.setText(duration);
-        mButtonSet.setText(formattedTime);
+        hour.setText(displayedHours);
+        minuteTextView.setText(displayedMinutes);
+        this.buttonAmPm.setText(amPm);
+        this.duration.setText(duration);
+        buttonSet.setText(formattedTime);
     }
 }
