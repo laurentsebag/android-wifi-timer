@@ -20,7 +20,7 @@
     <string name="notification_title_on_wifi_deactivation">Wifi turned off until %s</string>
     <string name="notification_text">Select to change or cancel</string>
     <string name="notification_action_cancel">Cancel</string>
-    <string name="notification_action_snooze">+15</string>
+    <string name="notification_action_snooze">+10</string>
     <string name="notification_action_wifion">Wifi on</string>
     <string name="notification_action_wifioff">Wifi off</string>
     <plurals name="Nminutes">

@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.laurentsebag.wifitimer.AppConfig;
+import org.laurentsebag.wifitimer.presenters.TimerPresenter;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
 import org.laurentsebag.wifitimer.Timer;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
@@ -34,8 +35,6 @@ import java.util.GregorianCalendar;
  */
 public class NotifActionReceiver extends BroadcastReceiver {
 
-    private static final int MINUTE_INCREMENT = 15;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -47,7 +46,7 @@ public class NotifActionReceiver extends BroadcastReceiver {
                 millis = intent.getLongExtra(TimerActivity.BUNDLE_EXTRA_TIME, 0);
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTimeInMillis(millis);
-                calendar.add(Calendar.MINUTE, MINUTE_INCREMENT);
+                calendar.add(Calendar.MINUTE, TimerPresenter.MINUTE_INCREMENT);
                 timer.set(calendar.getTimeInMillis());
             }
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
