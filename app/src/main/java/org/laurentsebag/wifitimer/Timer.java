@@ -43,7 +43,7 @@ import java.util.TimeZone;
  */
 public class Timer {
     private static final String PREF_SET = "set";
-    public static final String TIME_ZONE_GMT = "GMT";
+    private static final String TIME_ZONE_GMT = "GMT";
 
     private final Context context;
 
@@ -145,7 +145,7 @@ public class Timer {
         int requestCode = 0;
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         Intent intent = new Intent(context, TimerActivity.class);
-        intent.putExtra(TimerActivity.EXTRA_TIME, time);
+        intent.putExtra(TimerActivity.BUNDLE_EXTRA_TIME, time);
         return PendingIntent.getActivity(context, requestCode, intent, flags);
     }
 
@@ -154,7 +154,7 @@ public class Timer {
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         Intent intent = new Intent(context, NotifActionReceiver.class);
         intent.setAction(action);
-        intent.putExtra(TimerActivity.EXTRA_TIME, time);
+        intent.putExtra(TimerActivity.BUNDLE_EXTRA_TIME, time);
         return PendingIntent.getBroadcast(context, requestCode, intent, flags);
     }
 

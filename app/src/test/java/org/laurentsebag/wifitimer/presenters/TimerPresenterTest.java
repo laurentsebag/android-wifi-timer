@@ -19,7 +19,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
+import static org.mockito.AdditionalMatchers.or;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -30,7 +33,7 @@ import static org.mockito.Mockito.when;
 public class TimerPresenterTest {
 
     private static final String DISPLAYED_MINUTES_0 = "00";
-    private static final int TEST_CALENDAR_HOUR_AM = 7;
+    private static final int TEST_CALENDAR_HOUR_AM = 9;
     private static final int TEST_CALENDAR_HOUR_PM = 14;
     private static final int TEST_CALENDAR_MINUTE = 30;
     private static final boolean FORMAT_24 = true;
@@ -38,7 +41,6 @@ public class TimerPresenterTest {
     private static final String PM = "PM";
     private static final String AM = "AM";
     private static final long HOUR_IN_MILLIS = 60 * 60 * 1000;
-    private static final long MINUTE_INCREMENT_IN_MILLIS = TimerPresenter.MINUTE_INCREMENT * 60 * 1000;
     private static final long MINUTE_IN_MILLIS = 60 * 1000;
 
     @Mock
@@ -103,7 +105,7 @@ public class TimerPresenterTest {
     public void increaseTimerHour_shouldAddHourIn24Format() throws Exception {
         presenter.increaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM + 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarPm.getTimeInMillis() + HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarPm, 1), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -111,7 +113,7 @@ public class TimerPresenterTest {
     public void increaseTimerHour_shouldAddHourInAmPmFormatAfternoon() throws Exception {
         presenterAmPm.increaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 12 + 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarPm.getTimeInMillis() + HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarPm, 1), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -120,7 +122,7 @@ public class TimerPresenterTest {
         presenterAmPm.setCalendar(testCalendarAm);
         presenterAmPm.increaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_AM + 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(AM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarAm.getTimeInMillis() + HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarAm, 1), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -128,8 +130,19 @@ public class TimerPresenterTest {
     public void decreaseTimerHour_shouldRemoveHourIn24Format() throws Exception {
         presenter.decreaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarPm.getTimeInMillis() - HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarPm, -1), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
+    }
+
+    @Test
+    public void decreaseTimerHour_shouldSetToNextDayIfNewTimeBeforeNow() throws Exception {
+        Calendar calendar = new GregorianCalendar();
+        TimerPresenter.roundTimeUp(calendar);
+        presenter.setCalendar(calendar);
+        presenter.decreaseTimerHour();
+        calendar.add(Calendar.HOUR, -1);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        assertThat(presenter.getTime(), is(calendar.getTimeInMillis()));
     }
 
     @Test
@@ -137,7 +150,7 @@ public class TimerPresenterTest {
         presenterAmPm.setCalendar(testCalendarAm);
         presenterAmPm.decreaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_AM - 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(AM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarAm.getTimeInMillis() - HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarAm, -1), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -145,7 +158,7 @@ public class TimerPresenterTest {
     public void decreaseTimerHour_shouldRemoveHourInAmPmFormatAfternoon() throws Exception {
         presenterAmPm.decreaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 12 - 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarPm.getTimeInMillis() - HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarPm, -1), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -153,7 +166,7 @@ public class TimerPresenterTest {
     public void increaseTimerMinute_shouldAddIncrementMinutes() throws Exception {
         presenter.increaseTimerMinute();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM)), eq(String.valueOf(TEST_CALENDAR_MINUTE + TimerPresenter.MINUTE_INCREMENT)), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarPm.getTimeInMillis() + MINUTE_INCREMENT_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedMinuteBy(testCalendarPm, TimerPresenter.MINUTE_INCREMENT), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -161,7 +174,7 @@ public class TimerPresenterTest {
     public void decreaseTimerMinute_shouldRemoveIncrementMinutes() throws Exception {
         presenter.decreaseTimerMinute();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM)), eq(String.valueOf(TEST_CALENDAR_MINUTE - TimerPresenter.MINUTE_INCREMENT)), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarPm.getTimeInMillis() - MINUTE_INCREMENT_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedMinuteBy(testCalendarPm, -TimerPresenter.MINUTE_INCREMENT), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -174,8 +187,63 @@ public class TimerPresenterTest {
         presenter.setCalendar(calendar);
         presenter.decreaseTimerMinute();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM)), eq(DISPLAYED_MINUTES_0), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(calendar.getTimeInMillis() - minute * MINUTE_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedMinuteBy(calendar, -minute), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
+    }
+
+    @Test
+    public void decreaseTimerMinute_shouldSetToNextDayIfNewTimeBeforeNow() throws Exception {
+        Calendar calendar = new GregorianCalendar();
+        TimerPresenter.roundTimeUp(calendar);
+        presenter.setCalendar(calendar);
+        presenter.decreaseTimerMinute();
+        calendar.add(Calendar.MINUTE, -TimerPresenter.MINUTE_INCREMENT);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        assertThat(presenter.getTime(), is(calendar.getTimeInMillis()));
+    }
+
+    @Test
+    public void roundTimeUp_shouldRoundUpWhenLessThanMinimumIncrement() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.MINUTE, TimerPresenter.MINIMUM_INCREMENT - 1);
+        TimerPresenter.roundTimeUp(calendar);
+        assertThat(calendar.get(Calendar.SECOND), is(0));
+        assertThat(calendar.get(Calendar.MINUTE), is(TimerPresenter.MINUTE_INCREMENT));
+    }
+
+    @Test
+    public void roundTimeUp_shouldRoundUpWhenMinimumIncrement() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.MINUTE, TimerPresenter.MINIMUM_INCREMENT);
+        TimerPresenter.roundTimeUp(calendar);
+        assertThat(calendar.get(Calendar.SECOND), is(0));
+        assertThat(calendar.get(Calendar.MINUTE), is(TimerPresenter.MINUTE_INCREMENT));
+    }
+
+    @Test
+    public void roundTimeUp_shouldRoundUpWhenMoreThanMinimumIncrement() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.MINUTE, TimerPresenter.MINIMUM_INCREMENT + 1);
+        TimerPresenter.roundTimeUp(calendar);
+        assertThat(calendar.get(Calendar.MINUTE), is(2 * TimerPresenter.MINUTE_INCREMENT));
+    }
+
+    @Test
+    public void roundTimeUp_shouldRoundUpAtLeastOfMinimumIncrement() {
+        Calendar calendar;
+        for (int minute = 0; minute < 60; ++minute) {
+            calendar = new GregorianCalendar();
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MINUTE, minute);
+            long oldTime = calendar.getTimeInMillis();
+            TimerPresenter.roundTimeUp(calendar);
+            final long increase = calendar.getTimeInMillis() - oldTime;
+
+            assertThat("Should round up of at least " + TimerPresenter.MINIMUM_INCREMENT + " minutes failed on " +
+                    minute, increase, is(greaterThanOrEqualTo(TimerPresenter.MINIMUM_INCREMENT * MINUTE_IN_MILLIS)));
+            assertThat("Should round up no more than " + TimerPresenter.MINIMUM_INCREMENT + " minutes failed on " +
+                    minute, increase, is(lessThan((TimerPresenter.MINUTE_INCREMENT + TimerPresenter.MINIMUM_INCREMENT) * MINUTE_IN_MILLIS)));
+        }
     }
 
     @Test
@@ -183,7 +251,7 @@ public class TimerPresenterTest {
         presenterAmPm.setCalendar(testCalendarAm);
         presenterAmPm.switchAmPm();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_AM)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarAm.getTimeInMillis() + 12 * HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarAm, 12), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
     }
 
@@ -191,8 +259,16 @@ public class TimerPresenterTest {
     public void switchAmPm_shouldMakeAfternoonMorning() throws Exception {
         presenterAmPm.switchAmPm();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 12)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(AM), anyString(), anyString());
-        verify(formatter).format(eq(new Date(testCalendarPm.getTimeInMillis() - 12 * HOUR_IN_MILLIS)), any(StringBuffer.class), any(FieldPosition.class));
+        verify(formatter).format(changedHourBy(testCalendarPm, -12), any(StringBuffer.class), any(FieldPosition.class));
         verify(view, never()).close();
+    }
+
+    private static Date changedHourBy(Calendar calendar, int hours) {
+        return or(eq(new Date(calendar.getTimeInMillis() + hours * HOUR_IN_MILLIS)), eq(new Date(calendar.getTimeInMillis() + (hours + 24) * HOUR_IN_MILLIS)));
+    }
+
+    private static Date changedMinuteBy(Calendar calendar, int minutes) {
+        return or(eq(new Date(calendar.getTimeInMillis() + minutes * MINUTE_IN_MILLIS)), eq(new Date(calendar.getTimeInMillis() + minutes * MINUTE_IN_MILLIS + 24 * HOUR_IN_MILLIS)));
     }
 
     @Test

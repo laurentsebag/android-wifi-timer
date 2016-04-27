@@ -43,8 +43,8 @@ public class NotifActionReceiver extends BroadcastReceiver {
         long millis;
 
         if (AppConfig.SNOOZE_ALARM_ACTION.equals(action)) {
-            if (intent.hasExtra(TimerActivity.EXTRA_TIME)) {
-                millis = intent.getLongExtra(TimerActivity.EXTRA_TIME, 0);
+            if (intent.hasExtra(TimerActivity.BUNDLE_EXTRA_TIME)) {
+                millis = intent.getLongExtra(TimerActivity.BUNDLE_EXTRA_TIME, 0);
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTimeInMillis(millis);
                 calendar.add(Calendar.MINUTE, MINUTE_INCREMENT);

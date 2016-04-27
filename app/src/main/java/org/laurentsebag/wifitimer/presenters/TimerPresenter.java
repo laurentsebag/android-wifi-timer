@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class TimerPresenter implements TimerActivityContract.UserActionsListener {
-    public static final int MINUTE_INCREMENT = 15;
-    public static final int MINIMUM_INCREMENT = 10;
+    public static final int MINUTE_INCREMENT = 10;
+    public static final int MINIMUM_INCREMENT = 5;
     public static final long TIME_INVALID = -1;
     private final Context context;
     private final DateFormat formatter;
@@ -96,7 +96,8 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
     @Override
     public void updateTime() {
         Calendar now = new GregorianCalendar();
-        Calendar tomorrow = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DATE) + 1);
+        Calendar tomorrow = new GregorianCalendar();
+        tomorrow.add(Calendar.DATE, 1);
 
         while (calendar.before(now)) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -134,15 +135,18 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
         if (time > TIME_INVALID) {
             calendar.setTimeInMillis(time);
         } else {
-            calendar.set(Calendar.SECOND, 0);
+            roundTimeUp(calendar);
+        }
+    }
 
-            // Round to the nearest 15 minutes, advancing
-            // the clock at least 10 minutes.
-            int remainder = calendar.get(Calendar.MINUTE) % MINUTE_INCREMENT;
-            calendar.add(Calendar.MINUTE, -remainder + MINUTE_INCREMENT);
-            if (remainder > MINIMUM_INCREMENT) {
-                calendar.add(Calendar.MINUTE, MINUTE_INCREMENT);
-            }
+    public static void roundTimeUp(Calendar calendar) {
+        calendar.set(Calendar.SECOND, 0);
+        // Round to the nearest MINUTE_INCREMENT, advancing the clock at least MINIMUM_INCREMENT.
+        int remainder = calendar.get(Calendar.MINUTE) % MINUTE_INCREMENT;
+        int increment = -remainder + MINUTE_INCREMENT;
+        calendar.add(Calendar.MINUTE, increment);
+        if (increment < MINIMUM_INCREMENT) {
+            calendar.add(Calendar.MINUTE, MINUTE_INCREMENT);
         }
     }
 

@@ -39,8 +39,8 @@ import org.laurentsebag.wifitimer.utils.RadioUtils;
  */
 public class TimerActivity extends Activity implements View.OnClickListener, TimerActivityContract.View {
 
-    public static final String EXTRA_TIME = "silencer:time";
-    private static final String STATE_TIME = "silencer:time";
+    public static final String BUNDLE_EXTRA_TIME = "extra_time";
+    private static final String STATE_TIME = "time";
 
     private TextView duration;
     private TextView hour;
@@ -97,7 +97,7 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
         if (savedInstanceState == null) {
             Intent intent = getIntent();
 
-            long time = intent.getLongExtra(EXTRA_TIME, TimerPresenter.TIME_INVALID);
+            long time = intent.getLongExtra(BUNDLE_EXTRA_TIME, TimerPresenter.TIME_INVALID);
             presenter.setTime(time);
         }
     }
