@@ -6,13 +6,13 @@
 
     <ImageButton
         android:id="@+id/increment"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/timepicker_up_btn"/>
 
     <EditText
         android:id="@+id/timepicker_input"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:focusable="false"
@@ -25,7 +25,7 @@
 
     <ImageButton
         android:id="@+id/decrement"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/timepicker_down_btn"/>
 </LinearLayout>
