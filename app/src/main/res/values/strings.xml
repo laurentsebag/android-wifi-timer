@@ -32,7 +32,7 @@
         <item quantity="other">%d hours</item>
     </plurals>
     <string name="info">Using <b>Wifi Timer</b> is easy!
-    Just turn-off the wifi using the power control widget or the settings menu.
+    Just turn off the wifi using the power control widget or the settings menu.
     
     \n\nWhenever you set your wifi to <b>off</b>
     you will be prompted to enter
