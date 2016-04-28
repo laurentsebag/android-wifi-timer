@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_gravity="center_horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal">
 
     <include
         android:id="@+id/hour"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        layout="@layout/number_picker"/>
+        layout="@layout/number_picker"
+        android:layout_width="@dimen/time_picker_width"
+        android:layout_height="wrap_content"/>
 
     <include
         android:id="@+id/minute"
-        android:layout_width="70dp"
+        layout="@layout/number_picker"
+        android:layout_width="@dimen/time_picker_width"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        layout="@layout/number_picker"/>
+        android:layout_marginLeft="@dimen/time_picker_spacing"
+        android:layout_marginStart="@dimen/time_picker_spacing"/>
 
     <Button
         android:id="@+id/amPm"
+        style="?android:attr/textAppearanceLargeInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        style="?android:attr/textAppearanceLargeInverse"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/time_picker_spacing"
+        android:layout_marginStart="@dimen/time_picker_spacing"
+        android:paddingLeft="@dimen/time_picker_am_pm_padding"
+        android:paddingRight="@dimen/time_picker_am_pm_padding"
         android:textColor="@android:color/primary_text_light_nodisable"/>
 </LinearLayout>

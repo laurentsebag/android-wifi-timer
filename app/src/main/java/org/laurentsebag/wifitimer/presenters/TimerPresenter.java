@@ -24,7 +24,7 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
     private final Timer timer;
     private final TimerActivityContract.View view;
     private final GregorianCalendar calendar;
-    private String[] amPmStrings;
+    final private String[] amPmStrings;
 
     public TimerPresenter(Context context, DateFormat formatter, boolean is24HourFormat, Timer timer, TimerActivityContract.View view) {
         this.context = context;
