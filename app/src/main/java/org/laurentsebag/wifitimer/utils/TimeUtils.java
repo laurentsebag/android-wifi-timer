@@ -5,7 +5,7 @@ import java.util.Locale;
 
 public class TimeUtils {
 
-    public static final String TWO_DIGITS_FORMAT = "%02d";
+    private static final String TWO_DIGITS_FORMAT = "%02d";
 
     public static String getDisplayHour(Calendar calendar, boolean is24HourFormat) {
         if (is24HourFormat) {
