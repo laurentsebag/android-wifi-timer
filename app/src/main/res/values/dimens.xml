@@ -2,4 +2,9 @@
 <resources>
     <dimen name="about_dialog_padding">15dp</dimen>
     <dimen name="timepicker_font_size">30sp</dimen>
+    <dimen name="main_container_spacing">8dp</dimen>
+    <dimen name="main_actions_spacing_vertical">8dp</dimen>
+    <dimen name="time_picker_width">70dp</dimen>
+    <dimen name="time_picker_spacing">5dp</dimen>
+    <dimen name="time_picker_am_pm_padding">20dp</dimen>
 </resources>
