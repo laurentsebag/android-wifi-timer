@@ -117,10 +117,10 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
         tomorrow.add(Calendar.DATE, 1);
 
         while (calendar.before(now)) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            calendar.add(Calendar.DATE, 1);
         }
         while (calendar.after(tomorrow)) {
-            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            calendar.add(Calendar.DATE, -1);
         }
 
         String displayHour = TimeUtils.getDisplayHour(calendar, is24HourFormat);
@@ -131,6 +131,15 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
         String formattedTime = formatter.format(time);
 
         view.updateTime(displayHour, displayMinute, amPmStrings[calendar.get(Calendar.AM_PM)], duration, formattedTime);
+
+        Calendar nextDecrease = new GregorianCalendar();
+        nextDecrease.setTimeInMillis(calendar.getTimeInMillis());
+        nextDecrease.add(Calendar.HOUR, -1);
+        view.setDecreaseHourButtonEnabled(!nextDecrease.before(now));
+
+        nextDecrease.setTimeInMillis(calendar.getTimeInMillis());
+        nextDecrease.add(Calendar.MINUTE, -TimerPresenter.MINUTE_INCREMENT);
+        view.setDecreaseMinuteButtonEnabled(!nextDecrease.before(now));
     }
 
     @Override

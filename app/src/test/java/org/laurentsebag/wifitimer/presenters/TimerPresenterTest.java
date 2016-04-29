@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
@@ -337,5 +338,39 @@ public class TimerPresenterTest {
         long timeInMillis = testCalendarPm.getTimeInMillis() + MINUTE_IN_MILLIS;
         presenter.setTime(timeInMillis);
         assertThat(presenter.getTime(), is(timeInMillis));
+    }
+
+    @Test
+    public void updateTime_shouldDisableDecreaseHourNextWouldPastTime() {
+        Calendar calendar = new GregorianCalendar();
+        presenter.setCalendar(calendar);
+        presenter.updateTime();
+        verify(view).setDecreaseHourButtonEnabled(false);
+    }
+
+    @Test
+    public void updateTime_shouldEnableDecreaseHourNextWouldBeAfterNow() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.HOUR, 1);
+        presenter.setCalendar(calendar);
+        presenter.updateTime();
+        verify(view).setDecreaseHourButtonEnabled(true);
+    }
+
+    @Test
+    public void updateTime_shouldDisableDecreaseMinuteNextWouldPastTime() {
+        Calendar calendar = new GregorianCalendar();
+        presenter.setCalendar(calendar);
+        presenter.updateTime();
+        verify(view).setDecreaseMinuteButtonEnabled(false);
+    }
+
+    @Test
+    public void updateTime_shouldEnableDecreaseMinuteNextWouldBeAfterNow() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.MINUTE, TimerPresenter.MINUTE_INCREMENT);
+        presenter.setCalendar(calendar);
+        presenter.updateTime();
+        verify(view).setDecreaseMinuteButtonEnabled(true);
     }
 }

@@ -26,6 +26,10 @@ public class TimerActivityContract {
         void setDialogTitle(int titleId);
 
         void updateTime(String displayedHours, String displayedMinutes, String amPm, String duration, String formattedTime);
+
+        void setDecreaseHourButtonEnabled(boolean enabled);
+
+        void setDecreaseMinuteButtonEnabled(boolean enabled);
     }
 
     public interface UserActionsListener {

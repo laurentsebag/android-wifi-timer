@@ -44,11 +44,11 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
 
     private TextView duration;
     private TextView hour;
-    private View incrementHourView;
-    private View decrementHourView;
+    private View increaseHourView;
+    private View decreaseHourView;
     private TextView minuteTextView;
-    private View incrementMinuteView;
-    private View decrementMinuteView;
+    private View increaseMinuteView;
+    private View decreaseMinuteView;
     private Button buttonAmPm;
     private Button buttonSet;
     private Button buttonNever;
@@ -68,19 +68,19 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
 
         View hourPicker = findViewById(R.id.hour);
         hour = (TextView) hourPicker.findViewById(R.id.timepicker_input);
-        incrementHourView = hourPicker.findViewById(R.id.increment);
-        decrementHourView = hourPicker.findViewById(R.id.decrement);
+        increaseHourView = hourPicker.findViewById(R.id.increase);
+        decreaseHourView = hourPicker.findViewById(R.id.decrease);
         hour.setCursorVisible(false);
-        incrementHourView.setOnClickListener(this);
-        decrementHourView.setOnClickListener(this);
+        increaseHourView.setOnClickListener(this);
+        decreaseHourView.setOnClickListener(this);
 
         View minutePicker = findViewById(R.id.minute);
         minuteTextView = (TextView) minutePicker.findViewById(R.id.timepicker_input);
-        incrementMinuteView = minutePicker.findViewById(R.id.increment);
-        decrementMinuteView = minutePicker.findViewById(R.id.decrement);
+        increaseMinuteView = minutePicker.findViewById(R.id.increase);
+        decreaseMinuteView = minutePicker.findViewById(R.id.decrease);
         minuteTextView.setCursorVisible(false);
-        incrementMinuteView.setOnClickListener(this);
-        decrementMinuteView.setOnClickListener(this);
+        increaseMinuteView.setOnClickListener(this);
+        decreaseMinuteView.setOnClickListener(this);
         buttonAmPm = (Button) findViewById(R.id.amPm);
         duration = (TextView) findViewById(R.id.duration);
         buttonAmPm.setOnClickListener(this);
@@ -131,13 +131,13 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
             presenter.cancelTimer();
         } else if (v == buttonNow) {
             presenter.undoTimer();
-        } else if (v == incrementHourView) {
+        } else if (v == increaseHourView) {
             presenter.increaseTimerHour();
-        } else if (v == decrementHourView) {
+        } else if (v == decreaseHourView) {
             presenter.decreaseTimerHour();
-        } else if (v == incrementMinuteView) {
+        } else if (v == increaseMinuteView) {
             presenter.increaseTimerMinute();
-        } else if (v == decrementMinuteView) {
+        } else if (v == decreaseMinuteView) {
             presenter.decreaseTimerMinute();
         } else if (v == buttonAmPm) {
             presenter.switchAmPm();
@@ -167,5 +167,15 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
         this.buttonAmPm.setText(amPm);
         this.duration.setText(duration);
         buttonSet.setText(formattedTime);
+    }
+
+    @Override
+    public void setDecreaseHourButtonEnabled(boolean enabled) {
+        decreaseHourView.setEnabled(enabled);
+    }
+
+    @Override
+    public void setDecreaseMinuteButtonEnabled(boolean enabled) {
+        decreaseMinuteView.setEnabled(enabled);
     }
 }

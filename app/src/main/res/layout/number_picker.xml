@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <ImageButton
-        android:id="@+id/increment"
+        android:id="@+id/increase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/timepicker_up_btn"/>
@@ -24,7 +24,7 @@
         android:textSize="@dimen/timepicker_font_size"/>
 
     <ImageButton
-        android:id="@+id/decrement"
+        android:id="@+id/decrease"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/timepicker_down_btn"/>
