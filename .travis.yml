@@ -2,15 +2,17 @@ language: android
 jdk: oraclejdk7
 sudo: false
 
+addons:
+  apt:
+    packages:
+    - lynx
+
 android:
   components:
     - tools
     - build-tools-23.0.2
     - android-23
     - extra-android-m2repository
-
-before_install:
-  - sudo apt-get install -qq -y lynx
 
 after_failure:
   - export MY_LOG_DIR="$(pwd)/app/build/reports/tests/release/"
