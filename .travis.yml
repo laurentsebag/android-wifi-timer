@@ -2,12 +2,25 @@ language: android
 jdk: oraclejdk7
 sudo: false
 
+addons:
+  apt:
+    packages:
+    - lynx
+
 android:
   components:
     - tools
     - build-tools-23.0.2
     - android-23
     - extra-android-m2repository
+
+after_failure:
+  - export MY_LOG_DIR="$(pwd)/app/build/reports/tests/release/"
+  - pwd && cd "${MY_LOG_DIR:-.}" && pwd && ls -al
+  - lynx --dump index.html > myIndex.log
+  - lynx --dump org.laurentsebag.wifitimer.html > main.log
+  - lynx --dump org.laurentsebag.wifitimer.presenters.html > presenters.log
+  - for file in *.log; do echo "$file"; echo "====================="; cat "$file"; done || true
 
 script: ./gradlew testRelease
 
