@@ -337,7 +337,7 @@ public class TimerPresenterTest {
         presenter.setCalendar(testCalendarAm);
         long timeInMillis = testCalendarPm.getTimeInMillis() + MINUTE_IN_MILLIS;
         presenter.setTime(timeInMillis);
-        assertThat(presenter.getTime(), is(timeInMillis));
+        assertThat(presenter.getTime(), is(timeInMillis + 6)); // TODO remove this test for travis ci test log output
     }
 
     @Test
