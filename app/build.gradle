@@ -25,7 +25,8 @@ android {
 
 tasks.withType(Test) {
     testLogging {
-        events "passed", "skipped", "failed", "standardOut", "standardError"
+        events "skipped", "failed"
+        exceptionFormat "full"
     }
 }
 
