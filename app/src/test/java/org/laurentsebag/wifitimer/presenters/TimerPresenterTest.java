@@ -35,7 +35,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
@@ -60,6 +59,7 @@ public class TimerPresenterTest {
     private static final String AM = "AM";
     private static final long HOUR_IN_MILLIS = 60 * 60 * 1000;
     private static final long MINUTE_IN_MILLIS = 60 * 1000;
+    private static final int TEST_FEW_SECONDS = 30;
 
     @Mock
     private Context context;
@@ -215,7 +215,8 @@ public class TimerPresenterTest {
         TimerPresenter.roundTimeUp(calendar);
         presenter.setCalendar(calendar);
         presenter.decreaseTimerMinute();
-        calendar.add(Calendar.MINUTE, -TimerPresenter.MINUTE_INCREMENT);
+        presenter.decreaseTimerMinute();
+        calendar.add(Calendar.MINUTE, -2 * TimerPresenter.MINUTE_INCREMENT);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         assertThat(presenter.getTime(), is(calendar.getTimeInMillis()));
     }
@@ -352,6 +353,7 @@ public class TimerPresenterTest {
     public void updateTime_shouldEnableDecreaseHourNextWouldBeAfterNow() {
         Calendar calendar = new GregorianCalendar();
         calendar.add(Calendar.HOUR, 1);
+        calendar.add(Calendar.SECOND, TEST_FEW_SECONDS);
         presenter.setCalendar(calendar);
         presenter.updateTime();
         verify(view).setDecreaseHourButtonEnabled(true);
@@ -369,6 +371,7 @@ public class TimerPresenterTest {
     public void updateTime_shouldEnableDecreaseMinuteNextWouldBeAfterNow() {
         Calendar calendar = new GregorianCalendar();
         calendar.add(Calendar.MINUTE, TimerPresenter.MINUTE_INCREMENT);
+        calendar.add(Calendar.SECOND, TEST_FEW_SECONDS);
         presenter.setCalendar(calendar);
         presenter.updateTime();
         verify(view).setDecreaseMinuteButtonEnabled(true);

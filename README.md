@@ -1,5 +1,6 @@
 ![](graphics/ldpi/icon.png) Wifi Timer
 ==========================================
+[![Build Status](https://travis-ci.org/laurentsebag/android-wifi-timer.svg?branch=develop)](https://travis-ci.org/laurentsebag/android-wifi-timer)
 
 __Spare your battery life by deactivating wifi for a few hours using Wifi
 Timer!__
