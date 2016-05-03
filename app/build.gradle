@@ -23,6 +23,13 @@ android {
     }
 }
 
+tasks.withType(Test) {
+    testLogging {
+        events "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
 dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:preference-v7:23.3.0'
