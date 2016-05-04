@@ -35,6 +35,7 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
     public static final int MINUTE_INCREMENT = 10;
     public static final int MINIMUM_INCREMENT = 5;
     public static final long TIME_INVALID = -1;
+    private static final int MINUTE_IN_MILLIS = 1000 * 60;
     private final Context context;
     private final DateFormat formatter;
     private final boolean is24HourFormat;
@@ -163,6 +164,12 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
         } else {
             roundTimeUp(calendar);
         }
+    }
+
+    @Override
+    public long getTimerDuration() {
+        long now = System.currentTimeMillis();
+        return (calendar.getTimeInMillis() - now) / MINUTE_IN_MILLIS;
     }
 
     public static void roundTimeUp(Calendar calendar) {

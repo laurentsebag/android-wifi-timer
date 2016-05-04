@@ -10,6 +10,8 @@
         android:resizeable="true"
         android:smallScreens="true"/>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
@@ -21,7 +23,8 @@
         android:description="@string/description"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/MainTheme">
+        android:theme="@style/MainTheme"
+        android:name=".WifiTimerApplication">
 
         <activity android:name=".activities.MainActivity">
             <intent-filter>

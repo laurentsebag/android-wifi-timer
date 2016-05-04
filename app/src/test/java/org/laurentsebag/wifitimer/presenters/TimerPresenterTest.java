@@ -376,4 +376,11 @@ public class TimerPresenterTest {
         presenter.updateTime();
         verify(view).setDecreaseMinuteButtonEnabled(true);
     }
+
+    @Test
+    public void getTimerDuration() {
+        long now = System.currentTimeMillis();
+        long duration = presenter.getTimerDuration();
+        assertThat(duration, is((presenter.getTime() - now) / MINUTE_IN_MILLIS));
+    }
 }

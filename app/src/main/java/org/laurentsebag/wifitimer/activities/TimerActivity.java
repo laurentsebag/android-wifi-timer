@@ -18,7 +18,6 @@
 
 package org.laurentsebag.wifitimer.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,11 +32,12 @@ import org.laurentsebag.wifitimer.Timer;
 import org.laurentsebag.wifitimer.contracts.TimerActivityContract;
 import org.laurentsebag.wifitimer.presenters.TimerPresenter;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
+import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
  */
-public class TimerActivity extends Activity implements View.OnClickListener, TimerActivityContract.View {
+public class TimerActivity extends TrackedActivity implements View.OnClickListener, TimerActivityContract.View {
 
     public static final String BUNDLE_EXTRA_TIME = "extra_time";
     private static final String STATE_TIME = "time";
@@ -127,21 +127,37 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     public void onClick(View v) {
         if (v == buttonSet) {
             presenter.setTimer();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_SET, presenter.getTimerDuration());
         } else if (v == buttonNever) {
             presenter.cancelTimer();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_CANCEL);
         } else if (v == buttonNow) {
             presenter.undoTimer();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_UNDO);
         } else if (v == increaseHourView) {
             presenter.increaseTimerHour();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_HOUR);
         } else if (v == decreaseHourView) {
             presenter.decreaseTimerHour();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_DECREASE_HOUR);
         } else if (v == increaseMinuteView) {
             presenter.increaseTimerMinute();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_MINUTE);
         } else if (v == decreaseMinuteView) {
             presenter.decreaseTimerMinute();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_DECREASE_MINUTE);
         } else if (v == buttonAmPm) {
             presenter.switchAmPm();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_SWITCH_AM_PM);
         }
+    }
+
+    private void trackAction(String label, long value) {
+        trackClick(TrackerUtils.TRACK_CATEGORY_TIMER, label, value);
+    }
+
+    private void trackAction(String label) {
+        trackClick(TrackerUtils.TRACK_CATEGORY_TIMER, label);
     }
 
     @Override

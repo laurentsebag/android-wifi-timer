@@ -22,20 +22,41 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import org.laurentsebag.wifitimer.R;
+import org.laurentsebag.wifitimer.WifiTimerApplication;
 
 public class AboutDialogFragment extends DialogFragment {
+    private Tracker tracker;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        WifiTimerApplication application = (WifiTimerApplication) getActivity().getApplication();
+        tracker = application.getDefaultTracker();
+
+        // TODO remove this crash test after finding it in analytics
+        String nullString = null;
+        nullString.length();
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         int padding = getResources().getDimensionPixelSize(R.dimen.about_dialog_padding);
         final Context context = getContext();
+
+        tracker.setScreenName(getClass().getSimpleName());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.about_dialog_title);
         TextView content = new TextView(context);
