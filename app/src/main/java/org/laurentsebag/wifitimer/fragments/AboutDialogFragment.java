@@ -42,10 +42,6 @@ public class AboutDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         WifiTimerApplication application = (WifiTimerApplication) getActivity().getApplication();
         tracker = application.getDefaultTracker();
-
-        // TODO remove this crash test after finding it in analytics
-        String nullString = null;
-        nullString.length();
     }
 
     @NonNull
