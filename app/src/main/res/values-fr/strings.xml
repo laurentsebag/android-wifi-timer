@@ -69,7 +69,7 @@
 
     <string name="settings_activity_label">Wifi Timer - Paramètres</string>
     <string name="preference_timer_usage_title">Activation de Wifi Timer</string>
-    <string name="preference_timer_usage_summary">Permet de choisir sur quel événement Wifi Timer se déclenche</string>
+    <string name="preference_timer_usage_summary">Choisir quand Wifi Timer se déclenche</string>
     <string name="preference_timer_usage_dialog_title">Choisissez un mode</string>
     <string name="preference_analytics_summary">Aidez Wifi Timer en envoyant des statistiques anonymes sur l\'utilisation de l\'application</string>
     <string name="preference_analytics_title">Statistiques anonymes</string>

@@ -20,6 +20,7 @@ package org.laurentsebag.wifitimer.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -41,6 +42,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
 
     public static final String BUNDLE_EXTRA_TIME = "extra_time";
     private static final String STATE_TIME = "time";
+    public static final int TIME_INVALID = -1;
 
     private TextView duration;
     private TextView hour;
@@ -105,8 +107,21 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupTitle(AppConfig.getWifiTimerUsage(this));
+        final String wifiTimerUsage = AppConfig.getWifiTimerUsage(this);
+        presenter.setupTitle(wifiTimerUsage);
         presenter.updateTime();
+
+        trackTimeToDisplayDialog(wifiTimerUsage);
+    }
+
+    private void trackTimeToDisplayDialog(String wifiTimerUsage) {
+        SharedPreferences preferences = getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
+        long wifiChangeTime = preferences.getLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, TIME_INVALID);
+        if (wifiChangeTime > TIME_INVALID) {
+            long duration = System.currentTimeMillis() - wifiChangeTime;
+            TrackerUtils.trackWifiDialogTiming(tracker, wifiTimerUsage, duration);
+            preferences.edit().remove(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME).apply();
+        }
     }
 
     @Override
@@ -153,11 +168,11 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
     }
 
     private void trackAction(String label, long value) {
-        trackClick(TrackerUtils.TRACK_CATEGORY_TIMER, label, value);
+        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label, value);
     }
 
     private void trackAction(String label) {
-        trackClick(TrackerUtils.TRACK_CATEGORY_TIMER, label);
+        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label);
     }
 
     @Override

@@ -27,6 +27,7 @@ public class AppConfig {
 
     public static final String MODE_ON_WIFI_ACTIVATION = "on_wifi_activation";
     public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
+    public static final String PREFERENCE_KEY_WIFI_CHANGE_TIME = "wifi_state_changed_time";
     public static final String PREFERENCE_KEY_TIMER_USAGE = "timer_usage";
 
     public static final String SNOOZE_ALARM_ACTION = "wifitimer.intent.SNOOZE_ALARM";

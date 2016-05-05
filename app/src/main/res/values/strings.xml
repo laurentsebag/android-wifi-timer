@@ -69,7 +69,7 @@
     <string name="preference_timer_usage_key"
         translatable="false">timer_usage</string>
     <string name="preference_timer_usage_title">Wifi Timer mode</string>
-    <string name="preference_timer_usage_summary">Choose on which event Wifi Timer shows up</string>
+    <string name="preference_timer_usage_summary">Choose when Wifi Timer is displayed</string>
     <string name="preference_timer_usage_dialog_title">Choose a mode</string>
     <string name="preference_share_analytics_key"
         translatable="false">share_analytics</string>

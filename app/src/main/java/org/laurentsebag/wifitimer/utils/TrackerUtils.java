@@ -10,6 +10,9 @@ public class TrackerUtils {
     public static final String TRACK_CATEGORY_TIMER = "timer";
     public static final String TRACK_CATEGORY_NOTIFICATION = "notification";
     private static final String TRACK_CATEGORY_PREFERENCE = "preference";
+    private static final String TRACK_CATEGORY_SYSTEM_EVENTS = "system_events";
+
+    private static final String TRACK_VARIABLE_WIFI_DETECTION = "wifi_detection";
 
     public static final String TRACK_LABEL_SNOOZE = "snooze";
     public static final String TRACK_LABEL_CANCEL = "cancel";
@@ -23,7 +26,6 @@ public class TrackerUtils {
     public static final String TRACK_LABEL_TIMER_DECREASE_MINUTE = "decrease_minute";
     public static final String TRACK_LABEL_TIMER_SWITCH_AM_PM = "switch_am_pm";
 
-    // TODO see if we can measure how long it takes for dialog to appear after wifi changed
     // TODO track percentage of timers ending naturally, or cancelled from within or outside app
     // TODO track amount of tutorial pages people read before skipping
     // TODO create build variant for pre-v9 that has tracking disabled
@@ -43,5 +45,9 @@ public class TrackerUtils {
 
     public static void trackPreference(Tracker tracker, String preferenceName, String preferenceValue) {
         tracker.send(new HitBuilders.EventBuilder().setCategory(TRACK_CATEGORY_PREFERENCE).setAction(preferenceName).setLabel(preferenceValue).build());
+    }
+
+    public static void trackWifiDialogTiming(Tracker tracker, String wifiTimerMode, long durationInMillis) {
+        tracker.send(new HitBuilders.TimingBuilder().setCategory(TRACK_CATEGORY_SYSTEM_EVENTS).setVariable(TRACK_VARIABLE_WIFI_DETECTION).setLabel(wifiTimerMode).setValue(durationInMillis).build());
     }
 }
