@@ -41,7 +41,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             String preferenceKeyAnalytics = getString(R.string.preference_share_analytics_key);
 
             if (key.equals(preferenceKeyAnalytics)) {
-                boolean shareAnalytics = sharedPreferences.getBoolean(preferenceKeyAnalytics, false);
+                boolean shareAnalytics = sharedPreferences.getBoolean(preferenceKeyAnalytics, true);
 
                 if (!shareAnalytics) {
                     TrackerUtils.trackPreference(tracker, key, String.valueOf(false));

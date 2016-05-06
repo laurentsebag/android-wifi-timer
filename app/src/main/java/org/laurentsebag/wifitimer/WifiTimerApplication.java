@@ -21,7 +21,7 @@ public class WifiTimerApplication extends Application {
     private void setupAnalytics() {
         String preferenceKeyAnalytics = getString(R.string.preference_share_analytics_key);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean shareAnalytics = sharedPreferences.getBoolean(preferenceKeyAnalytics, false);
+        boolean shareAnalytics = sharedPreferences.getBoolean(preferenceKeyAnalytics, true);
         Log.d(TAG, "Analytics sharing: " + shareAnalytics);
         GoogleAnalytics.getInstance(this).setAppOptOut(!shareAnalytics);
     }
