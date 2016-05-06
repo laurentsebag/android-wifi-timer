@@ -26,10 +26,14 @@ import android.net.wifi.WifiManager;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.google.android.gms.analytics.Tracker;
+
 import org.laurentsebag.wifitimer.AppConfig;
+import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
 import org.laurentsebag.wifitimer.Timer;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
+import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 public class WifiStateReceiver extends BroadcastReceiver {
 
@@ -43,6 +47,9 @@ public class WifiStateReceiver extends BroadcastReceiver {
         if (SystemClock.elapsedRealtime() < IGNORE_BOOT_THRESHOLD) {
             return;
         }
+
+        WifiTimerApplication application = (WifiTimerApplication) context.getApplicationContext();
+        Tracker tracker = application.getDefaultTracker();
 
         String action = data.getAction();
         SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
@@ -70,12 +77,14 @@ public class WifiStateReceiver extends BroadcastReceiver {
                     } else {
                         Timer timer = new Timer(context);
                         timer.cancel();
+                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     }
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         Timer timer = new Timer(context);
                         timer.cancel();
+                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     } else {
                         showWifiDialog(context, editor);
                     }
@@ -83,20 +92,22 @@ public class WifiStateReceiver extends BroadcastReceiver {
             }
         } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
             boolean airplaneModeOn = data.getBooleanExtra("state", false);
+            Log.d(TAG, "Wifi state airplane mode changed: " + airplaneModeOn);
 
             if (airplaneModeOn) {
                 editor.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, true);
 
                 // If user sets airplane mode, cancel current timer
-                Timer t = new Timer(context);
-                if (t.isSet()) {
-                    t.cancel();
+                Timer timer = new Timer(context);
+                if (timer.isSet()) {
+                    timer.cancel();
                     editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, true);
+                    TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                 }
                 editor.apply();
             } else {
-                // If user had set timer before turning to airplane mode
-                // when airplane mode is quit, restore wifi
+                // If user had a set timer before turning on airplane mode,
+                // when airplane mode is turned off, restore wifi.
                 if (preferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false)) {
                     editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);
                     editor.apply();
@@ -109,6 +120,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
     }
 
     private void showWifiDialog(Context context, Editor editor) {
+        Log.d(TAG, "showWifiDialog");
         editor.putLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, System.currentTimeMillis());
         editor.apply();
 

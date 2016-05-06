@@ -61,9 +61,11 @@ public class NotifActionReceiver extends BroadcastReceiver {
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
             timer.cancel();
             TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_CANCEL);
+            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (AppConfig.WIFI_TOGGLE_ACTION.equals(action)) {
             RadioUtils.setWifiStateBack(context.getApplicationContext());
             TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_TOGGLE);
+            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         }
     }
 }

@@ -146,9 +146,11 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         } else if (v == buttonNever) {
             presenter.cancelTimer();
             trackAction(TrackerUtils.TRACK_LABEL_TIMER_CANCEL);
+            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (v == buttonNow) {
             presenter.undoTimer();
             trackAction(TrackerUtils.TRACK_LABEL_TIMER_UNDO);
+            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (v == increaseHourView) {
             presenter.increaseTimerHour();
             trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_HOUR);

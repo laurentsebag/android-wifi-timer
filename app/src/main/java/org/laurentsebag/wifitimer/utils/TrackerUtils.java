@@ -5,7 +5,8 @@ import com.google.android.gms.analytics.Tracker;
 
 public class TrackerUtils {
 
-    private static final String ACTION_CLICK = "click";
+    private static final String TRACK_ACTION_CLICK = "click";
+    public static final String TRACK_ACTION_TIMER_CANCEL = "timer_cancel";
 
     public static final String TRACK_CATEGORY_TIMER = "timer";
     public static final String TRACK_CATEGORY_NOTIFICATION = "notification";
@@ -25,10 +26,8 @@ public class TrackerUtils {
     public static final String TRACK_LABEL_TIMER_INCREASE_MINUTE = "increase_minute";
     public static final String TRACK_LABEL_TIMER_DECREASE_MINUTE = "decrease_minute";
     public static final String TRACK_LABEL_TIMER_SWITCH_AM_PM = "switch_am_pm";
-
-    // TODO track percentage of timers ending naturally, or cancelled from within or outside app
-    // TODO track amount of tutorial pages people read before skipping
-    // TODO create build variant for pre-v9 that has tracking disabled
+    public static final String TRACK_LABEL_TIMER_CANCEL_APP = "app";
+    public static final String TRACK_LABEL_TIMER_CANCEL_EXTERNAL = "external";
 
     public static void trackScreen(Tracker tracker, String screenName) {
         tracker.setScreenName(screenName);
@@ -36,11 +35,11 @@ public class TrackerUtils {
     }
 
     public static void trackClick(Tracker tracker, String category, String label) {
-        tracker.send(new HitBuilders.EventBuilder().setCategory(category).setAction(ACTION_CLICK).setLabel(label).build());
+        tracker.send(new HitBuilders.EventBuilder().setCategory(category).setAction(TRACK_ACTION_CLICK).setLabel(label).build());
     }
 
     public static void trackClick(Tracker tracker, String category, String label, long value) {
-        tracker.send(new HitBuilders.EventBuilder().setCategory(category).setAction(ACTION_CLICK).setLabel(label).setValue(value).build());
+        tracker.send(new HitBuilders.EventBuilder().setCategory(category).setAction(TRACK_ACTION_CLICK).setLabel(label).setValue(value).build());
     }
 
     public static void trackPreference(Tracker tracker, String preferenceName, String preferenceValue) {
@@ -49,5 +48,9 @@ public class TrackerUtils {
 
     public static void trackWifiDialogTiming(Tracker tracker, String wifiTimerMode, long durationInMillis) {
         tracker.send(new HitBuilders.TimingBuilder().setCategory(TRACK_CATEGORY_SYSTEM_EVENTS).setVariable(TRACK_VARIABLE_WIFI_DETECTION).setLabel(wifiTimerMode).setValue(durationInMillis).build());
+    }
+
+    public static void trackTimerEvent(Tracker tracker, String label) {
+        tracker.send(new HitBuilders.EventBuilder().setCategory(TRACK_CATEGORY_TIMER).setAction(TRACK_ACTION_TIMER_CANCEL).setLabel(label).build());
     }
 }
