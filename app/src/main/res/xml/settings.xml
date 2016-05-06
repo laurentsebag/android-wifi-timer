@@ -7,9 +7,16 @@
         android:dialogTitle="@string/preference_timer_usage_dialog_title"
         android:entries="@array/preference_timer_usage_entries"
         android:entryValues="@array/preference_timer_usage_entryvalues"
-        android:key="timer_usage"
+        android:key="@string/preference_timer_usage_key"
         android:persistent="true"
         android:summary="@string/preference_timer_usage_summary"
         android:title="@string/preference_timer_usage_title"/>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/preference_share_analytics_key"
+        android:persistent="true"
+        android:summary="@string/preference_analytics_summary"
+        android:title="@string/preference_analytics_title"/>
 
 </PreferenceScreen>

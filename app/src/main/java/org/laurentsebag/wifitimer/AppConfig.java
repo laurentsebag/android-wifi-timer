@@ -27,6 +27,8 @@ public class AppConfig {
 
     public static final String MODE_ON_WIFI_ACTIVATION = "on_wifi_activation";
     public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
+    public static final String PREFERENCE_KEY_WIFI_CHANGE_TIME = "wifi_state_changed_time";
+    public static final String PREFERENCE_KEY_TIMER_USAGE = "timer_usage";
 
     public static final String SNOOZE_ALARM_ACTION = "wifitimer.intent.SNOOZE_ALARM";
     public static final String CANCEL_ALARM_ACTION = "wifitimer.intent.CANCEL_ALARM";
@@ -34,6 +36,6 @@ public class AppConfig {
 
     public static String getWifiTimerUsage(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString("timer_usage", MODE_ON_WIFI_DEACTIVATION);
+        return prefs.getString(PREFERENCE_KEY_TIMER_USAGE, MODE_ON_WIFI_DEACTIVATION);
     }
 }

@@ -24,14 +24,20 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
+import android.util.Log;
+
+import com.google.android.gms.analytics.Tracker;
 
 import org.laurentsebag.wifitimer.AppConfig;
+import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
 import org.laurentsebag.wifitimer.Timer;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
+import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 public class WifiStateReceiver extends BroadcastReceiver {
 
+    private static final String TAG = WifiStateReceiver.class.getSimpleName();
     private static final String CANCELED_BY_AIRPLANE_MODE = "canceled_by_airplane_mode";
     private static final String TURNED_OFF_BY_AIRPLANE_MODE = "turned_off_by_airplane_mode";
     private static final long IGNORE_BOOT_THRESHOLD = 2 * 60 * 1000;
@@ -42,70 +48,84 @@ public class WifiStateReceiver extends BroadcastReceiver {
             return;
         }
 
+        WifiTimerApplication application = (WifiTimerApplication) context.getApplicationContext();
+        Tracker tracker = application.getDefaultTracker();
+
         String action = data.getAction();
         SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
-        Editor edit = preferences.edit();
+        Editor editor = preferences.edit();
 
         if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
 
             String timerUsage = AppConfig.getWifiTimerUsage(context);
 
             int wifiState = data.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
+            Log.d(TAG, "Wifi state changed: " + wifiState);
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_DISABLED:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         boolean turnOffByAirplaneMode = preferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
                         if (turnOffByAirplaneMode) {
-                            edit.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
-                            edit.commit();
+                            editor.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+                            editor.apply();
                         }
                         // If the wifi state has changed but not because of a airplane mode change,
                         // display the wifi timer dialog.
                         if (!turnOffByAirplaneMode) {
-                            Intent intent = new Intent(context, TimerActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
+                            showWifiDialog(context, editor);
                         }
                     } else {
                         Timer timer = new Timer(context);
                         timer.cancel();
+                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     }
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         Timer timer = new Timer(context);
                         timer.cancel();
+                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     } else {
-                        Intent intent = new Intent(context, TimerActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        showWifiDialog(context, editor);
                     }
                     break;
             }
         } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
             boolean airplaneModeOn = data.getBooleanExtra("state", false);
+            Log.d(TAG, "Wifi state airplane mode changed: " + airplaneModeOn);
 
             if (airplaneModeOn) {
-                edit.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, true);
+                editor.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, true);
 
                 // If user sets airplane mode, cancel current timer
-                Timer t = new Timer(context);
-                if (t.isSet()) {
-                    t.cancel();
-                    edit.putBoolean(CANCELED_BY_AIRPLANE_MODE, true);
+                Timer timer = new Timer(context);
+                if (timer.isSet()) {
+                    timer.cancel();
+                    editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, true);
+                    TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                 }
-                edit.commit();
+                editor.apply();
             } else {
-                // If user had set timer before turning to airplane mode
-                // when airplane mode is quit, restore wifi
+                // If user had a set timer before turning on airplane mode,
+                // when airplane mode is turned off, restore wifi.
                 if (preferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false)) {
-                    edit.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);
-                    edit.commit();
+                    editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);
+                    editor.apply();
                     if (AppConfig.getWifiTimerUsage(context).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         RadioUtils.setWifiOn(context);
                     }
                 }
             }
         }
+    }
+
+    private void showWifiDialog(Context context, Editor editor) {
+        Log.d(TAG, "showWifiDialog");
+        editor.putLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, System.currentTimeMillis());
+        editor.apply();
+
+        Intent intent = new Intent(context, TimerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }

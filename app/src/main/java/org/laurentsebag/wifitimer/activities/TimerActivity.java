@@ -18,9 +18,9 @@
 
 package org.laurentsebag.wifitimer.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -33,14 +33,16 @@ import org.laurentsebag.wifitimer.Timer;
 import org.laurentsebag.wifitimer.contracts.TimerActivityContract;
 import org.laurentsebag.wifitimer.presenters.TimerPresenter;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
+import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
  */
-public class TimerActivity extends Activity implements View.OnClickListener, TimerActivityContract.View {
+public class TimerActivity extends TrackedActivity implements View.OnClickListener, TimerActivityContract.View {
 
     public static final String BUNDLE_EXTRA_TIME = "extra_time";
     private static final String STATE_TIME = "time";
+    public static final int TIME_INVALID = -1;
 
     private TextView duration;
     private TextView hour;
@@ -105,8 +107,21 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupTitle(AppConfig.getWifiTimerUsage(this));
+        final String wifiTimerUsage = AppConfig.getWifiTimerUsage(this);
+        presenter.setupTitle(wifiTimerUsage);
         presenter.updateTime();
+
+        trackTimeToDisplayDialog(wifiTimerUsage);
+    }
+
+    private void trackTimeToDisplayDialog(String wifiTimerUsage) {
+        SharedPreferences preferences = getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
+        long wifiChangeTime = preferences.getLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, TIME_INVALID);
+        if (wifiChangeTime > TIME_INVALID) {
+            long duration = System.currentTimeMillis() - wifiChangeTime;
+            TrackerUtils.trackWifiDialogTiming(tracker, wifiTimerUsage, duration);
+            preferences.edit().remove(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME).apply();
+        }
     }
 
     @Override
@@ -127,21 +142,39 @@ public class TimerActivity extends Activity implements View.OnClickListener, Tim
     public void onClick(View v) {
         if (v == buttonSet) {
             presenter.setTimer();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_SET, presenter.getTimerDuration());
         } else if (v == buttonNever) {
             presenter.cancelTimer();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_CANCEL);
+            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (v == buttonNow) {
             presenter.undoTimer();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_UNDO);
+            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (v == increaseHourView) {
             presenter.increaseTimerHour();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_HOUR);
         } else if (v == decreaseHourView) {
             presenter.decreaseTimerHour();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_DECREASE_HOUR);
         } else if (v == increaseMinuteView) {
             presenter.increaseTimerMinute();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_MINUTE);
         } else if (v == decreaseMinuteView) {
             presenter.decreaseTimerMinute();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_DECREASE_MINUTE);
         } else if (v == buttonAmPm) {
             presenter.switchAmPm();
+            trackAction(TrackerUtils.TRACK_LABEL_TIMER_SWITCH_AM_PM);
         }
+    }
+
+    private void trackAction(String label, long value) {
+        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label, value);
+    }
+
+    private void trackAction(String label) {
+        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label);
     }
 
     @Override

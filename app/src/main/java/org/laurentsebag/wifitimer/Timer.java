@@ -185,6 +185,6 @@ public class Timer {
         SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(Timer.PREF_SET, value);
-        editor.commit();
+        editor.apply();
     }
 }
