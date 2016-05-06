@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "org.laurentsebag.wifitimer"
-        versionCode 11
+        versionCode 12
         versionName "1.2.3"
         minSdkVersion 9
         targetSdkVersion 23
