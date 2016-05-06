@@ -8,7 +8,7 @@ android {
         applicationId "org.laurentsebag.wifitimer"
         versionCode 10
         versionName "1.2.2"
-        minSdkVersion 9 // TODO find a way to keep minSdkVersion 7 or have 2 apk built
+        minSdkVersion 9
         targetSdkVersion 23
     }
 
