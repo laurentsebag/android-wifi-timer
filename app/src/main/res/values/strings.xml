@@ -55,6 +55,9 @@
     
     \n\nIf you decide you don\'t want to be prompted anymore, 
     just <b>uninstall</b> the application.
+
+    \n\nWifi Timer automatically sends anonymous usage statistics to help improve the application.
+    If you prefer not to participate, you can opt out in the Settings screen.
     </string>
     
     <string name="description">"Since 2.3.3 on my Nexus One, I started to have less
@@ -66,8 +69,14 @@
     passed, your wifi will be automatically turned back on."</string>
 
     <string name="settings_activity_label">Wifi Timer - Settings</string>
+    <string name="preference_timer_usage_key"
+        translatable="false">timer_usage</string>
     <string name="preference_timer_usage_title">Wifi Timer mode</string>
-    <string name="preference_timer_usage_summary">Choose on which event Wifi Timer shows up.</string>
+    <string name="preference_timer_usage_summary">Choose when Wifi Timer is displayed</string>
     <string name="preference_timer_usage_dialog_title">Choose a mode</string>
+    <string name="preference_share_analytics_key"
+        translatable="false">share_analytics</string>
+    <string name="preference_analytics_title">Share anonymous statistics</string>
+    <string name="preference_analytics_summary">Help Wifi Timer get better by sending anonymous usage statistics</string>
 
 </resources>

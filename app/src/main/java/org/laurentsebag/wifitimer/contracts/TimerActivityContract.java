@@ -53,8 +53,10 @@ public class TimerActivityContract {
 
         void setupTitle(String timerMode);
 
+        void setTime(long time);
+
         long getTime();
 
-        void setTime(long time);
+        long getTimerDuration();
     }
 }
