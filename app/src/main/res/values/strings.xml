@@ -55,6 +55,9 @@
     
     \n\nIf you decide you don\'t want to be prompted anymore, 
     just <b>uninstall</b> the application.
+
+    \n\nWifi Timer automatically sends anonymous usage statistics to help improve the application.
+    If you prefer not to participate, you can opt out in the Settings screen.
     </string>
     
     <string name="description">"Since 2.3.3 on my Nexus One, I started to have less

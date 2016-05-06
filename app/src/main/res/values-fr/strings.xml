@@ -56,6 +56,10 @@
     
     \n\nSi vous ne voulez plus qu\'une heure de réactivation du wifi vous soit demandée
     <b>déinstallez</b> l\'application.
+
+    \n\nWifi Timer envoie automatiquement des statistiques anonymes afin d\'améliorer l\'application.
+    Si vous preferez ne pas partager cette information, vous pouvez refuser d\'envoyer les statistiques
+    dans le menu Parametres.
     </string>
     
     <string name="description">Depuis android 2.3.3 sur mon Nexus One, 
