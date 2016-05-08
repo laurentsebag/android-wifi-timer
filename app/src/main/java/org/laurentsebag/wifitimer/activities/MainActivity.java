@@ -20,13 +20,12 @@ package org.laurentsebag.wifitimer.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
 import org.laurentsebag.wifitimer.R;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+public class MainActivity extends TrackedFragmentActivity implements View.OnClickListener {
 
     private static final String ABOUT_DIALOG = "about_dialog";
     private AboutDialogFragment aboutDialog;
