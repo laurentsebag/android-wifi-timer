@@ -38,11 +38,10 @@ import org.laurentsebag.wifitimer.utils.TrackerUtils;
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
  */
-public class TimerActivity extends TrackedActivity implements View.OnClickListener, TimerActivityContract.View {
+public class TimerActivity extends TrackedTimerActivity implements View.OnClickListener, TimerActivityContract.View {
 
     public static final String BUNDLE_EXTRA_TIME = "extra_time";
     private static final String STATE_TIME = "time";
-    public static final int TIME_INVALID = -1;
 
     private TextView duration;
     private TextView hour;
@@ -114,16 +113,6 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         trackTimeToDisplayDialog(wifiTimerUsage);
     }
 
-    private void trackTimeToDisplayDialog(String wifiTimerUsage) {
-        SharedPreferences preferences = getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
-        long wifiChangeTime = preferences.getLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, TIME_INVALID);
-        if (wifiChangeTime > TIME_INVALID) {
-            long duration = System.currentTimeMillis() - wifiChangeTime;
-            TrackerUtils.trackWifiDialogTiming(tracker, wifiTimerUsage, duration);
-            preferences.edit().remove(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME).apply();
-        }
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -146,11 +135,11 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         } else if (v == buttonNever) {
             presenter.cancelTimer();
             trackAction(TrackerUtils.TRACK_LABEL_TIMER_CANCEL);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
+            trackTimerCancelled();
         } else if (v == buttonNow) {
             presenter.undoTimer();
             trackAction(TrackerUtils.TRACK_LABEL_TIMER_UNDO);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
+            trackTimerCancelled();
         } else if (v == increaseHourView) {
             presenter.increaseTimerHour();
             trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_HOUR);
@@ -167,14 +156,6 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
             presenter.switchAmPm();
             trackAction(TrackerUtils.TRACK_LABEL_TIMER_SWITCH_AM_PM);
         }
-    }
-
-    private void trackAction(String label, long value) {
-        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label, value);
-    }
-
-    private void trackAction(String label) {
-        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label);
     }
 
     @Override

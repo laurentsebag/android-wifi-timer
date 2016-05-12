@@ -8,7 +8,6 @@ android {
         applicationId "org.laurentsebag.wifitimer"
         versionCode 13
         versionName "1.2.3"
-        minSdkVersion 9
         targetSdkVersion 23
     }
 
@@ -20,6 +19,22 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-config.txt'
+        }
+    }
+
+    productFlavors {
+        sdk7 {
+            minSdkVersion 7
+        }
+
+        sdk9 {
+            minSdkVersion 9
+        }
+    }
+
+    variantFilter { variant ->
+        if (variant.flavors.name == "sdk9") {
+            apply plugin: 'com.google.gms.google-services'
         }
     }
 }
@@ -35,10 +50,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:preference-v7:23.3.0'
     compile 'com.android.support:preference-v14:23.3.0'
-    compile 'com.google.android.gms:play-services-analytics:8.4.0'
+    sdk9Compile 'com.google.android.gms:play-services-analytics:8.4.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.hamcrest:hamcrest-all:1.3'
 }
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'

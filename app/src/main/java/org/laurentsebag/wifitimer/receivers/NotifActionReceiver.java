@@ -17,15 +17,11 @@
 
 package org.laurentsebag.wifitimer.receivers;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.google.android.gms.analytics.Tracker;
-
 import org.laurentsebag.wifitimer.AppConfig;
 import org.laurentsebag.wifitimer.Timer;
-import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
 import org.laurentsebag.wifitimer.presenters.TimerPresenter;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
@@ -37,16 +33,14 @@ import java.util.GregorianCalendar;
 /**
  * Receiver for button actions from the notification
  */
-public class NotifActionReceiver extends BroadcastReceiver {
+public class NotifActionReceiver extends TrackedNotifActionReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
         String action = intent.getAction();
         Timer timer = new Timer(context.getApplicationContext());
         long millis;
-
-        WifiTimerApplication application = ((WifiTimerApplication) context.getApplicationContext());
-        Tracker tracker = application.getDefaultTracker();
 
         if (AppConfig.SNOOZE_ALARM_ACTION.equals(action)) {
             if (intent.hasExtra(TimerActivity.BUNDLE_EXTRA_TIME)) {
@@ -57,15 +51,15 @@ public class NotifActionReceiver extends BroadcastReceiver {
                 timer.set(calendar.getTimeInMillis());
             }
 
-            TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_SNOOZE);
+            trackNotificationClick(TrackerUtils.TRACK_LABEL_SNOOZE);
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
             timer.cancel();
-            TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_CANCEL);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
+            trackNotificationClick(TrackerUtils.TRACK_LABEL_CANCEL);
+            trackTimerCancel();
         } else if (AppConfig.WIFI_TOGGLE_ACTION.equals(action)) {
             RadioUtils.setWifiStateBack(context.getApplicationContext());
-            TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_TOGGLE);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
+            trackNotificationClick(TrackerUtils.TRACK_LABEL_TOGGLE);
+            trackTimerCancel();
         }
     }
 }

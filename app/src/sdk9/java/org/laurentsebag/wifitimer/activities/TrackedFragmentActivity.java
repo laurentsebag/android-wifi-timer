@@ -1,15 +1,15 @@
 package org.laurentsebag.wifitimer.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.analytics.Tracker;
 
 import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
-public class TrackedActivity extends Activity {
-    protected Tracker tracker;
+public abstract class TrackedFragmentActivity extends FragmentActivity {
+    private Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,6 @@
 
 package org.laurentsebag.wifitimer.receivers;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,16 +25,12 @@ import android.net.wifi.WifiManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.google.android.gms.analytics.Tracker;
-
 import org.laurentsebag.wifitimer.AppConfig;
-import org.laurentsebag.wifitimer.WifiTimerApplication;
-import org.laurentsebag.wifitimer.utils.RadioUtils;
 import org.laurentsebag.wifitimer.Timer;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
-import org.laurentsebag.wifitimer.utils.TrackerUtils;
+import org.laurentsebag.wifitimer.utils.RadioUtils;
 
-public class WifiStateReceiver extends BroadcastReceiver {
+public class WifiStateReceiver extends TrackedWifiStateReceiver {
 
     private static final String TAG = WifiStateReceiver.class.getSimpleName();
     private static final String CANCELED_BY_AIRPLANE_MODE = "canceled_by_airplane_mode";
@@ -44,12 +39,10 @@ public class WifiStateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent data) {
+        super.onReceive(context, data);
         if (SystemClock.elapsedRealtime() < IGNORE_BOOT_THRESHOLD) {
             return;
         }
-
-        WifiTimerApplication application = (WifiTimerApplication) context.getApplicationContext();
-        Tracker tracker = application.getDefaultTracker();
 
         String action = data.getAction();
         SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
@@ -67,7 +60,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
                         boolean turnOffByAirplaneMode = preferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
                         if (turnOffByAirplaneMode) {
                             editor.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
-                            editor.apply();
+                            savePreference(editor);
                         }
                         // If the wifi state has changed but not because of a airplane mode change,
                         // display the wifi timer dialog.
@@ -77,14 +70,14 @@ public class WifiStateReceiver extends BroadcastReceiver {
                     } else {
                         Timer timer = new Timer(context);
                         timer.cancel();
-                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
+                        trackTimerCancel();
                     }
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         Timer timer = new Timer(context);
                         timer.cancel();
-                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
+                        trackTimerCancel();
                     } else {
                         showWifiDialog(context, editor);
                     }
@@ -102,15 +95,15 @@ public class WifiStateReceiver extends BroadcastReceiver {
                 if (timer.isSet()) {
                     timer.cancel();
                     editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, true);
-                    TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
+                    trackTimerCancel();
                 }
-                editor.apply();
+                savePreference(editor);
             } else {
                 // If user had a set timer before turning on airplane mode,
                 // when airplane mode is turned off, restore wifi.
                 if (preferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false)) {
                     editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);
-                    editor.apply();
+                    savePreference(editor);
                     if (AppConfig.getWifiTimerUsage(context).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         RadioUtils.setWifiOn(context);
                     }
@@ -119,11 +112,10 @@ public class WifiStateReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showWifiDialog(Context context, Editor editor) {
+    @Override
+    protected void showWifiDialog(Context context, Editor editor) {
+        super.showWifiDialog(context, editor);
         Log.d(TAG, "showWifiDialog");
-        editor.putLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, System.currentTimeMillis());
-        editor.apply();
-
         Intent intent = new Intent(context, TimerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
