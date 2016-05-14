@@ -29,10 +29,10 @@ import android.util.Log;
 import com.google.android.gms.analytics.Tracker;
 
 import org.laurentsebag.wifitimer.AppConfig;
-import org.laurentsebag.wifitimer.WifiTimerApplication;
-import org.laurentsebag.wifitimer.utils.RadioUtils;
 import org.laurentsebag.wifitimer.Timer;
+import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
+import org.laurentsebag.wifitimer.utils.RadioUtils;
 import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 public class WifiStateReceiver extends BroadcastReceiver {
@@ -62,7 +62,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
             int wifiState = data.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
             Log.d(TAG, "Wifi state changed: " + wifiState);
             switch (wifiState) {
-                case WifiManager.WIFI_STATE_DISABLED:
+                case WifiManager.WIFI_STATE_DISABLING:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         boolean turnOffByAirplaneMode = preferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
                         if (turnOffByAirplaneMode) {
@@ -80,7 +80,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
                         TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     }
                     break;
-                case WifiManager.WIFI_STATE_ENABLED:
+                case WifiManager.WIFI_STATE_ENABLING:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         Timer timer = new Timer(context);
                         timer.cancel();
