@@ -7,4 +7,5 @@
     <dimen name="time_picker_width">70dp</dimen>
     <dimen name="time_picker_spacing">5dp</dimen>
     <dimen name="time_picker_am_pm_padding">20dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
 </resources>

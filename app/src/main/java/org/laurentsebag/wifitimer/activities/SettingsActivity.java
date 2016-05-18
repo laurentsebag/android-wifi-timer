@@ -20,15 +20,17 @@ package org.laurentsebag.wifitimer.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.SettingsFragment;
 
-public class SettingsActivity extends TrackedFragmentActivity {
+public class SettingsActivity extends TrackedAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+        setupToolbar();
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, new SettingsFragment())
                 .commit();
     }
 }

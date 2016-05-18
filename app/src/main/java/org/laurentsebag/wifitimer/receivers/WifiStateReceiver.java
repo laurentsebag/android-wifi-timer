@@ -48,6 +48,10 @@ public class WifiStateReceiver extends BroadcastReceiver {
             return;
         }
 
+        if (!AppConfig.isAppEnabled(context)) {
+            return;
+        }
+
         WifiTimerApplication application = (WifiTimerApplication) context.getApplicationContext();
         Tracker tracker = application.getDefaultTracker();
 

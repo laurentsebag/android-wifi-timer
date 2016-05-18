@@ -3,23 +3,27 @@
 
     <style name="BaseTheme"
         parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowTitleBackgroundStyle">@style/windowTitleBackgroundStyle</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.Dialog</item>
+        <!--<item name="android:windowNoTitle">false</item>-->
+        <!--<item name="android:windowTitleBackgroundStyle">@style/windowTitleBackgroundStyle</item>-->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorTertiary">@color/text_tertiary</item>
+        <item name="android:textColorPrimaryInverse">@color/text_primary_inverse</item>
+        <item name="android:textColorSecondaryInverse">@color/text_primary_inverse</item>
+        <!--<item name="android:textColorTertiaryInverse">@color/text_tertiary_inverse</item>-->
     </style>
 
     <style name="MainTheme"
-        parent="BaseTheme">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-    </style>
+        parent="BaseTheme"/>
 
-    <style name="windowTitleBackgroundStyle">
-        <item name="android:background">#dddddd</item>
-        <item name="android:paddingLeft">8dp</item>
-    </style>
-
-    <style name="Theme.Dialog.NoTitleBar"
-        parent="android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-    </style>
+    <!--<style name="windowTitleBackgroundStyle">-->
+    <!--<item name="android:background">#dddddd</item>-->
+    <!--<item name="android:paddingLeft">8dp</item>-->
+    <!--</style>-->
 
 </resources>

@@ -38,10 +38,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            String preferenceKeyAnalytics = getString(R.string.preference_share_analytics_key);
+            String analyticsKey = getString(R.string.preference_share_analytics_key);
+            String appEnabledKey = getString(R.string.preference_wifi_timer_enabled_key);
 
-            if (key.equals(preferenceKeyAnalytics)) {
-                boolean shareAnalytics = sharedPreferences.getBoolean(preferenceKeyAnalytics, true);
+            if (key.equals(analyticsKey)) {
+                boolean shareAnalytics = sharedPreferences.getBoolean(analyticsKey, true);
 
                 if (!shareAnalytics) {
                     TrackerUtils.trackPreference(tracker, key, String.valueOf(false));
@@ -53,6 +54,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 if (shareAnalytics) {
                     TrackerUtils.trackPreference(tracker, key, String.valueOf(true));
                 }
+            } else if (key.equals(appEnabledKey)) {
+                boolean appEnabled = sharedPreferences.getBoolean(appEnabledKey, true);
+                TrackerUtils.trackPreference(tracker, key, String.valueOf(appEnabled));
             } else {
                 String value = sharedPreferences.getString(key, PREFERENCE_NOT_SET);
                 TrackerUtils.trackPreference(tracker, key, value);

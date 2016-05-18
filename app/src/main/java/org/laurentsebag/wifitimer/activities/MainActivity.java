@@ -20,12 +20,13 @@ package org.laurentsebag.wifitimer.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
 import org.laurentsebag.wifitimer.R;
 
-public class MainActivity extends TrackedFragmentActivity implements View.OnClickListener {
+public class MainActivity extends TrackedAppCompatActivity implements View.OnClickListener {
 
     private static final String ABOUT_DIALOG = "about_dialog";
     private AboutDialogFragment aboutDialog;
@@ -33,11 +34,32 @@ public class MainActivity extends TrackedFragmentActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.info);
-        findViewById(R.id.done).setOnClickListener(this);
-        findViewById(R.id.settings).setOnClickListener(this);
-        findViewById(R.id.about).setOnClickListener(this);
+        setContentView(R.layout.activity_main);
+        setupToolbar();
+        setupViews();
         aboutDialog = new AboutDialogFragment();
+    }
+
+    private void setupViews() {
+        View view = findViewById(R.id.done);
+        if (view != null) {
+            view.setOnClickListener(this);
+        }
+
+        view = findViewById(R.id.settings);
+        if (view != null) {
+            view.setOnClickListener(this);
+        }
+
+        view = findViewById(R.id.about);
+        if (view != null) {
+            view.setOnClickListener(this);
+        }
+
+        view = findViewById(R.id.test);
+        if (view != null) {
+            view.setOnClickListener(this);
+        }
     }
 
     public void onClick(View v) {
@@ -51,6 +73,9 @@ public class MainActivity extends TrackedFragmentActivity implements View.OnClic
             case R.id.settings:
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivity(i);
+                break;
+            case R.id.test:
+                startActivity(new Intent(this, TimerActivity.class));
                 break;
         }
     }

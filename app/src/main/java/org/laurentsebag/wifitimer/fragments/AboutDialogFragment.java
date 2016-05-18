@@ -57,6 +57,7 @@ public class AboutDialogFragment extends DialogFragment {
         builder.setTitle(R.string.about_dialog_title);
         TextView content = new TextView(context);
         content.setText(R.string.about_dialog_content);
+        //        content.setTextAppearance(android.R.attr.textAppearanceMedium);
         content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
         content.setMovementMethod(LinkMovementMethod.getInstance());
         content.setPadding(padding, padding, padding, padding);

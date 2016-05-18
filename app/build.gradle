@@ -24,6 +24,7 @@ android {
     }
 }
 
+// Display the failed tests on the console for Travis CI
 tasks.withType(Test) {
     testLogging {
         events "skipped", "failed"

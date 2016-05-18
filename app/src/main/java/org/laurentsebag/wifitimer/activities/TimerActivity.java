@@ -61,7 +61,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_timer);
 
         Context context = getApplicationContext();
         boolean is24HourFormat = DateFormat.is24HourFormat(this);

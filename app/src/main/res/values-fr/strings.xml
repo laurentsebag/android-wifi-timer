@@ -77,4 +77,5 @@
     <string name="preference_timer_usage_dialog_title">Choisissez un mode</string>
     <string name="preference_analytics_summary">Aidez Wifi Timer en envoyant des statistiques anonymes sur l\'utilisation de l\'application</string>
     <string name="preference_analytics_title">Statistiques anonymes</string>
+    <string name="preference_wifi_timer_enabled_title">Activer Wifi Timer</string>
 </resources>

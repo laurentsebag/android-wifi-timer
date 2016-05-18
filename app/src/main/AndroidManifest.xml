@@ -53,7 +53,7 @@
             android:name=".activities.TimerActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Dialog.NoTitleBar"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <receiver android:name=".receivers.AlarmReceiver"/>
         <receiver android:name=".receivers.WifiStateReceiver">
