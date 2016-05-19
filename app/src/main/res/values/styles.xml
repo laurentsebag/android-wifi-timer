@@ -21,9 +21,14 @@
     <style name="MainTheme"
         parent="BaseTheme"/>
 
-    <!--<style name="windowTitleBackgroundStyle">-->
-    <!--<item name="android:background">#dddddd</item>-->
-    <!--<item name="android:paddingLeft">8dp</item>-->
-    <!--</style>-->
+    <style name="ToolbarBase">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Toolbar"
+        parent="ToolbarBase"/>
 
 </resources>

@@ -21,7 +21,7 @@
         android:inputType="number"
         android:singleLine="true"
         android:textColor="@android:color/primary_text_light"
-        android:textSize="@dimen/timepicker_font_size"/>
+        android:textSize="@dimen/time_picker_font_size"/>
 
     <ImageButton
         android:id="@+id/decrease"

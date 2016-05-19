@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_activity_label">
 
     <ListPreference
@@ -19,10 +19,10 @@
         android:summary="@string/preference_analytics_summary"
         android:title="@string/preference_analytics_title"/>
 
-    <android.support.v7.SwitchPreferenceCompat
+    <SwitchPreferenceCompat
         android:key="@string/preference_wifi_timer_enabled_key"
         android:persistent="true"
         android:title="@string/preference_wifi_timer_enabled_title"
         android:defaultValue="true"/>
 
-</android.support.v7.PreferenceScreen>
+</PreferenceScreen>
