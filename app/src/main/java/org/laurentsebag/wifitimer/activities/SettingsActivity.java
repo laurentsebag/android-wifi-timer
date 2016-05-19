@@ -55,7 +55,7 @@ public class SettingsActivity extends TrackedAppCompatActivity {
             } else if (key.equals(appEnabledKey)) {
                 boolean appEnabled = sharedPreferences.getBoolean(appEnabledKey, true);
                 TrackerUtils.trackPreference(tracker, key, String.valueOf(appEnabled));
-                setupToolbarColor();
+                transitionToolbarColor(appEnabled);
             } else {
                 String value = sharedPreferences.getString(key, PREFERENCE_NOT_SET);
                 TrackerUtils.trackPreference(tracker, key, value);
