@@ -79,5 +79,5 @@
     <string name="preference_analytics_title">Statistiques anonymes</string>
     <string name="preference_wifi_timer_enabled_title">Activer Wifi Timer</string>
     <string name="snack_bar_action_enable">activer</string>
-    <string name="snack_bar_app_disabled">vous avez désactivé Wifi Timer</string>
+    <string name="snack_bar_app_disabled">Vous avez désactivé Wifi Timer</string>
 </resources>
