@@ -37,7 +37,6 @@ public class SettingsActivity extends TrackedAppCompatActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             String analyticsKey = getString(R.string.preference_share_analytics_key);
-            String appEnabledKey = getString(R.string.preference_wifi_timer_enabled_key);
 
             if (key.equals(analyticsKey)) {
                 boolean shareAnalytics = sharedPreferences.getBoolean(analyticsKey, true);

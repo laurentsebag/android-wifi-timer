@@ -16,6 +16,8 @@ import org.laurentsebag.wifitimer.utils.TrackerUtils;
 public class TrackedAppCompatActivity extends AppCompatActivity {
     protected static final int TRANSITION_DURATION = 250;
     protected Tracker tracker;
+    protected String appEnabledKey;
+
     private Toolbar toolbar;
 
     @Override
@@ -23,6 +25,7 @@ public class TrackedAppCompatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         WifiTimerApplication application = (WifiTimerApplication) getApplication();
         tracker = application.getDefaultTracker();
+        appEnabledKey = getString(R.string.preference_wifi_timer_enabled_key);
     }
 
     public void setupToolbar() {
@@ -30,27 +33,31 @@ public class TrackedAppCompatActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void setupToolbarColor() {
-        String appEnabledKey = getString(R.string.preference_wifi_timer_enabled_key);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean appEnabled = sharedPreferences.getBoolean(appEnabledKey, true);
-        transitionToolbarColor(appEnabled, 0);
-    }
-
     protected void transitionToolbarColor(boolean appEnabled) {
         transitionToolbarColor(appEnabled, TRANSITION_DURATION);
     }
 
     private void transitionToolbarColor(boolean appEnabled, int transitionDuration) {
-        toolbar.setBackgroundResource(appEnabled ? R.drawable.toolbar_background_enabling : R.drawable.toolbar_background_disabling);
-        TransitionDrawable drawable = (TransitionDrawable) toolbar.getBackground();
-        drawable.startTransition(transitionDuration);
+        if (transitionDuration > 0) {
+            toolbar.setBackgroundResource(appEnabled ? R.drawable.toolbar_background_enabling : R.drawable.toolbar_background_disabling);
+            TransitionDrawable drawable = (TransitionDrawable) toolbar.getBackground();
+            drawable.startTransition(transitionDuration);
+        } else {
+            toolbar.setBackgroundResource(appEnabled ? R.color.primary : R.color.toolbar_app_disabled);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         TrackerUtils.trackScreen(tracker, getClass().getSimpleName());
-        setupToolbarColor();
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final boolean appEnabled = sharedPreferences.getBoolean(appEnabledKey, true);
+        onResume(appEnabled);
+    }
+
+    protected void onResume(boolean appEnabled) {
+        transitionToolbarColor(appEnabled, 0);
     }
 }
