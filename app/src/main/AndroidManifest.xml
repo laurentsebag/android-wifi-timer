@@ -57,7 +57,10 @@
 
         <receiver android:name=".receivers.AlarmReceiver"/>
         <receiver android:name=".receivers.WifiStateReceiver">
-            <intent-filter android:priority="999">
+            <intent-filter>
+                <!--<action android:name="android.net.wifi.supplicant.CONNECTION_CHANGE" />-->
+                <!--<action android:name="android.net.ConnectivityManager.CONNECTIVITY_ACTION" />-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
                 <action android:name="android.intent.action.AIRPLANE_MODE"/>
             </intent-filter>

@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.wifi.WifiManager;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
@@ -46,10 +47,12 @@ public class WifiStateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent data) {
         if (SystemClock.elapsedRealtime() < IGNORE_BOOT_THRESHOLD) {
+            Log.d(TAG, "wifi change during boot, exiting");
             return;
         }
 
         if (!AppConfig.isAppEnabled(context)) {
+            Log.d(TAG, "app disabled, exiting");
             return;
         }
 
@@ -121,8 +124,28 @@ public class WifiStateReceiver extends BroadcastReceiver {
                     }
                 }
             }
+        } else {
+            Log.d(TAG, "Wifi state other: " + action + " " + extraToString(data.getExtras()));
         }
     }
+
+    // TODO remove after tests
+    private String extraToString(Bundle extras) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<");
+        if (extras != null) {
+            for (String key : extras.keySet()) {
+                builder.append(key);
+                builder.append(" = ");
+                builder.append(extras.get(key));
+                builder.append(", ");
+            }
+        }
+        builder.delete(builder.length() - 2, builder.length());
+        builder.append(">");
+        return builder.toString();
+    }
+
 
     private void showWifiDialog(Context context, Editor editor) {
         Log.d(TAG, "showWifiDialog");
