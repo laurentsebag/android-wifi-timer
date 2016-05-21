@@ -11,8 +11,8 @@ passed, your wifi will be automatically turned back on.
 
 ### [Download now!](https://play.google.com/store/apps/details?id=org.laurentsebag.wifitimer)
 
-![](graphics/screenshots/en/wifi-timer_dialog.png)
-![](graphics/screenshots/en/wifi-timer_notification.png)
+<img src="graphics/screenshots/en/wifi-timer_dialog.png" width="45%">
+<img src="graphics/screenshots/en/wifi-timer_notification.png" width="45%">
 
 -------------------------------------------------------------------------------
 
