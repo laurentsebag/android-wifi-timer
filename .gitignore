@@ -8,4 +8,4 @@ build/
 local.properties
 *.iml
 .idea
-app/google-services.json
+gradle.properties

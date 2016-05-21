@@ -17,13 +17,13 @@
 
 package org.laurentsebag.wifitimer.fragments;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -57,7 +57,6 @@ public class AboutDialogFragment extends DialogFragment {
         builder.setTitle(R.string.about_dialog_title);
         TextView content = new TextView(context);
         content.setText(R.string.about_dialog_content);
-        //        content.setTextAppearance(android.R.attr.textAppearanceMedium);
         content.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
         content.setMovementMethod(LinkMovementMethod.getInstance());
         content.setPadding(padding, padding, padding, padding);
