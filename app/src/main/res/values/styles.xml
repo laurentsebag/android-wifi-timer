@@ -4,9 +4,9 @@
     <style name="BaseTheme"
         parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="alertDialogTheme">@style/Theme.AppCompat.Dialog</item>
-        <!--<item name="android:windowNoTitle">false</item>-->
-        <!--<item name="android:windowTitleBackgroundStyle">@style/windowTitleBackgroundStyle</item>-->
+        <!--<item name="alertDialogTheme">@style/Theme.AppCompat.Dialog</item>-->
+        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
+
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -15,7 +15,7 @@
         <item name="android:textColorTertiary">@color/text_tertiary</item>
         <item name="android:textColorPrimaryInverse">@color/text_primary_inverse</item>
         <item name="android:textColorSecondaryInverse">@color/text_primary_inverse</item>
-        <!--<item name="android:textColorTertiaryInverse">@color/text_tertiary_inverse</item>-->
+        <item name="android:textColorTertiaryInverse">@color/text_tertiary_inverse</item>
     </style>
 
     <style name="MainTheme"
@@ -31,5 +31,12 @@
 
     <style name="Toolbar"
         parent="ToolbarBase"/>
+
+    <!--TODO continue testing on nexus s to see if theme works on dialog-->
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="colorAccent">?attr/colorAccent</item>
+    </style>
 
 </resources>
