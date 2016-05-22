@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/main_container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -21,45 +22,56 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/info"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </ScrollView>
 
-        <LinearLayout
-            style="@android:style/ButtonBar"
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="@dimen/navigation_bar_elevation">
 
-            <Button
-                android:id="@+id/about"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/about"/>
+                android:background="@color/navigation_bar"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/settings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/settings"/>
+                <Button
+                    android:id="@+id/about"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about" />
 
-            <Button
-                android:id="@+id/done"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/done"/>
+                <Button
+                    android:id="@+id/settings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings" />
 
-            <!--TODO remove after tests-->
-            <Button
-                android:id="@+id/test"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="test"/>
-        </LinearLayout>
+                <Button
+                    android:id="@+id/done"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/done" />
+
+                <!--TODO remove after tests-->
+                <Button
+                    android:id="@+id/test"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="test" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

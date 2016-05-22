@@ -32,38 +32,38 @@
         <item quantity="other">%d heures</item>
     </plurals>
     <string name="info"><b>Wifi Timer</b> est facile
-    à utiliser ! 
+    à utiliser !
     Désactivez simplement le wifi en utilisant le widget \"Contrôle de l\'alimentation\"
     ou par le menu paramètres.
-    
+
     \n\nLorsque vous <b>désactivez</b> le wifi,
     le programme vous demande de saisir l\'heure à laquelle vous souhaitez le réactiver.
-    
-    \n\nL\'heure de remise en route du wifi est toujours réglée à l\'heure actuelle 
-    par défaut. Si vous voulez reglez la remise en route du wifi pour dans deux heures, 
+
+    \n\nL\'heure de remise en route du wifi est toujours réglée à l\'heure actuelle
+    par défaut. Si vous voulez reglez la remise en route du wifi pour dans deux heures,
     appuyez deux fois sur le bouton <b>+</b> de l\'heure.
-      
-    \n\nLorsque l\'heure est reglée, une notification apparaît dans la barre de 
+
+    \n\nLorsque l\'heure est reglée, une notification apparaît dans la barre de
     notification, pour vous donner l\'heure de réactivation.
-      
+
     Vous pouvez alors selectionner la notification pour <b>régler</b>
     ou <b>annuler</b> la réactivation du wifi.
-    Vous pouvez également annuler la réactivation en réactivant le wifi avec 
+    Vous pouvez également annuler la réactivation en réactivant le wifi avec
     le widget \"Contrôle de l\'alimentation\" ou le menu paramètres.
-    
-    \n\nVous pouvez également paramétrer Wifi Timer pour qu\'il désactive le wifi 
+
+    \n\nVous pouvez également paramétrer Wifi Timer pour qu\'il désactive le wifi
     au bout d\'un certain temps. Pour cela allez dans les paramètres.
-    
-    \n\nSi vous ne voulez plus qu\'une heure de réactivation du wifi vous soit demandée
-    <b>déinstallez</b> l\'application.
+
+    \n\nSi vous ne voulez plus qu\'une heure de réactivation du wifi vous soit demandée,
+    désactivez l\'option <b>Activer Wifi Timer</b> dans le menu Paramètres.
 
     \n\nWifi Timer envoie automatiquement des statistiques anonymes afin d\'améliorer l\'application.
     Si vous preferez ne pas partager cette information, vous pouvez refuser d\'envoyer les statistiques
-    dans le menu Parametres.
+    dans le menu Paramètres.
     </string>
-    
-    <string name="description">Depuis android 2.3.3 sur mon Nexus One, 
-    j\'ai commencé à avoir moins de batterie en fin de journée. 
+
+    <string name="description">Depuis android 2.3.3 sur mon Nexus One,
+    j\'ai commencé à avoir moins de batterie en fin de journée.
     J\'ai fait cette petite application pour réduire la consommation du téléphone
     au travail, où je n\'ai pas le wifi. J\'espère que cette application peut vous être utile
     également !

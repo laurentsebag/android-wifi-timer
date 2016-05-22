@@ -22,26 +22,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/instructions_on_wifi_deactivation"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <include
                 android:id="@+id/time"
                 layout="@layout/time_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"/>
+                android:layout_margin="12dp" />
 
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        style="@android:style/ButtonBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/main_actions_spacing_vertical"
@@ -50,23 +49,26 @@
 
         <Button
             android:id="@+id/never"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/never"/>
+            android:text="@string/never" />
 
         <Button
             android:id="@+id/set"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/set"/>
+            android:text="@string/set" />
 
         <Button
             android:id="@+id/now"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/now"/>
+            android:text="@string/now" />
     </LinearLayout>
 </LinearLayout>
