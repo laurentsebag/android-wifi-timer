@@ -11,5 +11,5 @@
     <dimen name="toolbar_shadow_height">6dp</dimen>
     <dimen name="time_picker_margin">4dp</dimen>
     <dimen name="timer_picker_margin">12dp</dimen>
-    <dimen name="navigation_bar_shadow_height">6dp</dimen>
+    <dimen name="navigation_bar_shadow_height">4dp</dimen>
 </resources>

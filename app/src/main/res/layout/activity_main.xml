@@ -30,8 +30,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_gravity="bottom"
                 android:layout_height="@dimen/navigation_bar_shadow_height"
+                android:layout_gravity="bottom"
                 android:background="@drawable/navigation_bar_shadow"/>
         </FrameLayout>
 
