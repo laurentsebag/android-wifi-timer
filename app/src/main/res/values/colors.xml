@@ -2,7 +2,7 @@
 <resources>
     <color name="primary">#8bc34a</color>
     <color name="primary_dark">#689f38</color>
-    <color name="accent">#ffd740</color>
+    <color name="accent">#00bfa5</color>
     <color name="navigation_bar">#f5f5f5</color>
 
     <color name="toolbar_app_disabled">#dcedc8</color>

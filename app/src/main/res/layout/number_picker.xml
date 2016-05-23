@@ -6,25 +6,27 @@
 
     <Button
         android:id="@+id/increase"
-        style="@style/TextAppearance.AppCompat.Large"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_increase" />
+        android:text="@string/button_increase"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <TextView
         android:id="@+id/timepicker_input"
-        style="@style/TextAppearance.AppCompat.Large"
+        style="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/time_picker_margin"
-        android:layout_marginRight="4dp"
+        android:layout_marginRight="@dimen/time_picker_margin"
         android:gravity="center"
-        android:maxLines="1" />
+        android:maxLines="1"/>
 
     <Button
         android:id="@+id/decrease"
-        style="@style/TextAppearance.AppCompat.Large"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_decrease" />
+        android:text="@string/button_decrease"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 </LinearLayout>
