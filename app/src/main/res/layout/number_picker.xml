@@ -6,7 +6,6 @@
 
     <Button
         android:id="@+id/increase"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_increase"
@@ -24,7 +23,6 @@
 
     <Button
         android:id="@+id/decrease"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_decrease"

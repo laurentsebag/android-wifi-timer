@@ -61,12 +61,6 @@ public class MainActivity extends TrackedAppCompatActivity implements View.OnCli
         if (view != null) {
             view.setOnClickListener(this);
         }
-
-        // TODO remove after tests
-        view = findViewById(R.id.test);
-        if (view != null) {
-            view.setOnClickListener(this);
-        }
     }
 
     @Override
@@ -94,9 +88,6 @@ public class MainActivity extends TrackedAppCompatActivity implements View.OnCli
             case R.id.settings:
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivity(i);
-                break;
-            case R.id.test:
-                startActivity(new Intent(this, TimerActivity.class));
                 break;
             case R.id.snackbar_action:
                 enableApp();
