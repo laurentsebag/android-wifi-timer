@@ -27,6 +27,7 @@ import android.view.View;
 
 import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
+import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 public class MainActivity extends TrackedAppCompatActivity implements View.OnClickListener {
 
@@ -101,5 +102,6 @@ public class MainActivity extends TrackedAppCompatActivity implements View.OnCli
         editor.putBoolean(appEnabledKey, true);
         editor.apply();
         transitionToolbarColor(true);
+        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_SNACK_BAR, TrackerUtils.TRACK_LABEL_ENABLE_APP);
     }
 }
