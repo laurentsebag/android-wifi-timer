@@ -36,7 +36,7 @@ public class WifiTimerApplication extends Application {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
             mTracker = analytics.newTracker(R.xml.global_tracker);
-            mTracker.enableExceptionReporting(true);
+            mTracker.enableExceptionReporting(!BuildConfig.DEBUG);
             mTracker.setAnonymizeIp(true);
         }
         return mTracker;
