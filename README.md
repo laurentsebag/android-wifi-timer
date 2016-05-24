@@ -11,6 +11,9 @@ passed, your wifi will be automatically turned back on.
 
 ### [Download now!](https://play.google.com/store/apps/details?id=org.laurentsebag.wifitimer)
 
+<img src="graphics/screenshots/en/wifi-timer_dialog.png" width="45%">
+<img src="graphics/screenshots/en/wifi-timer_notification.png" width="45%">
+
 -------------------------------------------------------------------------------
 
 This is an free software application released under the Gnu GPL v3 or later.
