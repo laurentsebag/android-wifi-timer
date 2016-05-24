@@ -29,13 +29,19 @@ public class AppConfig {
     public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
     public static final String PREFERENCE_KEY_WIFI_CHANGE_TIME = "wifi_state_changed_time";
     public static final String PREFERENCE_KEY_TIMER_USAGE = "timer_usage";
+    public static final String PREFERENCE_KEY_APP_ENABLED = "wifi_timer_enabled";
 
     public static final String SNOOZE_ALARM_ACTION = "wifitimer.intent.SNOOZE_ALARM";
     public static final String CANCEL_ALARM_ACTION = "wifitimer.intent.CANCEL_ALARM";
     public static final String WIFI_TOGGLE_ACTION = "wifitimer.intent.WIFI_TOGGLE";
 
     public static String getWifiTimerUsage(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(PREFERENCE_KEY_TIMER_USAGE, MODE_ON_WIFI_DEACTIVATION);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(PREFERENCE_KEY_TIMER_USAGE, MODE_ON_WIFI_DEACTIVATION);
+    }
+
+    public static boolean isAppEnabled(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getBoolean(PREFERENCE_KEY_APP_ENABLED, true);
     }
 }

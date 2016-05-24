@@ -14,59 +14,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/main_container_spacing">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/timer_activity_instructions"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/instructions_on_wifi_deactivation"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:background="@color/accent"
+                android:orientation="vertical"
+                android:padding="@dimen/main_container_spacing">
+
+                <TextView
+                    android:id="@+id/timer_activity_instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instructions_on_wifi_deactivation"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                    android:textColor="?android:attr/textColorPrimaryInverse"/>
+
+                <TextView
+                    android:id="@+id/duration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+            </LinearLayout>
 
             <include
                 android:id="@+id/time"
                 layout="@layout/time_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"/>
-
-            <TextView
-                android:id="@+id/duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone"/>
+                android:layout_margin="@dimen/timer_picker_margin"/>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        style="@android:style/ButtonBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/main_actions_spacing_vertical"
-        android:gravity="center_vertical"
+        android:gravity="end"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/never"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/never"/>
 
         <Button
             android:id="@+id/set"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/set"/>
 
         <Button
             android:id="@+id/now"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/now"/>
     </LinearLayout>
 </LinearLayout>

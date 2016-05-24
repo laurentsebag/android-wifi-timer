@@ -10,6 +10,7 @@ public class TrackerUtils {
 
     public static final String TRACK_CATEGORY_TIMER = "timer";
     public static final String TRACK_CATEGORY_NOTIFICATION = "notification";
+    public static final String TRACK_CATEGORY_SNACK_BAR = "snack_bar";
     private static final String TRACK_CATEGORY_PREFERENCE = "preference";
     private static final String TRACK_CATEGORY_SYSTEM_EVENTS = "system_events";
 
@@ -28,6 +29,7 @@ public class TrackerUtils {
     public static final String TRACK_LABEL_TIMER_SWITCH_AM_PM = "switch_am_pm";
     public static final String TRACK_LABEL_TIMER_CANCEL_APP = "app";
     public static final String TRACK_LABEL_TIMER_CANCEL_EXTERNAL = "external";
+    public static final String TRACK_LABEL_ENABLE_APP = "enable_app";
 
     public static void trackScreen(Tracker tracker, String screenName) {
         tracker.setScreenName(screenName);

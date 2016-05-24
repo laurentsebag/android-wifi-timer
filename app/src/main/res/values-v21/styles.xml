@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="windowTitleBackgroundStyle">
-        <item name="android:background">#dddddd</item>
-        <item name="android:elevation">4dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingStart">8dp</item>
+    <style name="Toolbar"
+        parent="ToolbarBase">
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+    </style>
+
+    <style name="toolbar_shadow_view">
+        <item name="android:visibility">gone</item>
     </style>
 
 </resources>

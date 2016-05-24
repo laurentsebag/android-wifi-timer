@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.android.gms.analytics.Tracker;
@@ -48,12 +49,16 @@ public class WifiStateReceiver extends BroadcastReceiver {
             return;
         }
 
+        if (!AppConfig.isAppEnabled(context)) {
+            return;
+        }
+
         WifiTimerApplication application = (WifiTimerApplication) context.getApplicationContext();
         Tracker tracker = application.getDefaultTracker();
 
         String action = data.getAction();
-        SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Editor editor = sharedPreferences.edit();
 
         if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
 
@@ -64,7 +69,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_DISABLING:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-                        boolean turnOffByAirplaneMode = preferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+                        boolean turnOffByAirplaneMode = sharedPreferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
                         if (turnOffByAirplaneMode) {
                             editor.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
                             editor.apply();
@@ -108,7 +113,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
             } else {
                 // If user had a set timer before turning on airplane mode,
                 // when airplane mode is turned off, restore wifi.
-                if (preferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false)) {
+                if (sharedPreferences.getBoolean(CANCELED_BY_AIRPLANE_MODE, false)) {
                     editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, false);
                     editor.apply();
                     if (AppConfig.getWifiTimerUsage(context).equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {

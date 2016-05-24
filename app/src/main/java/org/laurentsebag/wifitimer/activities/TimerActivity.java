@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +62,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_timer);
 
         Context context = getApplicationContext();
         boolean is24HourFormat = DateFormat.is24HourFormat(this);
@@ -115,12 +116,12 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
     }
 
     private void trackTimeToDisplayDialog(String wifiTimerUsage) {
-        SharedPreferences preferences = getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
-        long wifiChangeTime = preferences.getLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, TIME_INVALID);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        long wifiChangeTime = sharedPreferences.getLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, TIME_INVALID);
         if (wifiChangeTime > TIME_INVALID) {
             long duration = System.currentTimeMillis() - wifiChangeTime;
             TrackerUtils.trackWifiDialogTiming(tracker, wifiTimerUsage, duration);
-            preferences.edit().remove(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME).apply();
+            sharedPreferences.edit().remove(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME).apply();
         }
     }
 

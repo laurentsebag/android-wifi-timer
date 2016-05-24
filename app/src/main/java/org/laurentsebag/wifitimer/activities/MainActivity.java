@@ -19,25 +19,63 @@
 package org.laurentsebag.wifitimer.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 
-import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
 import org.laurentsebag.wifitimer.R;
+import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
+import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
-public class MainActivity extends TrackedFragmentActivity implements View.OnClickListener {
+public class MainActivity extends TrackedAppCompatActivity implements View.OnClickListener {
 
     private static final String ABOUT_DIALOG = "about_dialog";
     private AboutDialogFragment aboutDialog;
+    private View mainContainer;
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.info);
-        findViewById(R.id.done).setOnClickListener(this);
-        findViewById(R.id.settings).setOnClickListener(this);
-        findViewById(R.id.about).setOnClickListener(this);
+        setContentView(R.layout.activity_main);
+        setupToolbar();
+        setupViews();
         aboutDialog = new AboutDialogFragment();
+    }
+
+    private void setupViews() {
+        mainContainer = findViewById(R.id.main_container);
+
+        View view = findViewById(R.id.done);
+        if (view != null) {
+            view.setOnClickListener(this);
+        }
+
+        view = findViewById(R.id.settings);
+        if (view != null) {
+            view.setOnClickListener(this);
+        }
+
+        view = findViewById(R.id.about);
+        if (view != null) {
+            view.setOnClickListener(this);
+        }
+    }
+
+    @Override
+    protected void onResume(boolean appEnabled) {
+        super.onResume(appEnabled);
+        if (!appEnabled) {
+            if (snackbar == null) {
+                snackbar = Snackbar.make(mainContainer, R.string.snack_bar_app_disabled, Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction(R.string.snack_bar_action_enable, this);
+            }
+            snackbar.show();
+        } else if (snackbar != null && snackbar.isShown()) {
+            snackbar.dismiss();
+        }
     }
 
     public void onClick(View v) {
@@ -52,6 +90,18 @@ public class MainActivity extends TrackedFragmentActivity implements View.OnClic
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivity(i);
                 break;
+            case R.id.snackbar_action:
+                enableApp();
+                break;
         }
+    }
+
+    private void enableApp() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(appEnabledKey, true);
+        editor.apply();
+        transitionToolbarColor(true);
+        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_SNACK_BAR, TrackerUtils.TRACK_LABEL_ENABLE_APP);
     }
 }

@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.text.format.DateFormat;
 
 import org.laurentsebag.wifitimer.activities.TimerActivity;
@@ -164,8 +165,8 @@ public class Timer {
     }
 
     public boolean isSet() {
-        SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SET, false);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getBoolean(PREF_SET, false);
     }
 
     private void setAlarm(long time) {
@@ -182,8 +183,8 @@ public class Timer {
     }
 
     private void updateTimerSetPreference(boolean value) {
-        SharedPreferences preferences = context.getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Timer.PREF_SET, value);
         editor.apply();
     }
