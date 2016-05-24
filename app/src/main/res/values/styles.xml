@@ -26,7 +26,8 @@
     <style name="Toolbar"
         parent="ToolbarBase"/>
 
-    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+    <style name="AppCompatAlertDialogStyle"
+        parent="Theme.AppCompat.Light.Dialog">
         <item name="android:buttonStyle">@style/AppCompatAlertDialogStyle.Button</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -36,6 +37,10 @@
     <style name="AppCompatAlertDialogStyle.Button"
         parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:minWidth">85dp</item>
+    </style>
+
+    <style name="toolbar_shadow_view">
+        <item name="android:background">@drawable/toolbar_shadow</item>
     </style>
 
 </resources>

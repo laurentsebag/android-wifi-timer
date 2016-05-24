@@ -28,9 +28,11 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
             </ScrollView>
 
+            <include layout="@layout/toolbar_shadow"/>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/navigation_bar_shadow_height"
+                android:layout_height="@dimen/bar_shadow_height"
                 android:layout_gravity="bottom"
                 android:background="@drawable/navigation_bar_shadow"/>
         </FrameLayout>

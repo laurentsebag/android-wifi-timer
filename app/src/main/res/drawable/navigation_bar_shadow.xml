@@ -7,6 +7,6 @@
         android:centerY="40%"
         android:centerColor="#10000000"
         android:endColor="@android:color/transparent"
-        android:startColor="#33000000"
+        android:startColor="#30000000"
         android:type="linear"/>
 </shape>

@@ -6,4 +6,8 @@
         <item name="android:elevation">@dimen/toolbar_elevation</item>
     </style>
 
+    <style name="toolbar_shadow_view">
+        <item name="android:visibility">gone</item>
+    </style>
+
 </resources>
