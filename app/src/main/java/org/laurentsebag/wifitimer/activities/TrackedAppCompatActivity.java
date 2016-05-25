@@ -13,8 +13,8 @@ import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
-public class TrackedAppCompatActivity extends AppCompatActivity {
-    protected static final int TRANSITION_DURATION = 250;
+public abstract class TrackedAppCompatActivity extends AppCompatActivity {
+    private static final int TRANSITION_DURATION = 250;
     protected Tracker tracker;
     protected String appEnabledKey;
 

@@ -32,7 +32,7 @@ import android.text.format.DateFormat;
 
 import org.laurentsebag.wifitimer.activities.TimerActivity;
 import org.laurentsebag.wifitimer.receivers.AlarmReceiver;
-import org.laurentsebag.wifitimer.receivers.NotifActionReceiver;
+import org.laurentsebag.wifitimer.receivers.NotificationActionReceiver;
 
 import java.text.Format;
 import java.util.Calendar;
@@ -60,7 +60,7 @@ public class Timer {
 
         int hours = calendar.get(Calendar.HOUR_OF_DAY);
         if (hours != 0) {
-            final String quantityString = resources.getQuantityString(R.plurals.Nhours, hours, hours);
+            final String quantityString = resources.getQuantityString(R.plurals.plurals_hours, hours, hours);
             text.append(quantityString);
         }
 
@@ -69,7 +69,7 @@ public class Timer {
             if (text.length() != 0) {
                 text.append(' ');
             }
-            text.append(resources.getQuantityString(R.plurals.Nminutes, minutes, minutes));
+            text.append(resources.getQuantityString(R.plurals.plurals_minutes, minutes, minutes));
         }
         return text.toString();
     }
@@ -133,7 +133,7 @@ public class Timer {
         PendingIntent cancelIntent = createNotificationActionIntent(time, AppConfig.CANCEL_ALARM_ACTION);
         PendingIntent snoozeIntent = createNotificationActionIntent(time, AppConfig.SNOOZE_ALARM_ACTION);
         PendingIntent toggleIntent = createNotificationActionIntent(time, AppConfig.WIFI_TOGGLE_ACTION);
-        int toggleActionString = mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION) ? R.string.notification_action_wifion : R.string.notification_action_wifioff;
+        int toggleActionString = mode.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION) ? R.string.notification_action_wifi_on : R.string.notification_action_wifi_off;
 
         return notificationBuilder
                 .addAction(0, context.getString(R.string.notification_action_cancel), cancelIntent)
@@ -153,7 +153,7 @@ public class Timer {
     private PendingIntent createNotificationActionIntent(long time, String action) {
         int requestCode = 0;
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
-        Intent intent = new Intent(context, NotifActionReceiver.class);
+        Intent intent = new Intent(context, NotificationActionReceiver.class);
         intent.setAction(action);
         intent.putExtra(TimerActivity.BUNDLE_EXTRA_TIME, time);
         return PendingIntent.getBroadcast(context, requestCode, intent, flags);

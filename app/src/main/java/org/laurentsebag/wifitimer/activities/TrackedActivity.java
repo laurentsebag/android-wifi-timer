@@ -8,7 +8,7 @@ import com.google.android.gms.analytics.Tracker;
 import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
-public class TrackedActivity extends Activity {
+public abstract class TrackedActivity extends Activity {
     protected Tracker tracker;
 
     @Override

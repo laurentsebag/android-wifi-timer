@@ -21,13 +21,13 @@
     <string name="notification_text">Selectionnez pour changer ou annuler</string>
     <string name="notification_action_cancel">Annuler</string>
     <string name="notification_action_snooze">+10</string>
-    <string name="notification_action_wifion">Wifi ON</string>
-    <string name="notification_action_wifioff">Wifi OFF</string>
-    <plurals name="Nminutes">
+    <string name="notification_action_wifi_on">Wifi ON</string>
+    <string name="notification_action_wifi_off">Wifi OFF</string>
+    <plurals name="plurals_minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
     </plurals>
-    <plurals name="Nhours">
+    <plurals name="plurals_hours">
         <item quantity="one">%d heure</item>
         <item quantity="other">%d heures</item>
     </plurals>

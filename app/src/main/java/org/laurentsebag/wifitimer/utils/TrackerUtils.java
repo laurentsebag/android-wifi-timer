@@ -6,7 +6,7 @@ import com.google.android.gms.analytics.Tracker;
 public class TrackerUtils {
 
     private static final String TRACK_ACTION_CLICK = "click";
-    public static final String TRACK_ACTION_TIMER_CANCEL = "timer_cancel";
+    private static final String TRACK_ACTION_TIMER_CANCEL = "timer_cancel";
 
     public static final String TRACK_CATEGORY_TIMER = "timer";
     public static final String TRACK_CATEGORY_NOTIFICATION = "notification";
