@@ -18,14 +18,15 @@
 package org.laurentsebag.wifitimer.fragments;
 
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceFragmentCompat;
+
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 
 import org.laurentsebag.wifitimer.R;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends PreferenceFragmentCompatDividers {
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey) {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.settings);
     }

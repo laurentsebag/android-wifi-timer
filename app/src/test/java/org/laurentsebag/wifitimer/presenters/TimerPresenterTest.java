@@ -362,6 +362,7 @@ public class TimerPresenterTest {
     @Test
     public void updateTime_shouldDisableDecreaseMinuteNextWouldPastTime() {
         Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.SECOND, TEST_FEW_SECONDS);
         presenter.setCalendar(calendar);
         presenter.updateTime();
         verify(view).setDecreaseMinuteButtonEnabled(false);

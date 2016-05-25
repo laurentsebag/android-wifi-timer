@@ -69,6 +69,8 @@
     passed, your wifi will be automatically turned back on."</string>
 
     <string name="settings_activity_label">Wifi Timer - Settings</string>
+    <string name="preference_category_options">Options</string>
+    <string name="preference_category_help_us">Help us</string>
     <string name="preference_timer_usage_key"
         translatable="false">timer_usage</string>
     <string name="preference_timer_usage_title">Wifi Timer mode</string>
