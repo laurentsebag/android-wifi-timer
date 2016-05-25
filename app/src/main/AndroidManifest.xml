@@ -17,9 +17,6 @@
     <!-- Get permission for reliable local dispatching on non-Google Play devices. -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <uses-sdk xmlns:tools="http://schemas.android.com/tools"
-        tools:overrideLibrary="android.support.v14.preference"/>
-
     <application
         android:name=".WifiTimerApplication"
         android:allowBackup="true"

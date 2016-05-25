@@ -2,8 +2,7 @@
 <resources>
 
     <style name="BaseTheme"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        parent="@style/PreferenceFixTheme.Light.NoActionBar">
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
 
