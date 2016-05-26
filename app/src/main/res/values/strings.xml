@@ -74,7 +74,6 @@
     <string name="preference_timer_usage_key"
         translatable="false">timer_usage</string>
     <string name="preference_timer_usage_title">Wi-Fi Timer mode</string>
-    <string name="preference_timer_usage_summary">Choose when Wi-Fi Timer is displayed</string>
     <string name="preference_timer_usage_dialog_title">Choose a mode</string>
     <string name="preference_share_analytics_key"
         translatable="false">share_analytics</string>
@@ -83,6 +82,12 @@
     <string name="preference_wifi_timer_enabled_key"
         translatable="false">wifi_timer_enabled</string>
     <string name="preference_wifi_timer_enabled_title">Enable Wi-Fi Timer</string>
+    <string name="preference_report_bug_key" translatable="false">report_bug</string>
+    <string name="preference_report_bug_title">Report a bug</string>
+    <string name="preference_request_feature_key" translatable="false">request_feature</string>
+    <string name="preference_request_feature_title">Suggest a new feature</string>
+    <string name="preference_rate_app_key" translatable="false">rate_app</string>
+    <string name="preference_rate_app_title">Rate the app on Play Store</string>
     <string name="snack_bar_app_disabled">You have disabled Wi-Fi Timer</string>
     <string name="snack_bar_action_enable">enable</string>
     <string name="button_increase" translatable="false">+</string>
