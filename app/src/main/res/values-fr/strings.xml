@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Wifi Timer</string>
+    <string name="app_name">Wi-Fi Timer</string>
     <string name="instructions_on_wifi_deactivation">Quand souhaitez-vous réactiver le wifi ?</string>
     <string name="instructions_on_wifi_activation">Quand souhaitez-vous désactiver le wifi ?</string>
     <string name="set">Heure</string>
@@ -9,20 +9,20 @@
     <string name="done">Fermer</string>
     <string name="settings">Paramètres</string>
     <string name="about">A propos</string>
-    <string name="about_dialog_title">A propos de Wifi Timer</string>
-    <string name="about_dialog_content">Wifi Timer est développé par Laurent Sebag.
+    <string name="about_dialog_title">A propos de Wi-Fi Timer</string>
+    <string name="about_dialog_content">Wi-Fi Timer est développé par Laurent Sebag.
     	\n\nCe logiciel est publié sous license <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3 ou supérieure</a>.
     	\n\nCe programme utilise des parties de code du projet \"Phone Silencer\" de Peter Baldwin, sous license GPLv3 ou supérieure.
     </string>
-    <string name="ticker_on_wifi_activation">Wifi activé pour %s</string>
-    <string name="ticker_on_wifi_deactivation">Wifi désactivé pour %s</string>
-    <string name="notification_title_on_wifi_activation">Wifi activé jusqu\'à %s</string>
-    <string name="notification_title_on_wifi_deactivation">Wifi désactivé jusqu\'à %s</string>
+    <string name="ticker_on_wifi_activation">Wi-Fi activé pour %s</string>
+    <string name="ticker_on_wifi_deactivation">Wi-Fi désactivé pour %s</string>
+    <string name="notification_title_on_wifi_activation">Wi-Fi activé jusqu\'à %s</string>
+    <string name="notification_title_on_wifi_deactivation">Wi-Fi désactivé jusqu\'à %s</string>
     <string name="notification_text">Selectionnez pour changer ou annuler</string>
     <string name="notification_action_cancel">Annuler</string>
     <string name="notification_action_snooze">+10</string>
-    <string name="notification_action_wifi_on">Wifi ON</string>
-    <string name="notification_action_wifi_off">Wifi OFF</string>
+    <string name="notification_action_wifi_on">Wi-Fi ON</string>
+    <string name="notification_action_wifi_off">Wi-Fi OFF</string>
     <plurals name="plurals_minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
@@ -31,7 +31,7 @@
         <item quantity="one">%d heure</item>
         <item quantity="other">%d heures</item>
     </plurals>
-    <string name="info"><b>Wifi Timer</b> est facile
+    <string name="info"><b>Wi-Fi Timer</b> est facile
     à utiliser !
     Désactivez simplement le wifi en utilisant le widget \"Contrôle de l\'alimentation\"
     ou par le menu paramètres.
@@ -51,13 +51,13 @@
     Vous pouvez également annuler la réactivation en réactivant le wifi avec
     le widget \"Contrôle de l\'alimentation\" ou le menu paramètres.
 
-    \n\nVous pouvez également paramétrer Wifi Timer pour qu\'il désactive le wifi
+    \n\nVous pouvez également paramétrer Wi-Fi Timer pour qu\'il désactive le wifi
     au bout d\'un certain temps. Pour cela allez dans les paramètres.
 
     \n\nSi vous ne voulez plus qu\'une heure de réactivation du wifi vous soit demandée,
-    désactivez l\'option <b>Activer Wifi Timer</b> dans le menu Paramètres.
+    désactivez l\'option <b>Activer Wi-Fi Timer</b> dans le menu Paramètres.
 
-    \n\nWifi Timer envoie automatiquement des statistiques anonymes afin d\'améliorer l\'application.
+    \n\nWi-Fi Timer envoie automatiquement des statistiques anonymes afin d\'améliorer l\'application.
     Si vous preferez ne pas partager cette information, vous pouvez refuser d\'envoyer les statistiques
     dans le menu Paramètres.
     </string>
@@ -71,15 +71,15 @@
     l\'application vous demande l\'heure à laquelle vous souhaitez le remettre en route.
     Après cette heure passée, le wifi sera automatiquement activé.</string>
 
-    <string name="settings_activity_label">Wifi Timer - Paramètres</string>
+    <string name="settings_activity_label">Wi-Fi Timer - Paramètres</string>
     <string name="preference_category_options">Options</string>
     <string name="preference_category_help_us">Aidez nous</string>
-    <string name="preference_timer_usage_title">Activation de Wifi Timer</string>
-    <string name="preference_timer_usage_summary">Choisir quand Wifi Timer se déclenche</string>
+    <string name="preference_timer_usage_title">Activation de Wi-Fi Timer</string>
+    <string name="preference_timer_usage_summary">Choisir quand Wi-Fi Timer se déclenche</string>
     <string name="preference_timer_usage_dialog_title">Choisissez un mode</string>
-    <string name="preference_analytics_summary">Aidez Wifi Timer en envoyant des statistiques anonymes sur l\'utilisation de l\'application</string>
+    <string name="preference_analytics_summary">Aidez Wi-Fi Timer en envoyant des statistiques anonymes sur l\'utilisation de l\'application</string>
     <string name="preference_analytics_title">Statistiques anonymes</string>
-    <string name="preference_wifi_timer_enabled_title">Activer Wifi Timer</string>
+    <string name="preference_wifi_timer_enabled_title">Activer Wi-Fi Timer</string>
     <string name="snack_bar_action_enable">activer</string>
-    <string name="snack_bar_app_disabled">Vous avez désactivé Wifi Timer</string>
+    <string name="snack_bar_app_disabled">Vous avez désactivé Wi-Fi Timer</string>
 </resources>

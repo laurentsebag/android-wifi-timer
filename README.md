@@ -1,4 +1,4 @@
-![](graphics/ldpi/icon.png) Wifi Timer
+![](graphics/ldpi/icon.png) Wi-Fi Timer
 ==========================================
 [![Build Status](https://travis-ci.org/laurentsebag/android-wifi-timer.svg?branch=master)](https://travis-ci.org/laurentsebag/android-wifi-timer)
 

@@ -1,6 +1,6 @@
-Wifi Timer by Laurent Sebag
+Wi-Fi Timer by Laurent Sebag
 ===========================
-Copyright (C) 2011 Laurent Sebag
+Copyright (C) 2016 Laurent Sebag
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
