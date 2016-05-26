@@ -68,11 +68,11 @@ public class MainActivity extends TrackedAppCompatActivity implements View.OnCli
     protected void onResume(boolean appEnabled) {
         super.onResume(appEnabled);
         if (!appEnabled) {
-            if (snackbar == null) {
+            if (snackbar == null || !snackbar.isShownOrQueued()) {
                 snackbar = Snackbar.make(mainContainer, R.string.snack_bar_app_disabled, Snackbar.LENGTH_INDEFINITE);
                 snackbar.setAction(R.string.snack_bar_action_enable, this);
+                snackbar.show();
             }
-            snackbar.show();
         } else if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
         }
