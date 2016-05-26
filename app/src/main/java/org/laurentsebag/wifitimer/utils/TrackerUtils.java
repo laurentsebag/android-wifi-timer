@@ -7,11 +7,13 @@ public class TrackerUtils {
 
     private static final String TRACK_ACTION_CLICK = "click";
     private static final String TRACK_ACTION_TIMER_CANCEL = "timer_cancel";
+    public static final String TRACK_ACTION_OPEN_EXTERNAL_LINK = "open_external_link";
+    public static final String TRACK_ACTION_OPEN_EXTERNAL_APP = "open_external_app";
 
     public static final String TRACK_CATEGORY_TIMER = "timer";
     public static final String TRACK_CATEGORY_NOTIFICATION = "notification";
     public static final String TRACK_CATEGORY_SNACK_BAR = "snack_bar";
-    private static final String TRACK_CATEGORY_PREFERENCE = "preference";
+    public static final String TRACK_CATEGORY_PREFERENCE = "preference";
     private static final String TRACK_CATEGORY_SYSTEM_EVENTS = "system_events";
 
     private static final String TRACK_VARIABLE_WIFI_DETECTION = "wifi_detection";
@@ -54,5 +56,9 @@ public class TrackerUtils {
 
     public static void trackTimerEvent(Tracker tracker, String label) {
         tracker.send(new HitBuilders.EventBuilder().setCategory(TRACK_CATEGORY_TIMER).setAction(TRACK_ACTION_TIMER_CANCEL).setLabel(label).build());
+    }
+
+    public static void trackExternalLink(Tracker tracker, String category, String action, String url) {
+        tracker.send(new HitBuilders.EventBuilder(category, action).setLabel(url).build());
     }
 }

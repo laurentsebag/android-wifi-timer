@@ -81,7 +81,8 @@ public class MainActivity extends TrackedAppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.done:
-                finish();
+                openTimer();
+                //                finish();
                 break;
             case R.id.about:
                 aboutDialog.show(getSupportFragmentManager(), ABOUT_DIALOG);
@@ -94,6 +95,12 @@ public class MainActivity extends TrackedAppCompatActivity implements View.OnCli
                 enableApp();
                 break;
         }
+    }
+
+    private void openTimer() {
+        Intent intent = new Intent(this, TimerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void enableApp() {
