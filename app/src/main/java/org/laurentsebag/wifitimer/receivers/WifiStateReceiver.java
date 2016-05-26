@@ -67,7 +67,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
             int wifiState = data.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
             Log.d(TAG, "Wifi state changed: " + wifiState);
             switch (wifiState) {
-                case WifiManager.WIFI_STATE_DISABLING:
+                case WifiManager.WIFI_STATE_DISABLED:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         boolean turnOffByAirplaneMode = sharedPreferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
                         if (turnOffByAirplaneMode) {
@@ -85,7 +85,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
                         TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     }
                     break;
-                case WifiManager.WIFI_STATE_ENABLING:
+                case WifiManager.WIFI_STATE_ENABLED:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         Timer timer = new Timer(context);
                         timer.cancel();
