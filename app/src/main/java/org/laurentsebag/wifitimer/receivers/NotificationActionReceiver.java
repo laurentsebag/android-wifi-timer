@@ -37,7 +37,7 @@ import java.util.GregorianCalendar;
 /**
  * Receiver for button actions from the notification
  */
-public class NotifActionReceiver extends BroadcastReceiver {
+public class NotificationActionReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

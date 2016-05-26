@@ -43,7 +43,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
 
     public static final String BUNDLE_EXTRA_TIME = "extra_time";
     private static final String STATE_TIME = "time";
-    public static final int TIME_INVALID = -1;
+    private static final int TIME_INVALID = -1;
 
     private TextView duration;
     private TextView hour;
@@ -70,7 +70,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         presenter = new TimerPresenter(context, android.text.format.DateFormat.getTimeFormat(context), is24HourFormat, timer, this);
 
         View hourPicker = findViewById(R.id.hour);
-        hour = (TextView) hourPicker.findViewById(R.id.timepicker_input);
+        hour = (TextView) hourPicker.findViewById(R.id.time_picker_input);
         increaseHourView = hourPicker.findViewById(R.id.increase);
         decreaseHourView = hourPicker.findViewById(R.id.decrease);
         hour.setCursorVisible(false);
@@ -78,7 +78,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         decreaseHourView.setOnClickListener(this);
 
         View minutePicker = findViewById(R.id.minute);
-        minuteTextView = (TextView) minutePicker.findViewById(R.id.timepicker_input);
+        minuteTextView = (TextView) minutePicker.findViewById(R.id.time_picker_input);
         increaseMinuteView = minutePicker.findViewById(R.id.increase);
         decreaseMinuteView = minutePicker.findViewById(R.id.decrease);
         minuteTextView.setCursorVisible(false);

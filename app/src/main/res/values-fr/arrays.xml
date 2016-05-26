@@ -2,11 +2,11 @@
 <resources>
 
     <string-array name="preference_timer_usage_entries">
-        <item>Afficher Wifi Timer sur activation du wifi</item>
-        <item>Afficher Wifi Timer sur désactivation du wifi</item>
+        <item>Afficher Wi-Fi Timer sur activation du wifi</item>
+        <item>Afficher Wi-Fi Timer sur désactivation du wifi</item>
     </string-array>
 
-    <string-array name="preference_timer_usage_entryvalues">
+    <string-array name="preference_timer_usage_entry_values">
         <item>on_wifi_activation</item>
         <item>on_wifi_deactivation</item>
     </string-array>

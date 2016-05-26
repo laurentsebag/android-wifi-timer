@@ -31,7 +31,7 @@ import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 public class SettingsActivity extends TrackedAppCompatActivity {
     private static final String TAG = SettingsFragment.class.getSimpleName();
-    public static final String PREFERENCE_NOT_SET = "not-set";
+    private static final String PREFERENCE_NOT_SET = "not-set";
 
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override

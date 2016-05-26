@@ -20,6 +20,7 @@
     <application
         android:name=".WifiTimerApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:description="@string/description"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -60,7 +61,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".receivers.NotifActionReceiver"
+            android:name=".receivers.NotificationActionReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="wifitimer.intent.SNOOZE_ALARM"/>

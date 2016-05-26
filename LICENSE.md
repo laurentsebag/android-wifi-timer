@@ -1,6 +1,6 @@
-Wifi Timer by Laurent Sebag
+Wi-Fi Timer by Laurent Sebag
 ===========================
-Copyright (C) 2011 Laurent Sebag
+Copyright (C) 2016 Laurent Sebag
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,63 +22,6 @@ Portions of this software were developed for
 [Phone Silencer](http://code.google.com/p/android-phone-silencer/) by Peter
 Baldwin Open Source Project, licensed under the GNU General Public License,
 Version 3 or later.
-
-
-Portions of this software were developed for the Android
-Open Source Project, licensed under the Apache License, Version 2.0.
-
-
-This software includes artwork created for the Android
-Open Source Project, licensed under the Apache License, Version 2.0:
-
- - res/drawable-hdpi/timepicker_down_disabled.9.png
- - res/drawable-hdpi/timepicker_down_disabled_focused.9.png
- - res/drawable-hdpi/timepicker_input_disabled.9.png
- - res/drawable-hdpi/timepicker_up_selected.9.png
- - res/drawable-hdpi/timepicker_input_normal.9.png
- - res/drawable-hdpi/timepicker_down_pressed.9.png
- - res/drawable-hdpi/timepicker_up_normal.9.png
- - res/drawable-hdpi/timepicker_down_normal.9.png
- - res/drawable-hdpi/timepicker_up_pressed.9.png
- - res/drawable-hdpi/timepicker_down_selected.9.png
- - res/drawable-hdpi/timepicker_input_selected.9.png
- - res/drawable-hdpi/timepicker_up_disabled_focused.9.png
- - res/drawable-hdpi/timepicker_input_pressed.9.png
- - res/drawable-hdpi/timepicker_up_disabled.9.png
- - res/drawable/timepicker_down_disabled.9.png
- - res/drawable/timepicker_down_disabled_focused.9.png
- - res/drawable/timepicker_input_disabled.9.png
- - res/drawable/timepicker_up_selected.9.png
- - res/drawable/timepicker_input_normal.9.png
- - res/drawable/timepicker_down_pressed.9.png
- - res/drawable/timepicker_up_normal.9.png
- - res/drawable/timepicker_down_normal.9.png
- - res/drawable/timepicker_up_pressed.9.png
- - res/drawable/timepicker_down_selected.9.png
- - res/drawable/timepicker_input_selected.9.png
- - res/drawable/timepicker_up_disabled_focused.9.png
- - res/drawable/timepicker_input_pressed.9.png
- - res/drawable/timepicker_up_disabled.9.png
- - res/drawable-ldpi/timepicker_input_normal.9.png
- - res/drawable-ldpi/timepicker_down_pressed.9.png
- - res/drawable-ldpi/timepicker_up_selected.9.png
- - res/drawable-ldpi/timepicker_down_disabled.9.png
- - res/drawable-ldpi/timepicker_input_pressed.9.png
- - res/drawable-ldpi/timepicker_up_pressed.9.png
- - res/drawable-ldpi/timepicker_down_disabled_focused.9.png
- - res/drawable-ldpi/timepicker_up_disabled.9.png
- - res/drawable-ldpi/timepicker_up_disabled_focused.9.png
- - res/drawable-ldpi/panel_background.9.png
- - res/drawable-ldpi/timepicker_input_disabled.9.png
- - res/drawable-ldpi/timepicker_input_selected.9.png
- - res/drawable-ldpi/stat_sys_ringer_silent.png
- - res/drawable-ldpi/timepicker_up_normal.9.png
- - res/drawable-ldpi/timepicker_down_selected.9.png
- - res/drawable-ldpi/timepicker_down_normal.9.png
- - res/drawable-hdpi-v9/panel_background.9.png
- - res/drawable-mdpi-v9/panel_background.9.png
- - res/drawable-ldpi-v9/panel_background.9.png
-
 
 -------------------------------------------------------------------------------
 

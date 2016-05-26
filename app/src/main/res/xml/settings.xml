@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_activity_label">
 
     <SwitchPreferenceCompat
@@ -10,24 +10,37 @@
 
     <PreferenceCategory android:title="@string/preference_category_options">
 
-        <ListPreference
+        <org.laurentsebag.wifitimer.views.ListPreferenceSummary
             android:defaultValue="on_wifi_deactivation"
             android:dialogTitle="@string/preference_timer_usage_dialog_title"
             android:entries="@array/preference_timer_usage_entries"
-            android:entryValues="@array/preference_timer_usage_entryvalues"
+            android:entryValues="@array/preference_timer_usage_entry_values"
             android:key="@string/preference_timer_usage_key"
             android:persistent="true"
-            android:summary="@string/preference_timer_usage_summary"
             android:title="@string/preference_timer_usage_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preference_category_help_us">
+
+        <Preference
+            android:key="@string/preference_report_bug_key"
+            android:title="@string/preference_report_bug_title"/>
+
+        <Preference
+            android:key="@string/preference_request_feature_key"
+            android:title="@string/preference_request_feature_title"/>
+
+        <Preference
+            android:key="@string/preference_rate_app_key"
+            android:title="@string/preference_rate_app_title"/>
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/preference_share_analytics_key"
             android:persistent="true"
             android:summary="@string/preference_analytics_summary"
             android:title="@string/preference_analytics_title"/>
+
     </PreferenceCategory>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

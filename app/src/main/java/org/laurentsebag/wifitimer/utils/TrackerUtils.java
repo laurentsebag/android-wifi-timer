@@ -1,3 +1,20 @@
+/*-
+ *  Copyright (C) 2016 Laurent Sebag
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.laurentsebag.wifitimer.utils;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -6,12 +23,14 @@ import com.google.android.gms.analytics.Tracker;
 public class TrackerUtils {
 
     private static final String TRACK_ACTION_CLICK = "click";
-    public static final String TRACK_ACTION_TIMER_CANCEL = "timer_cancel";
+    private static final String TRACK_ACTION_TIMER_CANCEL = "timer_cancel";
+    public static final String TRACK_ACTION_OPEN_EXTERNAL_LINK = "open_external_link";
+    public static final String TRACK_ACTION_OPEN_EXTERNAL_APP = "open_external_app";
 
     public static final String TRACK_CATEGORY_TIMER = "timer";
     public static final String TRACK_CATEGORY_NOTIFICATION = "notification";
     public static final String TRACK_CATEGORY_SNACK_BAR = "snack_bar";
-    private static final String TRACK_CATEGORY_PREFERENCE = "preference";
+    public static final String TRACK_CATEGORY_PREFERENCE = "preference";
     private static final String TRACK_CATEGORY_SYSTEM_EVENTS = "system_events";
 
     private static final String TRACK_VARIABLE_WIFI_DETECTION = "wifi_detection";
@@ -54,5 +73,9 @@ public class TrackerUtils {
 
     public static void trackTimerEvent(Tracker tracker, String label) {
         tracker.send(new HitBuilders.EventBuilder().setCategory(TRACK_CATEGORY_TIMER).setAction(TRACK_ACTION_TIMER_CANCEL).setLabel(label).build());
+    }
+
+    public static void trackExternalLink(Tracker tracker, String category, String action, String url) {
+        tracker.send(new HitBuilders.EventBuilder(category, action).setLabel(url).build());
     }
 }

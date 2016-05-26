@@ -17,8 +17,8 @@
 
 package org.laurentsebag.wifitimer.contracts;
 
-public class TimerActivityContract {
-    public interface View {
+public interface TimerActivityContract {
+    interface View {
         void close();
 
         void undoWifiState();
@@ -32,7 +32,7 @@ public class TimerActivityContract {
         void setDecreaseMinuteButtonEnabled(boolean enabled);
     }
 
-    public interface UserActionsListener {
+    interface UserActionsListener {
         void setTimer();
 
         void cancelTimer();
