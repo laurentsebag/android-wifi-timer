@@ -344,6 +344,7 @@ public class TimerPresenterTest {
     @Test
     public void updateTime_shouldDisableDecreaseHourNextWouldPastTime() {
         Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.SECOND, TEST_FEW_SECONDS);
         presenter.setCalendar(calendar);
         presenter.updateTime();
         verify(view).setDecreaseHourButtonEnabled(false);
