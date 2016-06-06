@@ -10,4 +10,5 @@
     <dimen name="time_picker_margin">4dp</dimen>
     <dimen name="timer_picker_margin">16dp</dimen>
     <dimen name="navigation_bar_height">56dp</dimen>
+    <dimen name="navigation_bar_item_min_width">128dp</dimen>
 </resources>
