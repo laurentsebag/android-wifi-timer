@@ -29,7 +29,7 @@ import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
 import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
-public class MainActivity extends TrackedAppCompatActivity implements View.OnClickListener {
+public class MainActivity extends TrackedToolbarActivity implements View.OnClickListener {
 
     private static final String ABOUT_DIALOG = "about_dialog";
     private AboutDialogFragment aboutDialog;
