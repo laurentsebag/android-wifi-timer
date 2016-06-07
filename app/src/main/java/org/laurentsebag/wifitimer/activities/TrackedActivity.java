@@ -17,15 +17,15 @@
 
 package org.laurentsebag.wifitimer.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.analytics.Tracker;
 
 import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
-public abstract class TrackedActivity extends Activity {
+public abstract class TrackedActivity extends AppCompatActivity {
     protected Tracker tracker;
 
     @Override
