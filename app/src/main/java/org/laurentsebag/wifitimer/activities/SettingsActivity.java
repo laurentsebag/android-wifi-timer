@@ -29,7 +29,7 @@ import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.SettingsFragment;
 import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
-public class SettingsActivity extends TrackedAppCompatActivity {
+public class SettingsActivity extends TrackedToolbarActivity {
     private static final String TAG = SettingsFragment.class.getSimpleName();
     private static final String PREFERENCE_NOT_SET = "not-set";
 
