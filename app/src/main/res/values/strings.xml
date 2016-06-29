@@ -92,5 +92,9 @@
     <string name="snack_bar_action_enable">enable</string>
     <string name="button_increase" translatable="false">+</string>
     <string name="button_decrease" translatable="false">-</string>
+    <string name="onboarding_skip">SKIP</string>
+    <string name="onboarding_done">DONE</string>
+    <string name="onboarding_next"
+        translatable="false"><![CDATA[>]]></string>
 
 </resources>

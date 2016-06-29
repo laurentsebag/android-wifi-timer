@@ -11,4 +11,6 @@
     <dimen name="timer_picker_margin">16dp</dimen>
     <dimen name="navigation_bar_height">56dp</dimen>
     <dimen name="navigation_bar_item_min_width">128dp</dimen>
+    <dimen name="onboarding_navbar_height">48dp</dimen>
+    <dimen name="onboarding_navbar_delimiter">2dp</dimen>
 </resources>

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-feature android:name="android.hardware.wifi"/>
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -35,10 +36,13 @@
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
             android:exported="false"/>
+
+        <activity android:name=".activities.OnboardingActivity"/>
 
         <activity android:name=".activities.MainActivity">
             <intent-filter>
@@ -46,7 +50,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name=".activities.SettingsActivity"/>
+
         <activity
             android:name=".activities.TimerActivity"
             android:excludeFromRecents="true"
@@ -54,12 +60,14 @@
             android:theme="@style/AppCompatAlertDialogStyle"/>
 
         <receiver android:name=".receivers.AlarmReceiver"/>
+
         <receiver android:name=".receivers.WifiStateReceiver">
             <intent-filter android:priority="999">
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
                 <action android:name="android.intent.action.AIRPLANE_MODE"/>
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".receivers.NotificationActionReceiver"
             android:exported="false">

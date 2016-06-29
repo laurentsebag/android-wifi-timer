@@ -79,12 +79,21 @@ public class MainActivity extends TrackedToolbarActivity implements View.OnClick
     }
 
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.done:
-                finish();
+                //                TODO revert changes after finished testing onboarding
+                //                finish();
+                //                Intent intent = new Intent(this, TimerActivity.class);
+                intent = new Intent(this, OnboardingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
             case R.id.about:
-                aboutDialog.show(getSupportFragmentManager(), ABOUT_DIALOG);
+                //                aboutDialog.show(getSupportFragmentManager(), ABOUT_DIALOG);
+                intent = new Intent(this, TimerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
             case R.id.settings:
                 Intent i = new Intent(this, SettingsActivity.class);
