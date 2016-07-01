@@ -20,6 +20,7 @@ package org.laurentsebag.wifitimer.fragments;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +36,11 @@ public class OnboardingFragment extends Fragment {
     private static final String BUNDLE_KEY_SUBTITLE = "subtitle";
     private static final String BUNDLE_KEY_IMAGE = "image";
 
-    public static OnboardingFragment newInstance(String title, String subtitle, @DrawableRes int image) {
+    public static OnboardingFragment newInstance(@StringRes int title, @StringRes int subtitle, @DrawableRes int image) {
         OnboardingFragment onboardingFragment = new OnboardingFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(BUNDLE_KEY_TITLE, title);
-        bundle.putString(BUNDLE_KEY_SUBTITLE, subtitle);
+        bundle.putInt(BUNDLE_KEY_TITLE, title);
+        bundle.putInt(BUNDLE_KEY_SUBTITLE, subtitle);
         bundle.putInt(BUNDLE_KEY_IMAGE, image);
         onboardingFragment.setArguments(bundle);
         return onboardingFragment;
@@ -51,8 +52,8 @@ public class OnboardingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_onboarding, container, false);
 
         Bundle bundle = getArguments();
-        String title = bundle.getString(BUNDLE_KEY_TITLE);
-        String subtitle = bundle.getString(BUNDLE_KEY_SUBTITLE);
+        int title = bundle.getInt(BUNDLE_KEY_TITLE);
+        int subtitle = bundle.getInt(BUNDLE_KEY_SUBTITLE);
         int image = bundle.getInt(BUNDLE_KEY_IMAGE);
 
         ((TextView) view.findViewById(R.id.title)).setText(title);

@@ -42,7 +42,9 @@
             android:enabled="true"
             android:exported="false"/>
 
-        <activity android:name=".activities.OnboardingActivity"/>
+        <activity
+            android:name=".activities.OnboardingActivity"
+            android:theme="@style/MainTheme.Onboarding"/>
 
         <activity android:name=".activities.MainActivity">
             <intent-filter>

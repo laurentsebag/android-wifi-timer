@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -8,17 +8,35 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:layout_above="@+id/text_container"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"/>
 
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@id/text_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/onboarding_text_container_spacing_vertical"
+        android:paddingLeft="@dimen/onboarding_text_container_spacing_horizontal"
+        android:paddingRight="@dimen/onboarding_text_container_spacing_horizontal"
+        android:paddingTop="@dimen/onboarding_text_container_spacing_vertical">
+
+        <TextView
+            android:id="@id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </LinearLayout>
+
+</RelativeLayout>

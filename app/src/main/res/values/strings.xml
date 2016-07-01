@@ -82,19 +82,35 @@
     <string name="preference_wifi_timer_enabled_key"
         translatable="false">wifi_timer_enabled</string>
     <string name="preference_wifi_timer_enabled_title">Enable Wi-Fi Timer</string>
-    <string name="preference_report_bug_key" translatable="false">report_bug</string>
+    <string name="preference_report_bug_key"
+        translatable="false">report_bug</string>
     <string name="preference_report_bug_title">Report a bug</string>
-    <string name="preference_request_feature_key" translatable="false">request_feature</string>
+    <string name="preference_request_feature_key"
+        translatable="false">request_feature</string>
     <string name="preference_request_feature_title">Suggest a new feature</string>
-    <string name="preference_rate_app_key" translatable="false">rate_app</string>
+    <string name="preference_rate_app_key"
+        translatable="false">rate_app</string>
     <string name="preference_rate_app_title">Rate the app on Play Store</string>
     <string name="snack_bar_app_disabled">You have disabled Wi-Fi Timer</string>
     <string name="snack_bar_action_enable">enable</string>
-    <string name="button_increase" translatable="false">+</string>
-    <string name="button_decrease" translatable="false">-</string>
+    <string name="button_increase"
+        translatable="false">+</string>
+    <string name="button_decrease"
+        translatable="false">-</string>
     <string name="onboarding_skip">SKIP</string>
     <string name="onboarding_done">DONE</string>
     <string name="onboarding_next"
         translatable="false"><![CDATA[>]]></string>
-
+    <string name="onboarding_previous"
+        translatable="false"><![CDATA[<]]></string>
+    <string name="onboarding_title_screen1">Wi-Fi detection</string>
+    <string name="onboarding_subtitle_screen1">Wi-Fi Timer is automatically displayed when you turn the Wi-Fi
+        <b>ON</b> or <b>OFF</b></string>
+    <string name="onboarding_title_screen2">Set a Timer</string>
+    <string name="onboarding_subtitle_screen2">Wi-Fi Timer remembers to change the Wi-Fi back <b>ON</b> or
+        <b>OFF</b> for you</string>
+    <string name="onboarding_title_screen3">Choose a mode</string>
+    <string name="onboarding_subtitle_screen3">TODO: insert selection here</string>
+    <string name="onboarding_title_screen4">You\'re all set</string>
+    <string name="onboarding_subtitle_screen4">We hope you\'ll enjoy Wi-Fi Timer</string>
 </resources>

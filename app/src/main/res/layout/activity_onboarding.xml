@@ -26,6 +26,13 @@
             android:layout_height="wrap_content"
             android:text="@string/onboarding_skip"/>
 
+        <Button
+            android:id="@+id/onboarding_button_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/onboarding_previous"
+            android:visibility="gone"/>
+
         <View
             android:layout_width="0dp"
             android:layout_height="wrap_content"

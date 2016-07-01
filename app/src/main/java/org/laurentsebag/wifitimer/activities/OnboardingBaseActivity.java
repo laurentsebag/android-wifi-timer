@@ -37,8 +37,9 @@ public abstract class OnboardingBaseActivity extends AppCompatActivity implement
 
     private OnboardingFragmentPagerAdapter pagerAdapter;
     private ViewPager viewPager;
-    private View buttonNext;
     private View buttonSkip;
+    private View buttonPrevious;
+    private View buttonNext;
     private View buttonDone;
 
     @Override
@@ -54,30 +55,22 @@ public abstract class OnboardingBaseActivity extends AppCompatActivity implement
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         if (viewPager != null) {
             viewPager.setAdapter(pagerAdapter);
-            viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-                @Override
-                public void onPageSelected(int position) {
-                    if (position == viewPager.getAdapter().getCount() - 1) {
-                        buttonSkip.setVisibility(View.GONE);
-                        buttonNext.setVisibility(View.GONE);
-                        buttonDone.setVisibility(View.VISIBLE);
-                    } else {
-                        buttonSkip.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
-                        buttonNext.setVisibility(View.VISIBLE);
-                        buttonDone.setVisibility(View.GONE);
-                    }
-                }
-            });
-        }
-
-        buttonNext = findViewById(R.id.onboarding_button_next);
-        if (buttonNext != null) {
-            buttonNext.setOnClickListener(this);
+            viewPager.addOnPageChangeListener(new OnboardingPageChangeListener());
         }
 
         buttonSkip = findViewById(R.id.onboarding_button_skip);
         if (buttonSkip != null) {
             buttonSkip.setOnClickListener(this);
+        }
+
+        buttonPrevious = findViewById(R.id.onboarding_button_previous);
+        if (buttonPrevious != null) {
+            buttonPrevious.setOnClickListener(this);
+        }
+
+        buttonNext = findViewById(R.id.onboarding_button_next);
+        if (buttonNext != null) {
+            buttonNext.setOnClickListener(this);
         }
 
         buttonDone = findViewById(R.id.onboarding_button_done);
@@ -86,22 +79,32 @@ public abstract class OnboardingBaseActivity extends AppCompatActivity implement
         }
     }
 
-    protected void addScreen(@NonNull OnboardingFragment fragment) {
+    void addScreen(@NonNull OnboardingFragment fragment) {
         pagerAdapter.addFragment(fragment);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.onboarding_button_next:
-                goToNextScreen();
-                break;
             case R.id.onboarding_button_skip:
                 onSkip();
+                break;
+            case R.id.onboarding_button_previous:
+                goToPreviousScreen();
+                break;
+            case R.id.onboarding_button_next:
+                goToNextScreen();
                 break;
             case R.id.onboarding_button_done:
                 onDone();
                 break;
+        }
+    }
+
+    private void goToPreviousScreen() {
+        int previousItem = viewPager.getCurrentItem() - 1;
+        if (previousItem >= 0) {
+            viewPager.setCurrentItem(previousItem);
         }
     }
 
@@ -119,7 +122,7 @@ public abstract class OnboardingBaseActivity extends AppCompatActivity implement
     private class OnboardingFragmentPagerAdapter extends FragmentPagerAdapter {
         private List<OnboardingFragment> fragments;
 
-        public OnboardingFragmentPagerAdapter(FragmentManager fm) {
+        OnboardingFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
             fragments = new ArrayList<>();
         }
@@ -134,9 +137,25 @@ public abstract class OnboardingBaseActivity extends AppCompatActivity implement
             return fragments.size();
         }
 
-        public void addFragment(@NonNull OnboardingFragment fragment) {
+        void addFragment(@NonNull OnboardingFragment fragment) {
             fragments.add(fragment);
             notifyDataSetChanged();
+        }
+    }
+
+    private class OnboardingPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+        @Override
+        public void onPageSelected(int position) {
+            if (position == viewPager.getAdapter().getCount() - 1) {
+                buttonSkip.setVisibility(View.GONE);
+                buttonNext.setVisibility(View.GONE);
+                buttonDone.setVisibility(View.VISIBLE);
+            } else {
+                buttonSkip.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
+                buttonPrevious.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+                buttonNext.setVisibility(View.VISIBLE);
+                buttonDone.setVisibility(View.GONE);
+            }
         }
     }
 }

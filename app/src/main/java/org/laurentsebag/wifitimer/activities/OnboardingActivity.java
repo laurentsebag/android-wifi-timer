@@ -29,9 +29,10 @@ public class OnboardingActivity extends OnboardingBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addScreen(OnboardingFragment.newInstance("title", "subtitle", R.drawable.icon));
-        addScreen(OnboardingFragment.newInstance("title2", "subtitle2", R.drawable.icon));
-        addScreen(OnboardingFragment.newInstance("title3", "subtitle3", R.drawable.icon));
+        addScreen(OnboardingFragment.newInstance(R.string.onboarding_title_screen1, R.string.onboarding_subtitle_screen1, R.drawable.onboarding_screen_1));
+        addScreen(OnboardingFragment.newInstance(R.string.onboarding_title_screen2, R.string.onboarding_subtitle_screen2, R.drawable.onboarding_screen_2));
+        addScreen(OnboardingFragment.newInstance(R.string.onboarding_title_screen3, R.string.onboarding_subtitle_screen3, R.drawable.onboarding_screen_3));
+        addScreen(OnboardingFragment.newInstance(R.string.onboarding_title_screen4, R.string.onboarding_subtitle_screen4, R.drawable.onboarding_screen_4));
     }
 
     @Override
