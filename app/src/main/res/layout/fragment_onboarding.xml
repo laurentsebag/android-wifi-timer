@@ -29,14 +29,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:paddingBottom="@dimen/onboarding_text_spacing"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
     </LinearLayout>
 
 </RelativeLayout>

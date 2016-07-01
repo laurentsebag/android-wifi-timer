@@ -15,4 +15,5 @@
     <dimen name="onboarding_navbar_delimiter">1dp</dimen>
     <dimen name="onboarding_text_container_spacing_horizontal">16dp</dimen>
     <dimen name="onboarding_text_container_spacing_vertical">32dp</dimen>
+    <dimen name="onboarding_text_spacing">8dp</dimen>
 </resources>

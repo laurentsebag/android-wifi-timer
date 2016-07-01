@@ -42,6 +42,8 @@ public abstract class OnboardingBaseActivity extends AppCompatActivity implement
     private View buttonNext;
     private View buttonDone;
 
+    //    TODO add progress indicator
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
