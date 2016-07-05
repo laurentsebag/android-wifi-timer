@@ -42,7 +42,8 @@ public abstract class OnboardingBaseActivity extends AppCompatActivity implement
     private View buttonNext;
     private View buttonDone;
 
-    //    TODO add progress indicator
+    // TODO add progress indicator
+    // TODO convert the slide images into different resolutions
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
