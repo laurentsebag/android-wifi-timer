@@ -21,13 +21,12 @@ package org.laurentsebag.wifitimer.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 
 import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
-import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 public class MainActivity extends TrackedToolbarActivity implements View.OnClickListener {
 
@@ -102,6 +101,5 @@ public class MainActivity extends TrackedToolbarActivity implements View.OnClick
         editor.putBoolean(appEnabledKey, true);
         editor.apply();
         transitionToolbarColor(true);
-        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_SNACK_BAR, TrackerUtils.TRACK_LABEL_ENABLE_APP);
     }
 }

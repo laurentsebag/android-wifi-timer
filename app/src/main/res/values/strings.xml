@@ -75,10 +75,6 @@
         translatable="false">timer_usage</string>
     <string name="preference_timer_usage_title">Wi-Fi Timer mode</string>
     <string name="preference_timer_usage_dialog_title">Choose a mode</string>
-    <string name="preference_share_analytics_key"
-        translatable="false">share_analytics</string>
-    <string name="preference_analytics_title">Share anonymous statistics</string>
-    <string name="preference_analytics_summary">Help Wi-Fi Timer get better by sending anonymous usage statistics</string>
     <string name="preference_wifi_timer_enabled_key"
         translatable="false">wifi_timer_enabled</string>
     <string name="preference_wifi_timer_enabled_title">Enable Wi-Fi Timer</string>

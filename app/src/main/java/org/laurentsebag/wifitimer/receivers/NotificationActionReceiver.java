@@ -21,15 +21,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.google.android.gms.analytics.Tracker;
-
 import org.laurentsebag.wifitimer.AppConfig;
 import org.laurentsebag.wifitimer.Timer;
-import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
 import org.laurentsebag.wifitimer.presenters.TimerPresenter;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
-import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -45,9 +41,6 @@ public class NotificationActionReceiver extends BroadcastReceiver {
         Timer timer = new Timer(context.getApplicationContext());
         long millis;
 
-        WifiTimerApplication application = ((WifiTimerApplication) context.getApplicationContext());
-        Tracker tracker = application.getDefaultTracker();
-
         if (AppConfig.SNOOZE_ALARM_ACTION.equals(action)) {
             if (intent.hasExtra(TimerActivity.BUNDLE_EXTRA_TIME)) {
                 millis = intent.getLongExtra(TimerActivity.BUNDLE_EXTRA_TIME, 0);
@@ -57,15 +50,10 @@ public class NotificationActionReceiver extends BroadcastReceiver {
                 timer.set(calendar.getTimeInMillis());
             }
 
-            TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_SNOOZE);
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
             timer.cancel();
-            TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_CANCEL);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (AppConfig.WIFI_TOGGLE_ACTION.equals(action)) {
             RadioUtils.setWifiStateBack(context.getApplicationContext());
-            TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_NOTIFICATION, TrackerUtils.TRACK_LABEL_TOGGLE);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         }
     }
 }

@@ -22,7 +22,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceManager;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -34,12 +35,11 @@ import org.laurentsebag.wifitimer.Timer;
 import org.laurentsebag.wifitimer.contracts.TimerActivityContract;
 import org.laurentsebag.wifitimer.presenters.TimerPresenter;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
-import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 /**
  * Prompts the user to enter a time at which to turn the ringer back on.
  */
-public class TimerActivity extends TrackedActivity implements View.OnClickListener, TimerActivityContract.View {
+public class TimerActivity extends AppCompatActivity implements View.OnClickListener, TimerActivityContract.View {
 
     public static final String BUNDLE_EXTRA_TIME = "extra_time";
     private static final String STATE_TIME = "time";
@@ -70,7 +70,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         presenter = new TimerPresenter(context, android.text.format.DateFormat.getTimeFormat(context), is24HourFormat, timer, this);
 
         View hourPicker = findViewById(R.id.hour);
-        hour = (TextView) hourPicker.findViewById(R.id.time_picker_input);
+        hour = hourPicker.findViewById(R.id.time_picker_input);
         increaseHourView = hourPicker.findViewById(R.id.increase);
         decreaseHourView = hourPicker.findViewById(R.id.decrease);
         hour.setCursorVisible(false);
@@ -78,20 +78,20 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         decreaseHourView.setOnClickListener(this);
 
         View minutePicker = findViewById(R.id.minute);
-        minuteTextView = (TextView) minutePicker.findViewById(R.id.time_picker_input);
+        minuteTextView = minutePicker.findViewById(R.id.time_picker_input);
         increaseMinuteView = minutePicker.findViewById(R.id.increase);
         decreaseMinuteView = minutePicker.findViewById(R.id.decrease);
         minuteTextView.setCursorVisible(false);
         increaseMinuteView.setOnClickListener(this);
         decreaseMinuteView.setOnClickListener(this);
-        buttonAmPm = (Button) findViewById(R.id.amPm);
-        duration = (TextView) findViewById(R.id.duration);
+        buttonAmPm = findViewById(R.id.amPm);
+        duration = findViewById(R.id.duration);
         buttonAmPm.setOnClickListener(this);
         buttonAmPm.setVisibility(is24HourFormat ? View.GONE : View.VISIBLE);
 
-        buttonSet = (Button) findViewById(R.id.set);
-        buttonNever = (Button) findViewById(R.id.never);
-        buttonNow = (Button) findViewById(R.id.now);
+        buttonSet = findViewById(R.id.set);
+        buttonNever = findViewById(R.id.never);
+        buttonNow = findViewById(R.id.now);
 
         buttonSet.setOnClickListener(this);
         buttonNever.setOnClickListener(this);
@@ -112,15 +112,13 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
         presenter.setupTitle(wifiTimerUsage);
         presenter.updateTime();
 
-        trackTimeToDisplayDialog(wifiTimerUsage);
+        trackTimeToDisplayDialog();
     }
 
-    private void trackTimeToDisplayDialog(String wifiTimerUsage) {
+    private void trackTimeToDisplayDialog() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         long wifiChangeTime = sharedPreferences.getLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, TIME_INVALID);
         if (wifiChangeTime > TIME_INVALID) {
-            long duration = System.currentTimeMillis() - wifiChangeTime;
-            TrackerUtils.trackWifiDialogTiming(tracker, wifiTimerUsage, duration);
             sharedPreferences.edit().remove(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME).apply();
         }
     }
@@ -143,39 +141,21 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v == buttonSet) {
             presenter.setTimer();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_SET, presenter.getTimerDuration());
         } else if (v == buttonNever) {
             presenter.cancelTimer();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_CANCEL);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (v == buttonNow) {
             presenter.undoTimer();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_UNDO);
-            TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_APP);
         } else if (v == increaseHourView) {
             presenter.increaseTimerHour();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_HOUR);
         } else if (v == decreaseHourView) {
             presenter.decreaseTimerHour();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_DECREASE_HOUR);
         } else if (v == increaseMinuteView) {
             presenter.increaseTimerMinute();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_INCREASE_MINUTE);
         } else if (v == decreaseMinuteView) {
             presenter.decreaseTimerMinute();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_DECREASE_MINUTE);
         } else if (v == buttonAmPm) {
             presenter.switchAmPm();
-            trackAction(TrackerUtils.TRACK_LABEL_TIMER_SWITCH_AM_PM);
         }
-    }
-
-    private void trackAction(String label, long value) {
-        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label, value);
-    }
-
-    private void trackAction(String label) {
-        TrackerUtils.trackClick(tracker, TrackerUtils.TRACK_CATEGORY_TIMER, label);
     }
 
     @Override
@@ -190,7 +170,7 @@ public class TimerActivity extends TrackedActivity implements View.OnClickListen
 
     @Override
     public void setDialogTitle(int titleId) {
-        TextView textView = (TextView) findViewById(R.id.timer_activity_instructions);
+        TextView textView = findViewById(R.id.timer_activity_instructions);
         textView.setText(titleId);
     }
 

@@ -76,8 +76,6 @@
     <string name="preference_category_help_us">Aidez nous</string>
     <string name="preference_timer_usage_title">Activation de Wi-Fi Timer</string>
     <string name="preference_timer_usage_dialog_title">Choisissez un mode</string>
-    <string name="preference_analytics_summary">Aidez Wi-Fi Timer en envoyant des statistiques anonymes sur l\'utilisation de l\'application</string>
-    <string name="preference_analytics_title">Statistiques anonymes</string>
     <string name="preference_wifi_timer_enabled_title">Activer Wi-Fi Timer</string>
     <string name="preference_rate_app_title">Noter l\'application sur Play Store</string>
     <string name="preference_report_bug_title">Signaler un bug</string>
