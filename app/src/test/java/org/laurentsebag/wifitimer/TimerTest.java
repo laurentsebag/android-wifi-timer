@@ -25,10 +25,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
@@ -60,7 +60,8 @@ public class TimerTest {
         String result = String.valueOf(Timer.getFormattedDuration(context, from, to));
         verify(resources, never()).getQuantityString(eq(R.plurals.plurals_hours), anyInt(), anyInt());
         verify(resources).getQuantityString(R.plurals.plurals_minutes, 30, 30);
-        assertThat(result, not(isEmptyOrNullString()));
+        assertThat(result, not(nullValue()));
+        assertThat(result, not(""));
         assertThat(result, containsString(MINUTE));
         assertThat(result, not(containsString(HOUR)));
     }
@@ -75,7 +76,8 @@ public class TimerTest {
         String result = Timer.getFormattedDuration(context, from, to);
         verify(resources).getQuantityString(R.plurals.plurals_hours, 2, 2);
         verify(resources).getQuantityString(R.plurals.plurals_minutes, 30, 30);
-        assertThat(result, not(isEmptyOrNullString()));
+        assertThat(result, not(nullValue()));
+        assertThat(result, not(""));
         assertThat(result, containsString(MINUTE));
         assertThat(result, containsString(HOUR));
     }
@@ -90,7 +92,8 @@ public class TimerTest {
         String result = String.valueOf(Timer.getFormattedDuration(context, from, to));
         verify(resources).getQuantityString(R.plurals.plurals_hours, 3, 3);
         verify(resources, never()).getQuantityString(eq(R.plurals.plurals_minutes), anyInt(), anyInt());
-        assertThat(result, not(isEmptyOrNullString()));
+        assertThat(result, not(nullValue()));
+        assertThat(result, not(""));
         assertThat(result, not(containsString(MINUTE)));
         assertThat(result, containsString(HOUR));
     }
