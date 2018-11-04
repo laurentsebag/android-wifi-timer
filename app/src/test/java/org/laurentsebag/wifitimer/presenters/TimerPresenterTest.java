@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2016 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -78,7 +78,7 @@ public class TimerPresenterTest {
     private Calendar testCalendarAm;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         presenter = new TimerPresenter(context, formatter, FORMAT_24, timer, view);
         presenterAmPm = new TimerPresenter(context, formatter, FORMAT_AM_PM, timer, view);
@@ -98,21 +98,21 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void setTimer_shouldSetTimerAndCloseView() throws Exception {
+    public void setTimer_shouldSetTimerAndCloseView() {
         presenter.setTimer();
         verify(timer).set(testCalendarPm.getTimeInMillis());
         verify(view).close();
     }
 
     @Test
-    public void cancelTimer_shouldCancelTimerAndCloseView() throws Exception {
+    public void cancelTimer_shouldCancelTimerAndCloseView() {
         presenter.cancelTimer();
         verify(timer).cancel();
         verify(view).close();
     }
 
     @Test
-    public void undoTimer_shouldRestoreWifiStateAndCloseView() throws Exception {
+    public void undoTimer_shouldRestoreWifiStateAndCloseView() {
         presenter.undoTimer();
         verify(timer).cancel();
         verify(view).undoWifiState();
@@ -120,7 +120,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void increaseTimerHour_shouldAddHourIn24Format() throws Exception {
+    public void increaseTimerHour_shouldAddHourIn24Format() {
         presenter.increaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM + 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
         verify(formatter).format(changedHourBy(testCalendarPm, 1), any(StringBuffer.class), any(FieldPosition.class));
@@ -128,7 +128,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void increaseTimerHour_shouldAddHourInAmPmFormatAfternoon() throws Exception {
+    public void increaseTimerHour_shouldAddHourInAmPmFormatAfternoon() {
         presenterAmPm.increaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 12 + 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
         verify(formatter).format(changedHourBy(testCalendarPm, 1), any(StringBuffer.class), any(FieldPosition.class));
@@ -136,7 +136,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void increaseTimerHour_shouldAddHourInAmPmFormatMorning() throws Exception {
+    public void increaseTimerHour_shouldAddHourInAmPmFormatMorning() {
         presenterAmPm.setCalendar(testCalendarAm);
         presenterAmPm.increaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_AM + 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(AM), anyString(), anyString());
@@ -145,7 +145,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void decreaseTimerHour_shouldRemoveHourIn24Format() throws Exception {
+    public void decreaseTimerHour_shouldRemoveHourIn24Format() {
         presenter.decreaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
         verify(formatter).format(changedHourBy(testCalendarPm, -1), any(StringBuffer.class), any(FieldPosition.class));
@@ -153,7 +153,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void decreaseTimerHour_shouldSetToNextDayIfNewTimeBeforeNow() throws Exception {
+    public void decreaseTimerHour_shouldSetToNextDayIfNewTimeBeforeNow() {
         Calendar calendar = new GregorianCalendar();
         TimerPresenter.roundTimeUp(calendar);
         presenter.setCalendar(calendar);
@@ -164,7 +164,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void decreaseTimerHour_shouldRemoveHourInAmPmFormatMorning() throws Exception {
+    public void decreaseTimerHour_shouldRemoveHourInAmPmFormatMorning() {
         presenterAmPm.setCalendar(testCalendarAm);
         presenterAmPm.decreaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_AM - 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(AM), anyString(), anyString());
@@ -173,7 +173,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void decreaseTimerHour_shouldRemoveHourInAmPmFormatAfternoon() throws Exception {
+    public void decreaseTimerHour_shouldRemoveHourInAmPmFormatAfternoon() {
         presenterAmPm.decreaseTimerHour();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 12 - 1)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
         verify(formatter).format(changedHourBy(testCalendarPm, -1), any(StringBuffer.class), any(FieldPosition.class));
@@ -181,7 +181,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void increaseTimerMinute_shouldAddIncrementMinutes() throws Exception {
+    public void increaseTimerMinute_shouldAddIncrementMinutes() {
         presenter.increaseTimerMinute();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM)), eq(String.valueOf(TEST_CALENDAR_MINUTE + TimerPresenter.MINUTE_INCREMENT)), eq(PM), anyString(), anyString());
         verify(formatter).format(changedMinuteBy(testCalendarPm, TimerPresenter.MINUTE_INCREMENT), any(StringBuffer.class), any(FieldPosition.class));
@@ -189,7 +189,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void decreaseTimerMinute_shouldRemoveIncrementMinutes() throws Exception {
+    public void decreaseTimerMinute_shouldRemoveIncrementMinutes() {
         presenter.decreaseTimerMinute();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM)), eq(String.valueOf(TEST_CALENDAR_MINUTE - TimerPresenter.MINUTE_INCREMENT)), eq(PM), anyString(), anyString());
         verify(formatter).format(changedMinuteBy(testCalendarPm, -TimerPresenter.MINUTE_INCREMENT), any(StringBuffer.class), any(FieldPosition.class));
@@ -197,7 +197,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void decreaseTimerMinute_shouldRoundToQuarter() throws Exception {
+    public void decreaseTimerMinute_shouldRoundToQuarter() {
         Calendar calendar = new GregorianCalendar();
         calendar.setTimeInMillis(testCalendarPm.getTimeInMillis());
         final int minute = 3;
@@ -210,7 +210,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void decreaseTimerMinute_shouldSetToNextDayIfNewTimeBeforeNow() throws Exception {
+    public void decreaseTimerMinute_shouldSetToNextDayIfNewTimeBeforeNow() {
         Calendar calendar = new GregorianCalendar();
         TimerPresenter.roundTimeUp(calendar);
         presenter.setCalendar(calendar);
@@ -266,7 +266,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void switchAmPm_shouldMakeMorningAfternoon() throws Exception {
+    public void switchAmPm_shouldMakeMorningAfternoon() {
         presenterAmPm.setCalendar(testCalendarAm);
         presenterAmPm.switchAmPm();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_AM)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(PM), anyString(), anyString());
@@ -275,7 +275,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void switchAmPm_shouldMakeAfternoonMorning() throws Exception {
+    public void switchAmPm_shouldMakeAfternoonMorning() {
         presenterAmPm.switchAmPm();
         verify(view).updateTime(eq(String.valueOf(TEST_CALENDAR_HOUR_PM - 12)), eq(String.valueOf(TEST_CALENDAR_MINUTE)), eq(AM), anyString(), anyString());
         verify(formatter).format(changedHourBy(testCalendarPm, -12), any(StringBuffer.class), any(FieldPosition.class));
@@ -291,30 +291,30 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void setupTitle_shouldSetTitleWithDeactivationMode() throws Exception {
+    public void setupTitle_shouldSetTitleWithDeactivationMode() {
         presenter.setupTitle(AppConfig.MODE_ON_WIFI_DEACTIVATION);
         verify(view).setDialogTitle(R.string.instructions_on_wifi_deactivation);
     }
 
     @Test
-    public void setupTitle_shouldSetTitleWithActivationMode() throws Exception {
+    public void setupTitle_shouldSetTitleWithActivationMode() {
         presenter.setupTitle(AppConfig.MODE_ON_WIFI_ACTIVATION);
         verify(view).setDialogTitle(R.string.instructions_on_wifi_activation);
     }
 
     @Test
-    public void setupTitle_shouldHandleInvalidMode() throws Exception {
+    public void setupTitle_shouldHandleInvalidMode() {
         presenter.setupTitle(null);
         verify(view).setDialogTitle(R.string.instructions_on_wifi_deactivation);
     }
 
     @Test
-    public void getTime_shouldReturnTimeInMillis() throws Exception {
+    public void getTime_shouldReturnTimeInMillis() {
         assertThat(presenter.getTime(), is(testCalendarPm.getTimeInMillis()));
     }
 
     @Test
-    public void setTime_shouldIncreaseCurrentTime() throws Exception {
+    public void setTime_shouldIncreaseCurrentTime() {
         presenter.setCalendar(testCalendarAm);
         presenter.setTime(TimerPresenter.TIME_INVALID);
         testCalendarAm.set(Calendar.SECOND, 0);
@@ -323,7 +323,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void setTime_shouldRoundCurrentTimeUp() throws Exception {
+    public void setTime_shouldRoundCurrentTimeUp() {
         testCalendarAm.set(Calendar.MINUTE, TEST_CALENDAR_MINUTE + 12);
         presenter.setCalendar(testCalendarAm);
         presenter.setTime(TimerPresenter.TIME_INVALID);
@@ -334,7 +334,7 @@ public class TimerPresenterTest {
     }
 
     @Test
-    public void setTime_shouldSetToExactTime() throws Exception {
+    public void setTime_shouldSetToExactTime() {
         presenter.setCalendar(testCalendarAm);
         long timeInMillis = testCalendarPm.getTimeInMillis() + MINUTE_IN_MILLIS;
         presenter.setTime(timeInMillis);

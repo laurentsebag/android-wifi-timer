@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2014 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ public class NotificationActionReceiver extends BroadcastReceiver {
         } else if (AppConfig.CANCEL_ALARM_ACTION.equals(action)) {
             timer.cancel();
         } else if (AppConfig.WIFI_TOGGLE_ACTION.equals(action)) {
-            RadioUtils.setWifiStateBack(context.getApplicationContext());
+            RadioUtils.setWifiStateBack(context);
         }
     }
 }

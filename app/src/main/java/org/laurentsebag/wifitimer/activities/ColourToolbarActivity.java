@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2016 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import android.support.v7.widget.Toolbar;
 
 import org.laurentsebag.wifitimer.R;
 
-public abstract class TrackedToolbarActivity extends AppCompatActivity {
+public abstract class ColourToolbarActivity extends AppCompatActivity {
     private static final int TRANSITION_DURATION = 250;
     protected String appEnabledKey;
 

@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import android.support.annotation.Nullable;
 import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.SettingsFragment;
 
-public class SettingsActivity extends TrackedToolbarActivity {
+public class SettingsActivity extends ColourToolbarActivity {
     private static final String PREFERENCE_NOT_SET = "not-set";
 
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceListener = new SharedPreferences.OnSharedPreferenceChangeListener() {

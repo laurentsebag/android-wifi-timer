@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *  Copyright (C) 2010 Peter Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,7 @@ package org.laurentsebag.wifitimer.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -43,7 +41,6 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
 
     public static final String BUNDLE_EXTRA_TIME = "extra_time";
     private static final String STATE_TIME = "time";
-    private static final int TIME_INVALID = -1;
 
     private TextView duration;
     private TextView hour;
@@ -111,16 +108,6 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
         final String wifiTimerUsage = AppConfig.getWifiTimerUsage(this);
         presenter.setupTitle(wifiTimerUsage);
         presenter.updateTime();
-
-        trackTimeToDisplayDialog();
-    }
-
-    private void trackTimeToDisplayDialog() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        long wifiChangeTime = sharedPreferences.getLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, TIME_INVALID);
-        if (wifiChangeTime > TIME_INVALID) {
-            sharedPreferences.edit().remove(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME).apply();
-        }
     }
 
     @Override

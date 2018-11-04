@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag   
+ *  Copyright (C) 2018 Laurent Sebag
  *  Copyright (C) 2010 Peter Baldwin   
  *  
  *  This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,7 @@ import android.view.View;
 import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.AboutDialogFragment;
 
-public class MainActivity extends TrackedToolbarActivity implements View.OnClickListener {
+public class MainActivity extends ColourToolbarActivity implements View.OnClickListener {
 
     private static final String ABOUT_DIALOG = "about_dialog";
     private AboutDialogFragment aboutDialog;

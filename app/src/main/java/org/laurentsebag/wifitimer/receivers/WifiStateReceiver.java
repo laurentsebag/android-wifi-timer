@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
                         // If the wifi state has changed but not because of a airplane mode change,
                         // display the wifi timer dialog.
                         if (!turnOffByAirplaneMode) {
-                            showWifiDialog(context, editor);
+                            showWifiDialog(context);
                         }
                     } else {
                         Timer timer = new Timer(context);
@@ -82,7 +82,7 @@ public class WifiStateReceiver extends BroadcastReceiver {
                         Timer timer = new Timer(context);
                         timer.cancel();
                     } else {
-                        showWifiDialog(context, editor);
+                        showWifiDialog(context);
                     }
                     break;
             }
@@ -114,11 +114,8 @@ public class WifiStateReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showWifiDialog(Context context, Editor editor) {
+    private void showWifiDialog(Context context) {
         Log.d(TAG, "showWifiDialog");
-        editor.putLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, System.currentTimeMillis());
-        editor.apply();
-
         Intent intent = new Intent(context, TimerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

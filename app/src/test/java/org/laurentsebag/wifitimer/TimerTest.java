@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2016 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -41,8 +41,10 @@ public class TimerTest {
     private static final String HOUR = "hour";
 
     @Mock
+    private
     Context context;
     @Mock
+    private
     Resources resources;
 
     @Before
@@ -51,7 +53,7 @@ public class TimerTest {
     }
 
     @Test
-    public void getFormattedDuration_shouldFormatLessThanHour() throws Exception {
+    public void getFormattedDuration_shouldFormatLessThanHour() {
         long from = System.currentTimeMillis();
         long to = from + (long) (TIME_HOUR_MILLIS * 0.5);
         when(context.getResources()).thenReturn(resources);
@@ -67,7 +69,7 @@ public class TimerTest {
     }
 
     @Test
-    public void getFormattedDuration_shouldFormatMoreThanHour() throws Exception {
+    public void getFormattedDuration_shouldFormatMoreThanHour() {
         long from = System.currentTimeMillis();
         long to = from + (long) (TIME_HOUR_MILLIS * 2.5);
         when(context.getResources()).thenReturn(resources);
@@ -83,7 +85,7 @@ public class TimerTest {
     }
 
     @Test
-    public void getFormattedDuration_shouldFormatOClockTime() throws Exception {
+    public void getFormattedDuration_shouldFormatOClockTime() {
         long from = System.currentTimeMillis();
         long to = from + TIME_HOUR_MILLIS * 3;
         when(context.getResources()).thenReturn(resources);
