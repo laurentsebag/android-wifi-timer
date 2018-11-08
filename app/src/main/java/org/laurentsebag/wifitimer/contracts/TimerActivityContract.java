@@ -56,7 +56,5 @@ public interface TimerActivityContract {
         void setTime(long time);
 
         long getTime();
-
-        long getTimerDuration();
     }
 }

@@ -26,7 +26,6 @@ import org.laurentsebag.wifitimer.R;
 import org.laurentsebag.wifitimer.fragments.SettingsFragment;
 
 public class SettingsActivity extends ColourToolbarActivity {
-    private static final String PREFERENCE_NOT_SET = "not-set";
 
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
@@ -34,8 +33,6 @@ public class SettingsActivity extends ColourToolbarActivity {
             if (key.equals(appEnabledKey)) {
                 boolean appEnabled = sharedPreferences.getBoolean(appEnabledKey, true);
                 transitionToolbarColor(appEnabled);
-            } else {
-                String value = sharedPreferences.getString(key, PREFERENCE_NOT_SET);
             }
         }
     };
