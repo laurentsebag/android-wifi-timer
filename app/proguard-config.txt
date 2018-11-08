@@ -6,6 +6,3 @@
     public static *** w(...);
     public static *** e(...);
 }
-
--dontobfuscate
--optimizations !code/allocation/variable

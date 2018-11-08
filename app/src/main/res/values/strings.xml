@@ -55,9 +55,6 @@
 
     \n\nIf you decide you don\'t want to be prompted anymore,
     just turn off the <b>Enable Wi-Fi Timer</b> option in the Settings screen.
-
-    \n\nWi-Fi Timer automatically sends anonymous usage statistics to help improve the application.
-    If you prefer not to participate, you can opt out in the Settings screen.
     </string>
 
     <string name="description">"Since 2.3.3 on my Nexus One, I started to have less
