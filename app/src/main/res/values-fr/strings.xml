@@ -78,4 +78,5 @@
     <string name="preference_request_feature_title">Suggérer une nouvelle fonctionalité</string>
     <string name="snack_bar_action_enable">activer</string>
     <string name="snack_bar_app_disabled">Vous avez désactivé Wi-Fi Timer</string>
+    <string name="notification_channel_name_default">Alerte Wi-Fi</string>
 </resources>

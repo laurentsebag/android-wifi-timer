@@ -20,12 +20,14 @@ package org.laurentsebag.wifitimer;
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.text.format.DateFormat;
@@ -45,6 +47,7 @@ import java.util.TimeZone;
 public class Timer {
     private static final String PREF_SET = "set";
     private static final String TIME_ZONE_GMT = "GMT";
+    private static final String CHANNEL_ID = "wifi_timer_default_notification_channel";
 
     private final Context context;
 
@@ -125,7 +128,7 @@ public class Timer {
         CharSequence contentText = context.getText(R.string.notification_text);
         PendingIntent contentIntent = createNotificationIntent(time);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setTicker(tickerText)
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle(contentTitle)
@@ -185,8 +188,18 @@ public class Timer {
     private void showNotification(long time) {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
+            createNotificationChannel(context);
             Notification notification = createNotification(time);
             manager.notify(R.id.notification_wifi_off, notification);
+        }
+    }
+
+    private void createNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = context.getString(R.string.notification_channel_name_default);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
