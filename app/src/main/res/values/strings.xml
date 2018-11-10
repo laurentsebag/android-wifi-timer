@@ -85,5 +85,5 @@
     <string name="snack_bar_action_enable">enable</string>
     <string name="button_increase" translatable="false">+</string>
     <string name="button_decrease" translatable="false">-</string>
-
+    <string name="notification_channel_name_default">Wi-Fi Alerts</string>
 </resources>
