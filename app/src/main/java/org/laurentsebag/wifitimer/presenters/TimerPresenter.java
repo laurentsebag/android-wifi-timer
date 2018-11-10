@@ -166,7 +166,6 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
         }
     }
 
-    @Override
     public long getTimerDuration() {
         long now = System.currentTimeMillis();
         return (calendar.getTimeInMillis() - now) / MINUTE_IN_MILLIS;
