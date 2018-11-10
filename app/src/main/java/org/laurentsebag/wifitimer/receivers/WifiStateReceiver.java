@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,17 +24,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
-import android.support.v7.preference.PreferenceManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.google.android.gms.analytics.Tracker;
 
 import org.laurentsebag.wifitimer.AppConfig;
 import org.laurentsebag.wifitimer.Timer;
-import org.laurentsebag.wifitimer.WifiTimerApplication;
 import org.laurentsebag.wifitimer.activities.TimerActivity;
 import org.laurentsebag.wifitimer.utils.RadioUtils;
-import org.laurentsebag.wifitimer.utils.TrackerUtils;
 
 public class WifiStateReceiver extends BroadcastReceiver {
 
@@ -52,9 +48,6 @@ public class WifiStateReceiver extends BroadcastReceiver {
         if (!AppConfig.isAppEnabled(context)) {
             return;
         }
-
-        WifiTimerApplication application = (WifiTimerApplication) context.getApplicationContext();
-        Tracker tracker = application.getDefaultTracker();
 
         String action = data.getAction();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -77,21 +70,19 @@ public class WifiStateReceiver extends BroadcastReceiver {
                         // If the wifi state has changed but not because of a airplane mode change,
                         // display the wifi timer dialog.
                         if (!turnOffByAirplaneMode) {
-                            showWifiDialog(context, editor);
+                            showWifiDialog(context);
                         }
                     } else {
                         Timer timer = new Timer(context);
                         timer.cancel();
-                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     }
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
                     if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
                         Timer timer = new Timer(context);
                         timer.cancel();
-                        TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                     } else {
-                        showWifiDialog(context, editor);
+                        showWifiDialog(context);
                     }
                     break;
             }
@@ -107,7 +98,6 @@ public class WifiStateReceiver extends BroadcastReceiver {
                 if (timer.isSet()) {
                     timer.cancel();
                     editor.putBoolean(CANCELED_BY_AIRPLANE_MODE, true);
-                    TrackerUtils.trackTimerEvent(tracker, TrackerUtils.TRACK_LABEL_TIMER_CANCEL_EXTERNAL);
                 }
                 editor.apply();
             } else {
@@ -124,11 +114,8 @@ public class WifiStateReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showWifiDialog(Context context, Editor editor) {
+    private void showWifiDialog(Context context) {
         Log.d(TAG, "showWifiDialog");
-        editor.putLong(AppConfig.PREFERENCE_KEY_WIFI_CHANGE_TIME, System.currentTimeMillis());
-        editor.apply();
-
         Intent intent = new Intent(context, TimerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

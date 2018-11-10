@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *  Copyright (C) 2010 Peter Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -88,13 +88,17 @@ public class Timer {
 
     private void cancelAlarm() {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent operation = createAlarmIntent();
-        manager.cancel(operation);
+        if (manager != null) {
+            PendingIntent operation = createAlarmIntent();
+            manager.cancel(operation);
+        }
     }
 
     private void cancelNotification() {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(R.id.notification_wifi_off);
+        if (manager != null) {
+            manager.cancel(R.id.notification_wifi_off);
+        }
     }
 
     private PendingIntent createAlarmIntent() {
@@ -171,15 +175,19 @@ public class Timer {
 
     private void setAlarm(long time) {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        int type = AlarmManager.RTC_WAKEUP;
-        PendingIntent operation = createAlarmIntent();
-        manager.set(type, time, operation);
+        if (manager != null) {
+            int type = AlarmManager.RTC_WAKEUP;
+            PendingIntent operation = createAlarmIntent();
+            manager.set(type, time, operation);
+        }
     }
 
     private void showNotification(long time) {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification = createNotification(time);
-        manager.notify(R.id.notification_wifi_off, notification);
+        if (manager != null) {
+            Notification notification = createNotification(time);
+            manager.notify(R.id.notification_wifi_off, notification);
+        }
     }
 
     private void updateTimerSetPreference(boolean value) {

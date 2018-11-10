@@ -56,10 +56,6 @@
 
     \n\nSi vous ne voulez plus qu\'une heure de réactivation du wifi vous soit demandée,
     désactivez l\'option <b>Activer Wi-Fi Timer</b> dans le menu Paramètres.
-
-    \n\nWi-Fi Timer envoie automatiquement des statistiques anonymes afin d\'améliorer l\'application.
-    Si vous preferez ne pas partager cette information, vous pouvez refuser d\'envoyer les statistiques
-    dans le menu Paramètres.
     </string>
 
     <string name="description">Depuis android 2.3.3 sur mon Nexus One,
@@ -76,8 +72,6 @@
     <string name="preference_category_help_us">Aidez nous</string>
     <string name="preference_timer_usage_title">Activation de Wi-Fi Timer</string>
     <string name="preference_timer_usage_dialog_title">Choisissez un mode</string>
-    <string name="preference_analytics_summary">Aidez Wi-Fi Timer en envoyant des statistiques anonymes sur l\'utilisation de l\'application</string>
-    <string name="preference_analytics_title">Statistiques anonymes</string>
     <string name="preference_wifi_timer_enabled_title">Activer Wi-Fi Timer</string>
     <string name="preference_rate_app_title">Noter l\'application sur Play Store</string>
     <string name="preference_report_bug_title">Signaler un bug</string>

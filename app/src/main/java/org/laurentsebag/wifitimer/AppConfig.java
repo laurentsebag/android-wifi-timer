@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2011 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ public class AppConfig {
 
     public static final String MODE_ON_WIFI_ACTIVATION = "on_wifi_activation";
     public static final String MODE_ON_WIFI_DEACTIVATION = "on_wifi_deactivation";
-    public static final String PREFERENCE_KEY_WIFI_CHANGE_TIME = "wifi_state_changed_time";
     private static final String PREFERENCE_KEY_TIMER_USAGE = "timer_usage";
     private static final String PREFERENCE_KEY_APP_ENABLED = "wifi_timer_enabled";
 

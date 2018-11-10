@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2016 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -166,7 +166,6 @@ public class TimerPresenter implements TimerActivityContract.UserActionsListener
         }
     }
 
-    @Override
     public long getTimerDuration() {
         long now = System.currentTimeMillis();
         return (calendar.getTimeInMillis() - now) / MINUTE_IN_MILLIS;

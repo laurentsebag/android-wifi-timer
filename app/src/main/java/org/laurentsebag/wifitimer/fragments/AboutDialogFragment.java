@@ -1,5 +1,5 @@
 /*-
- *  Copyright (C) 2016 Laurent Sebag
+ *  Copyright (C) 2018 Laurent Sebag
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,37 +21,21 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
 import org.laurentsebag.wifitimer.R;
-import org.laurentsebag.wifitimer.WifiTimerApplication;
 
 public class AboutDialogFragment extends DialogFragment {
-    private Tracker tracker;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        WifiTimerApplication application = (WifiTimerApplication) getActivity().getApplication();
-        tracker = application.getDefaultTracker();
-    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         int padding = getResources().getDimensionPixelSize(R.dimen.about_dialog_padding);
         final Context context = getContext();
-
-        tracker.setScreenName(getClass().getSimpleName());
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.about_dialog_title);
