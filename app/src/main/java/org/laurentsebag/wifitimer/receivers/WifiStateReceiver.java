@@ -54,36 +54,16 @@ public class WifiStateReceiver extends BroadcastReceiver {
         Editor editor = sharedPreferences.edit();
 
         if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
-
             String timerUsage = AppConfig.getWifiTimerUsage(context);
 
             int wifiState = data.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
             Log.d(TAG, "Wifi state changed: " + wifiState);
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_DISABLED:
-                    if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-                        boolean turnOffByAirplaneMode = sharedPreferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
-                        if (turnOffByAirplaneMode) {
-                            editor.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
-                            editor.apply();
-                        }
-                        // If the wifi state has changed but not because of a airplane mode change,
-                        // display the wifi timer dialog.
-                        if (!turnOffByAirplaneMode) {
-                            showWifiDialog(context);
-                        }
-                    } else {
-                        Timer timer = new Timer(context);
-                        timer.cancel();
-                    }
+                    onWifiDisabled(context, timerUsage);
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
-                    if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
-                        Timer timer = new Timer(context);
-                        timer.cancel();
-                    } else {
-                        showWifiDialog(context);
-                    }
+                    onWifiEnabled(context, timerUsage);
                     break;
             }
         } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
@@ -111,6 +91,38 @@ public class WifiStateReceiver extends BroadcastReceiver {
                     }
                 }
             }
+        } else if ("wifi_changed".equals(action)) {
+            Log.d(TAG, "wifi_changed " + data);
+        }
+    }
+
+    private void onWifiDisabled(Context context, String timerUsage) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Editor editor = sharedPreferences.edit();
+
+        if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+            boolean turnOffByAirplaneMode = sharedPreferences.getBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+            if (turnOffByAirplaneMode) {
+                editor.putBoolean(TURNED_OFF_BY_AIRPLANE_MODE, false);
+                editor.apply();
+            }
+            // If the wifi state has changed but not because of a airplane mode change,
+            // display the wifi timer dialog.
+            if (!turnOffByAirplaneMode) {
+                showWifiDialog(context);
+            }
+        } else {
+            Timer timer = new Timer(context);
+            timer.cancel();
+        }
+    }
+
+    private void onWifiEnabled(Context context, String timerUsage) {
+        if (timerUsage.equals(AppConfig.MODE_ON_WIFI_DEACTIVATION)) {
+            Timer timer = new Timer(context);
+            timer.cancel();
+        } else {
+            showWifiDialog(context);
         }
     }
 

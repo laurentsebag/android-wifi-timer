@@ -12,8 +12,10 @@
 
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
+        android:name=".WifiTimerApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:description="@string/description"
@@ -36,10 +38,10 @@
 
         <receiver android:name=".receivers.AlarmReceiver"/>
         <receiver android:name=".receivers.WifiStateReceiver">
-            <intent-filter android:priority="999">
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
-                <action android:name="android.intent.action.AIRPLANE_MODE"/>
-            </intent-filter>
+            <!--<intent-filter android:priority="999">-->
+            <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>-->
+            <!--<action android:name="android.intent.action.AIRPLANE_MODE"/>-->
+            <!--</intent-filter>-->
         </receiver>
         <receiver
             android:name=".receivers.NotificationActionReceiver"
